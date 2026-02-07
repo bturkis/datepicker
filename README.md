@@ -3,7 +3,7 @@
 Premium glassmorphism DatePicker component for Vue 3. Supports single date, date range, datetime, and time modes with a dark-mode-first design.
 
 <p align="center">
-  <img src="docs/hero.png" alt="Stitch Vue DatePicker — Hero" width="700" />
+  <img src="https://raw.githubusercontent.com/bturkis/datepicker/main/docs/hero.png" alt="Stitch Vue DatePicker — Hero" width="700" />
 </p>
 
 ## ✨ Features
@@ -25,7 +25,7 @@ Premium glassmorphism DatePicker component for Vue 3. Supports single date, date
 ### Single Date Picker
 
 <p align="center">
-  <img src="docs/single-date.png" alt="Single Date Picker" width="600" />
+  <img src="https://raw.githubusercontent.com/bturkis/datepicker/main/docs/single-date.png" alt="Single Date Picker" width="600" />
 </p>
 
 Calendar popup with month/year navigation, Turkish weekdays, "today" highlight, and smooth open/close transitions.
@@ -33,7 +33,7 @@ Calendar popup with month/year navigation, Turkish weekdays, "today" highlight, 
 ### Date Range Selection
 
 <p align="center">
-  <img src="docs/range-preview.png" alt="Date Range with Hover Preview" width="600" />
+  <img src="https://raw.githubusercontent.com/bturkis/datepicker/main/docs/range-preview.png" alt="Date Range with Hover Preview" width="600" />
 </p>
 
 Range mode: first click sets start (selected with gradient), hover shows preview highlight across days, second click confirms end date.
@@ -41,7 +41,7 @@ Range mode: first click sets start (selected with gradient), hover shows preview
 ### Final Result
 
 <p align="center">
-  <img src="docs/final-state.png" alt="Final State — All Modes" width="600" />
+  <img src="https://raw.githubusercontent.com/bturkis/datepicker/main/docs/final-state.png" alt="Final State — All Modes" width="600" />
 </p>
 
 All modes in action — single date displaying "14 Şubat 2026", range showing "5 Şub 2026 – 2 Mar 2026" with pipe-delimited ISO value.

@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stitch Vue DatePicker — Demo</title>
+    <title>@bturkis/datepicker — Live Demo</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@bturkis/datepicker@1.1.0/dist/stitch-vue-datepicker.css"
+    />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
       *,
       *::before,
       *::after {
@@ -16,11 +22,7 @@
       }
 
       body {
-        font-family:
-          "Inter",
-          system-ui,
-          -apple-system,
-          sans-serif;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
         min-height: 100vh;
         background: linear-gradient(
           135deg,
@@ -70,7 +72,7 @@
       }
 
       .section {
-        margin-bottom: 32px;
+        margin-bottom: 28px;
         padding: 24px;
         background: rgba(255, 255, 255, 0.02);
         border: 1px solid rgba(255, 255, 255, 0.05);
@@ -78,21 +80,36 @@
       }
 
       .section h2 {
-        font-size: 1.125rem;
+        font-size: 1.05rem;
         font-weight: 600;
         color: #94a3b8;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
+      }
+
+      .section .format-hint {
+        display: inline-block;
+        margin-bottom: 12px;
+        padding: 3px 10px;
+        background: rgba(139, 92, 246, 0.08);
+        border: 1px solid rgba(139, 92, 246, 0.12);
+        border-radius: 6px;
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 0.75rem;
+        color: #8b5cf6;
       }
 
       .value {
-        margin-top: 12px;
+        margin-top: 10px;
         padding: 8px 14px;
-        background: rgba(139, 92, 246, 0.08);
-        border: 1px solid rgba(139, 92, 246, 0.15);
+        background: rgba(139, 92, 246, 0.06);
+        border: 1px solid rgba(139, 92, 246, 0.12);
         border-radius: 8px;
         color: #a78bfa;
         font-size: 0.8125rem;
         font-family: "SF Mono", "Fira Code", monospace;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
       }
 
       .value:empty::before {
@@ -100,8 +117,32 @@
         color: #475569;
       }
 
+      .tokens-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8125rem;
+      }
+
+      .tokens-table th {
+        text-align: left;
+        padding: 6px 12px;
+        color: #a78bfa;
+        border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+        font-weight: 600;
+      }
+
+      .tokens-table td {
+        padding: 4px 12px;
+        color: #94a3b8;
+      }
+
+      .tokens-table td:first-child {
+        font-family: "SF Mono", "Fira Code", monospace;
+        color: #c4b5fd;
+      }
+
       .install-section {
-        margin-top: 48px;
+        margin-top: 40px;
         padding: 24px;
         background: rgba(139, 92, 246, 0.05);
         border: 1px solid rgba(139, 92, 246, 0.15);
@@ -123,20 +164,16 @@
         font-family: "SF Mono", "Fira Code", monospace;
         font-size: 0.875rem;
         color: #e2e8f0;
-        overflow-x: auto;
       }
 
       .code-block .cmd {
         color: #a78bfa;
       }
-      .code-block .pkg {
-        color: #f8fafc;
-      }
 
       .footer {
         text-align: center;
-        margin-top: 48px;
-        padding-top: 24px;
+        margin-top: 40px;
+        padding-top: 20px;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         color: #475569;
         font-size: 0.8125rem;
@@ -161,192 +198,131 @@
         Responsive &nbsp;·&nbsp; 🔤 Custom Formats
       </div>
 
-      <!-- Single Date -->
+      <!-- 1. Single Date (Default) -->
       <div class="section">
-        <h2>📅 Single Date</h2>
-        <stitch-date-picker
+        <h2>📅 Single Date — Default</h2>
+        <date-picker
           v-model="singleDate"
           label="Düğün Tarihi"
-          hint="Default display format (Intl)"
-        ></stitch-date-picker>
+          hint="Varsayılan Intl format"
+        ></date-picker>
         <div class="value">{{ singleDate }}</div>
       </div>
 
-      <!-- Custom Format: European -->
+      <!-- 2. European Format -->
       <div class="section">
-        <h2>🇪🇺 Custom Format — DD/MM/YYYY</h2>
-        <stitch-date-picker
+        <h2>🇪🇺 Custom Format</h2>
+        <span class="format-hint">DD/MM/YYYY</span>
+        <date-picker
           v-model="euroDate"
           label="Avrupa Formatı"
           display-format="DD/MM/YYYY"
           hint='displayFormat="DD/MM/YYYY"'
-        ></stitch-date-picker>
+        ></date-picker>
         <div class="value">{{ euroDate }}</div>
       </div>
 
-      <!-- Custom Format: Full Month -->
+      <!-- 3. Full Month Name -->
       <div class="section">
-        <h2>🗓️ Custom Format — DD MMMM YYYY</h2>
-        <stitch-date-picker
+        <h2>🗓️ Full Month Name</h2>
+        <span class="format-hint">DD MMMM YYYY</span>
+        <date-picker
           v-model="fullMonthDate"
           label="Uzun Ay İsmi"
           display-format="DD MMMM YYYY"
           hint='displayFormat="DD MMMM YYYY"'
-        ></stitch-date-picker>
+        ></date-picker>
         <div class="value">{{ fullMonthDate }}</div>
       </div>
 
-      <!-- Custom Format: US with locale -->
+      <!-- 4. US Format + English -->
       <div class="section">
         <h2>🇺🇸 US Format + English Locale</h2>
-        <stitch-date-picker
+        <span class="format-hint">MMMM DD, YYYY · locale="en-US"</span>
+        <date-picker
           v-model="usDate"
           label="US Date"
           display-format="MMMM DD, YYYY"
           locale="en-US"
-          hint='displayFormat="MMMM DD, YYYY" locale="en-US"'
-        ></stitch-date-picker>
+          hint='locale="en-US"'
+        ></date-picker>
         <div class="value">{{ usDate }}</div>
       </div>
 
-      <!-- Date Range with custom format -->
+      <!-- 5. Date Range -->
       <div class="section">
-        <h2>📆 Date Range — DD.MM.YYYY</h2>
-        <stitch-date-picker
+        <h2>📆 Date Range</h2>
+        <span class="format-hint">DD.MM.YYYY · range</span>
+        <date-picker
           v-model="rangeDate"
           label="Proje Süresi"
           :range="true"
           display-format="DD.MM.YYYY"
-          hint='range + displayFormat="DD.MM.YYYY"'
-        ></stitch-date-picker>
+          hint="Range with custom format"
+        ></date-picker>
         <div class="value">{{ rangeDate }}</div>
       </div>
 
-      <!-- DateTime with custom format -->
+      <!-- 6. DateTime -->
       <div class="section">
-        <h2>🕐 DateTime — DD/MM/YYYY HH:mm</h2>
-        <stitch-date-picker
+        <h2>🕐 DateTime</h2>
+        <span class="format-hint">DD/MM/YYYY HH:mm</span>
+        <date-picker
           v-model="dateTime"
           label="Etkinlik Zamanı"
           type="datetime-local"
           display-format="DD/MM/YYYY HH:mm"
-          hint='type="datetime-local" displayFormat="DD/MM/YYYY HH:mm"'
-        ></stitch-date-picker>
+        ></date-picker>
         <div class="value">{{ dateTime }}</div>
       </div>
 
-      <!-- Time only -->
+      <!-- 7. Time Only -->
       <div class="section">
         <h2>⏰ Time Only</h2>
-        <stitch-date-picker
+        <span class="format-hint">HH:mm</span>
+        <date-picker
           v-model="timeOnly"
           label="Başlangıç Saati"
           type="time"
           display-format="HH:mm"
-          hint='type="time" displayFormat="HH:mm"'
-        ></stitch-date-picker>
+        ></date-picker>
         <div class="value">{{ timeOnly }}</div>
       </div>
 
-      <!-- Min/Max -->
+      <!-- 8. Min/Max -->
       <div class="section">
         <h2>🔒 Min/Max Constraints</h2>
-        <stitch-date-picker
+        <date-picker
           v-model="constrainedDate"
           label="Bu Ay İçinde"
           min="2026-02-01"
           max="2026-02-28"
           display-format="DD MMMM YYYY"
-          hint="Only February 2026"
-        ></stitch-date-picker>
+          hint="Sadece Şubat 2026"
+        ></date-picker>
         <div class="value">{{ constrainedDate }}</div>
       </div>
 
-      <!-- Format Tokens Reference -->
+      <!-- Format Tokens -->
       <div class="section" style="background: rgba(139, 92, 246, 0.04)">
         <h2>🔤 Format Tokens</h2>
-        <table
-          style="
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8125rem;
-          "
-        >
+        <table class="tokens-table">
           <thead>
             <tr>
-              <th
-                style="
-                  text-align: left;
-                  padding: 6px 12px;
-                  color: #a78bfa;
-                  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
-                "
-              >
-                Token
-              </th>
-              <th
-                style="
-                  text-align: left;
-                  padding: 6px 12px;
-                  color: #a78bfa;
-                  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
-                "
-              >
-                Output
-              </th>
-              <th
-                style="
-                  text-align: left;
-                  padding: 6px 12px;
-                  color: #a78bfa;
-                  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
-                "
-              >
-                Example
-              </th>
+              <th>Token</th>
+              <th>Output</th>
+              <th>Example</th>
             </tr>
           </thead>
-          <tbody style="color: #94a3b8">
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">YYYY</td>
-              <td style="padding: 4px 12px">4-digit year</td>
-              <td style="padding: 4px 12px">2026</td>
-            </tr>
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">YY</td>
-              <td style="padding: 4px 12px">2-digit year</td>
-              <td style="padding: 4px 12px">26</td>
-            </tr>
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">MMMM</td>
-              <td style="padding: 4px 12px">Full month</td>
-              <td style="padding: 4px 12px">Şubat</td>
-            </tr>
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">MMM</td>
-              <td style="padding: 4px 12px">Short month</td>
-              <td style="padding: 4px 12px">Şub</td>
-            </tr>
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">MM</td>
-              <td style="padding: 4px 12px">2-digit month</td>
-              <td style="padding: 4px 12px">02</td>
-            </tr>
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">DD</td>
-              <td style="padding: 4px 12px">2-digit day</td>
-              <td style="padding: 4px 12px">07</td>
-            </tr>
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">HH</td>
-              <td style="padding: 4px 12px">2-digit hour</td>
-              <td style="padding: 4px 12px">09</td>
-            </tr>
-            <tr>
-              <td style="padding: 4px 12px; font-family: monospace">mm</td>
-              <td style="padding: 4px 12px">2-digit minute</td>
-              <td style="padding: 4px 12px">05</td>
-            </tr>
+          <tbody>
+            <tr><td>YYYY</td><td>4-digit year</td><td>2026</td></tr>
+            <tr><td>YY</td><td>2-digit year</td><td>26</td></tr>
+            <tr><td>MMMM</td><td>Full month</td><td>Şubat</td></tr>
+            <tr><td>MMM</td><td>Short month</td><td>Şub</td></tr>
+            <tr><td>MM</td><td>2-digit month</td><td>02</td></tr>
+            <tr><td>DD</td><td>2-digit day</td><td>07</td></tr>
+            <tr><td>HH</td><td>2-digit hour</td><td>09</td></tr>
+            <tr><td>mm</td><td>2-digit minute</td><td>05</td></tr>
           </tbody>
         </table>
       </div>
@@ -355,56 +331,47 @@
       <div class="install-section">
         <h2>⚡ Installation</h2>
         <div class="code-block">
-          <span class="cmd">npm install</span>
-          <span class="pkg">@bturkis/datepicker</span>
+          <span class="cmd">npm install</span> @bturkis/datepicker
         </div>
       </div>
 
       <div class="footer">
-        <p>
-          Built with ❤️ by
-          <a href="https://github.com/bturkis" target="_blank">bturkis</a>
-          &nbsp;·&nbsp;
-          <a
-            href="https://github.com/bturkis/datepicker"
-            target="_blank"
-            >GitHub</a
-          >
-          &nbsp;·&nbsp;
-          <a
-            href="https://www.npmjs.com/package/@bturkis/datepicker"
-            target="_blank"
-            >npm</a
-          >
-        </p>
+        Built with ❤️ by
+        <a href="https://github.com/bturkis" target="_blank">bturkis</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/bturkis/datepicker" target="_blank"
+          >GitHub</a
+        >
+        &nbsp;·&nbsp;
+        <a
+          href="https://www.npmjs.com/package/@bturkis/datepicker"
+          target="_blank"
+          >npm</a
+        >
       </div>
     </div>
 
-    <script type="module">
-      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-      // In production, import from the built package:
-      // import StitchDatePicker from '@bturkis/datepicker'
-      // import '@bturkis/datepicker/style.css'
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/@bturkis/datepicker@1.1.0/dist/stitch-vue-datepicker.umd.cjs"></script>
+    <script>
+      const { createApp, ref } = Vue;
 
       const app = createApp({
-        data() {
+        setup() {
           return {
-            singleDate: "",
-            euroDate: "",
-            fullMonthDate: "",
-            usDate: "",
-            rangeDate: "",
-            dateTime: "",
-            timeOnly: "",
-            constrainedDate: "",
+            singleDate: ref(""),
+            euroDate: ref(""),
+            fullMonthDate: ref(""),
+            usDate: ref(""),
+            rangeDate: ref(""),
+            dateTime: ref(""),
+            timeOnly: ref(""),
+            constrainedDate: ref(""),
           };
         },
       });
 
-      // Note: In the CDN demo, the component registration would use the built UMD bundle.
-      // For local dev, run: npx vite (the Vite dev server will serve this file)
-      // and import the component properly from './src/index.ts'
-
+      app.component("DatePicker", StitchVueDatepicker.default);
       app.mount("#app");
     </script>
   </body>
