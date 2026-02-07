@@ -37,6 +37,7 @@ const disabledList = ['2026-02-14', '2026-02-15', '2026-02-21', '2026-02-22']
 
 // Marked Dates
 const markedDate = ref('')
+const markedDateSlot = ref('')
 const marks = [
   { date: '2026-02-07', color: '#8b5cf6', tooltip: 'Bugün' },
   { date: '2026-02-14', color: '#ec4899', tooltip: 'Sevgililer Günü ❤️' },
@@ -290,10 +291,26 @@ The same date can have multiple marks. Dots display side-by-side and tooltips ar
 
 Use the `#mark-tooltip` scoped slot to fully customize tooltip content:
 
+<div class="demo-block">
+  <BtDatePicker
+    v-model="markedDateSlot"
+    :marked-dates="marks"
+    placeholder="Custom tooltip (hover marks)"
+  >
+    <template #mark-tooltip="{ marks: dayMarks }">
+      <div v-for="m in dayMarks" :key="m.date + m.color" style="display: flex; align-items: center; gap: 6px; padding: 2px 0;">
+        <span :style="{ background: m.color || '#8b5cf6', width: '8px', height: '8px', borderRadius: '50%', display: 'inline-block', flexShrink: 0 }" />
+        <span>{{ m.tooltip }}</span>
+      </div>
+    </template>
+  </BtDatePicker>
+  <div v-if="markedDateSlot" class="demo-output">{{ markedDateSlot }}</div>
+</div>
+
 ```vue
 <DatePicker v-model="date" :marked-dates="marks">
   <template #mark-tooltip="{ marks, day }">
-    <div v-for="m in marks" :key="m.date + m.color" style="display: flex; align-items: center; gap: 4px;">
+    <div v-for="m in marks" :key="m.date + m.color" style="display: flex; align-items: center; gap: 6px;">
       <span :style="{ background: m.color, width: '8px', height: '8px', borderRadius: '50%', display: 'inline-block' }" />
       {{ m.tooltip }}
     </div>
