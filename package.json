@@ -1,6 +1,6 @@
 {
   "name": "@bturkis/datepicker",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Premium glassmorphism DatePicker for Vue 3 / Nuxt 3 / Nuxt 4 — date, time, datetime, range picker with 15 languages, SSR support, and light/dark themes.",
   "author": "bturkis",
   "publishConfig": {
@@ -22,7 +22,7 @@
   },
   "files": [
     "dist",
-    "src/nuxt.ts",
+    "src",
     "README.md",
     "LICENSE"
   ],

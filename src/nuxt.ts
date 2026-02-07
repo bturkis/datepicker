@@ -12,27 +12,33 @@ export default defineNuxtModule({
   },
   defaults: {},
   setup(_options, nuxt) {
-    // Inject component CSS
-    const cssPath = resolve(__dirname, "./style.css");
+    // Resolve the package root (one level up from src/)
+    const pkgRoot = resolve(__dirname, "..");
+
+    // Inject component CSS from dist
+    const cssPath = resolve(pkgRoot, "dist/bt-datepicker.css");
     nuxt.options.css.push(cssPath);
 
-    // Register component (client-only — uses Teleport + DOM APIs)
+    // Register component — point to the source .vue file
+    // We include src/DatePicker.vue + src/components/ in the published package
+    const componentPath = resolve(pkgRoot, "src/DatePicker.vue");
+
     addComponent({
       name: "BtDatePicker",
-      filePath: resolve(__dirname, "./DatePicker.vue"),
+      filePath: componentPath,
       mode: "client",
     });
 
     addComponent({
       name: "DatePicker",
-      filePath: resolve(__dirname, "./DatePicker.vue"),
+      filePath: componentPath,
       mode: "client",
     });
 
     // Backward compatibility
     addComponent({
       name: "StitchDatePicker",
-      filePath: resolve(__dirname, "./DatePicker.vue"),
+      filePath: componentPath,
       mode: "client",
     });
   },
