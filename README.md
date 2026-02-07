@@ -2,21 +2,48 @@
 
 > **📖 [Full Documentation & Live Demos](https://bturkis.github.io/datepicker/)** — Available in 15 languages
 
-Premium glassmorphism DatePicker component for Vue 3, Nuxt 3, and Nuxt 4. Supports single date, date range, datetime, and time modes with built-in light/dark theming and SSR support.
+[![npm version](https://img.shields.io/npm/v/@bturkis/datepicker?color=8b5cf6&label=npm)](https://www.npmjs.com/package/@bturkis/datepicker)
+[![npm downloads](https://img.shields.io/npm/dm/@bturkis/datepicker?color=ec4899)](https://www.npmjs.com/package/@bturkis/datepicker)
+[![license](https://img.shields.io/npm/l/@bturkis/datepicker?color=10b981)](./LICENSE)
+[![vue](https://img.shields.io/badge/vue-3.x-42b883?logo=vuedotjs)](https://vuejs.org)
+[![nuxt](https://img.shields.io/badge/nuxt-3%20%2F%204-00dc82?logo=nuxtdotjs)](https://nuxt.com)
+
+Premium glassmorphism DatePicker component for **Vue 3**, **Nuxt 3**, and **Nuxt 4**. Supports single date, date range, datetime, and time modes with built-in light/dark theming and SSR support.
+
+<p align="center">
+  <img src="https://bturkis.github.io/datepicker/single-date.png" alt="Calendar View" width="32%" />
+  <img src="https://bturkis.github.io/datepicker/range-preview.png" alt="Range Selection" width="32%" />
+  <img src="https://bturkis.github.io/datepicker/final-state.png" alt="Final State" width="32%" />
+</p>
+
+---
+
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Quick Start](#quick-start) — [Vue 3](#vue-3----global-registration) · [Nuxt 3/4](#nuxt-3--nuxt-4)
+- [Theming](#theming) — [CSS Variables](#css-variables)
+- [Usage Examples](#usage-examples) — [Single Date](#single-date) · [Date Range](#date-range) · [DateTime](#datetime) · [Time Only](#time-only)
+- [Props](#props) · [Events](#events) · [Format Tokens](#format-tokens)
+- [Composable](#composable)
+- [Documentation](#documentation)
+
+---
 
 ## Features
 
-- Glassmorphism design with purple gradient accents
-- Single date, date range, datetime, and time-only modes
-- Light / dark theme via CSS variables (auto-detects system preference)
-- SSR-safe -- works with Nuxt 3, Nuxt 4, and any SSR setup
-- 15 built-in languages (Turkish, English, German, French, Spanish, and more)
-- Mobile bottom sheet with responsive breakpoints
-- Custom display format tokens (`DD/MM/YYYY`, `MMMM`, etc.)
-- 12h/24h hour format with minute stepping
-- Min/max date constraints
-- Zero runtime dependencies -- only `vue` as peer dependency
-- Lightweight: ~17KB JS + ~7KB CSS (gzipped: ~6.5KB total)
+- 🎨 Glassmorphism design with purple gradient accents
+- 📅 Single date, date range, datetime, and time-only modes
+- 🌓 Light / dark theme via CSS variables (auto-detects system preference)
+- 🖥️ SSR-safe — works with Nuxt 3, Nuxt 4, and any SSR setup
+- 🌍 15 built-in languages (Turkish, English, German, French, Spanish, and more)
+- 📱 Mobile bottom sheet with responsive breakpoints
+- 🔤 Custom display format tokens (`DD/MM/YYYY`, `MMMM`, etc.)
+- ⏰ 12h/24h hour format with minute stepping
+- 🔒 Min/max date constraints
+- 🪶 Zero runtime dependencies — only `vue` as peer dependency
+- ⚡ Lightweight: ~17KB JS + ~7KB CSS (gzipped: ~6.5KB total)
 
 ---
 
@@ -38,7 +65,7 @@ bun add @bturkis/datepicker
 
 ## Quick Start
 
-### Vue 3 -- Global Registration
+### Vue 3 — Global Registration
 
 ```ts
 // main.ts
@@ -51,7 +78,7 @@ app.use(StitchDatePicker);
 app.mount("#app");
 ```
 
-### Vue 3 -- Local Import
+### Vue 3 — Local Import
 
 ```vue
 <script setup lang="ts">
@@ -216,22 +243,22 @@ Built-in: `tr`, `en`, `de`, `fr`, `es`, `it`, `pt`, `nl`, `ru`, `ar`, `ja`, `ko`
 | Prop               | Type                                   | Default  | Description                        |
 | ------------------ | -------------------------------------- | -------- | ---------------------------------- |
 | `modelValue`       | `string`                               | `""`     | Selected value (ISO format)        |
-| `label`            | `string`                               | --       | Label text                         |
+| `label`            | `string`                               | —        | Label text                         |
 | `type`             | `"date" \| "datetime-local" \| "time"` | `"date"` | Picker mode                        |
-| `displayFormat`    | `string`                               | --       | Custom format (`DD/MM/YYYY`, etc.) |
+| `displayFormat`    | `string`                               | —        | Custom format (`DD/MM/YYYY`, etc.) |
 | `lang`             | `string`                               | `"tr"`   | UI language code                   |
-| `locale`           | `string`                               | --       | Intl locale for month names        |
+| `locale`           | `string`                               | —        | Intl locale for month names        |
 | `range`            | `boolean`                              | `false`  | Enable range selection             |
-| `min`              | `string`                               | --       | Min date (`YYYY-MM-DD`)            |
-| `max`              | `string`                               | --       | Max date (`YYYY-MM-DD`)            |
+| `min`              | `string`                               | —        | Min date (`YYYY-MM-DD`)            |
+| `max`              | `string`                               | —        | Max date (`YYYY-MM-DD`)            |
 | `hourFormat`       | `"12" \| "24"`                         | `"24"`   | Hour display format                |
 | `minuteStep`       | `number`                               | `1`      | Minute step (1, 5, 15, 30)         |
-| `error`            | `string`                               | --       | Error message                      |
-| `hint`             | `string`                               | --       | Hint text                          |
+| `error`            | `string`                               | —        | Error message                      |
+| `hint`             | `string`                               | —        | Hint text                          |
 | `disabled`         | `boolean`                              | `false`  | Disable picker                     |
 | `required`         | `boolean`                              | `false`  | Mark required                      |
-| `placeholder`      | `string`                               | --       | Empty state text                   |
-| `rangePlaceholder` | `string`                               | --       | Range empty state text             |
+| `placeholder`      | `string`                               | —        | Empty state text                   |
+| `rangePlaceholder` | `string`                               | —        | Range empty state text             |
 
 ## Events
 
@@ -272,7 +299,9 @@ import {
 
 ## Documentation
 
-Full interactive docs: [https://bturkis.github.io/datepicker/](https://bturkis.github.io/datepicker/)
+📖 **Full interactive docs:** [bturkis.github.io/datepicker](https://bturkis.github.io/datepicker/)
+
+Available in 15 languages: 🇹🇷 🇬🇧 🇩🇪 🇫🇷 🇪🇸 🇮🇹 🇵🇹 🇳🇱 🇷🇺 🇸🇦 🇯🇵 🇰🇷 🇨🇳 🇵🇱 🇺🇦
 
 ## License
 
