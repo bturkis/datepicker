@@ -8,6 +8,14 @@ const shared = {
       "link",
       { rel: "icon", type: "image/svg+xml", href: "/datepicker/favicon.svg" },
     ],
+    [
+      "script",
+      {
+        defer: "",
+        src: "https://umami.neisterse.com/script.js",
+        "data-website-id": "f08f01d5-0f1d-40b7-a8d0-9efcc0fadfd8",
+      },
+    ],
   ] as any,
   themeConfig: {
     logo: "/logo.svg",
