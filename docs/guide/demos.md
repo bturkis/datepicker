@@ -48,6 +48,7 @@ const marks = [
 
 // Language
 const langDate = ref('')
+const footerDate = ref('')
 const currentLang = ref('tr')
 const languages = [
   { code: 'tr', flag: '🇹🇷', name: 'Turkce' },
@@ -289,18 +290,24 @@ The same date can have multiple marks. Dots display side-by-side and tooltips ar
 
 ### Custom Tooltip with Slot
 
-Use the `#mark-tooltip` scoped slot to fully customize tooltip content:
+Use the `#mark-tooltip` scoped slot for complete control over tooltip content. This example shows emoji badges, descriptions, and custom styling:
 
 <div class="demo-block">
   <BtDatePicker
     v-model="markedDateSlot"
     :marked-dates="marks"
-    placeholder="Custom tooltip (hover marks)"
+    placeholder="Rich tooltip (hover marks)"
+    style="--bt-tooltip-max-width: 280px; --bt-tooltip-padding: 10px 14px; --bt-tooltip-radius: 10px;"
   >
-    <template #mark-tooltip="{ marks: dayMarks }">
-      <div v-for="m in dayMarks" :key="m.date + m.color" style="display: flex; align-items: center; gap: 6px; padding: 2px 0;">
-        <span :style="{ background: m.color || '#8b5cf6', width: '8px', height: '8px', borderRadius: '50%', display: 'inline-block', flexShrink: 0 }" />
-        <span>{{ m.tooltip }}</span>
+    <template #mark-tooltip="{ marks: dayMarks, day }">
+      <div style="font-weight: 700; font-size: 0.8rem; margin-bottom: 6px; opacity: 0.7; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 4px;">
+        📅 {{ day }}
+      </div>
+      <div v-for="(m, i) in dayMarks" :key="i" style="display: flex; align-items: flex-start; gap: 8px; padding: 4px 0;">
+        <span :style="{ background: m.color || '#8b5cf6', width: '10px', height: '10px', borderRadius: '50%', display: 'inline-block', flexShrink: 0, marginTop: '3px', boxShadow: '0 0 6px ' + (m.color || '#8b5cf6') }" />
+        <div>
+          <div style="font-weight: 600;">{{ m.tooltip }}</div>
+        </div>
       </div>
     </template>
   </BtDatePicker>
@@ -308,29 +315,96 @@ Use the `#mark-tooltip` scoped slot to fully customize tooltip content:
 </div>
 
 ```vue
-<DatePicker v-model="date" :marked-dates="marks">
+<DatePicker
+  v-model="date"
+  :marked-dates="marks"
+  style="--bt-tooltip-max-width: 280px; --bt-tooltip-padding: 10px 14px;"
+>
   <template #mark-tooltip="{ marks, day }">
-    <div v-for="m in marks" :key="m.date + m.color" style="display: flex; align-items: center; gap: 6px;">
-      <span :style="{ background: m.color, width: '8px', height: '8px', borderRadius: '50%', display: 'inline-block' }" />
-      {{ m.tooltip }}
+    <div style="font-weight: 700; margin-bottom: 6px; opacity: 0.7;">
+      📅 {{ day }}
+    </div>
+    <div v-for="m in marks" :key="m.date" style="display: flex; gap: 8px; padding: 4px 0;">
+      <span :style="{
+        background: m.color,
+        width: '10px',
+        height: '10px',
+        borderRadius: '50%',
+        boxShadow: '0 0 6px ' + m.color
+      }" />
+      <div>
+        <div style="font-weight: 600;">{{ m.tooltip }}</div>
+      </div>
     </div>
   </template>
 </DatePicker>
 ```
 
+::: tip Full Freedom
+The slot gives you complete control — use any HTML, component, image, or layout inside the tooltip. Combine with `--bt-tooltip-max-width` to allow wider content.
+:::
+
 ### Tooltip CSS Customization
 
-Tooltip appearance can be styled with CSS custom properties:
+Tooltip appearance can be fully controlled with CSS custom properties, including **width**:
 
 ```css
 .my-datepicker {
+  /* Colors */
   --bt-tooltip-bg: #1e293b;
   --bt-tooltip-color: #f8fafc;
+
+  /* Typography */
   --bt-tooltip-font-size: 0.875rem;
-  --bt-tooltip-padding: 8px 14px;
-  --bt-tooltip-radius: 8px;
+
+  /* Spacing */
+  --bt-tooltip-padding: 10px 16px;
+  --bt-tooltip-radius: 10px;
+
+  /* Width Control */
+  --bt-tooltip-width: auto; /* exact width */
+  --bt-tooltip-min-width: 120px; /* minimum width */
+  --bt-tooltip-max-width: 300px; /* maximum width */
 }
 ```
+
+## 🦶 Footer Slots
+
+Customize the footer area around the "Bugün" (Today) and "Temizle" (Clear) buttons:
+
+<div class="demo-block">
+  <BtDatePicker
+    v-model="footerDate"
+    placeholder="Footer slot demo"
+  >
+    <template #footer-prepend>
+      <span style="font-size: 0.7rem; opacity: 0.6; margin-right: auto;">⚡ Hızlı seçim</span>
+    </template>
+    <template #footer-append>
+      <button type="button" class="bt-today-btn" style="font-size: 0.65rem; opacity: 0.8;" @click="footerDate = '2026-01-01'">
+        📆 Yılbaşı
+      </button>
+    </template>
+  </BtDatePicker>
+  <div v-if="footerDate" class="demo-output">{{ footerDate }}</div>
+</div>
+
+```vue
+<DatePicker v-model="date">
+  <template #footer-prepend>
+    <span style="font-size: 0.7rem; opacity: 0.6;">⚡ Quick select</span>
+  </template>
+  <template #footer-append>
+    <button type="button" class="bt-today-btn" @click="date = '2026-01-01'">
+      📆 New Year
+    </button>
+  </template>
+</DatePicker>
+```
+
+::: tip
+`#footer-prepend` renders **before** the Today button. `#footer-append` renders **after** the Clear button. Use them to add quick shortcuts, labels, or custom actions.
+:::
 
 ## 🌍 Multi-Language
 

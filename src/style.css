@@ -355,7 +355,11 @@
   line-height: 1.4;
   padding: var(--bt-tooltip-padding, 6px 10px);
   border-radius: var(--bt-tooltip-radius, var(--bt-radius-sm));
-  white-space: pre-line;
+  min-width: var(--bt-tooltip-min-width, auto);
+  max-width: var(--bt-tooltip-max-width, 220px);
+  width: var(--bt-tooltip-width, auto);
+  white-space: normal;
+  word-wrap: break-word;
   pointer-events: none;
   opacity: 0;
   transition: opacity 150ms ease, transform 150ms ease;

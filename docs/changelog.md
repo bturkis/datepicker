@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] -- 2026-02-07
+
+### ✨ New Features
+
+- **Localized AM/PM Display** -- Time and DateTime 12h modes now show locale-specific AM/PM labels (e.g. `2:30 ÖS` for Turkish)
+- **Tooltip Width Control** -- New CSS vars `--bt-tooltip-width`, `--bt-tooltip-min-width`, `--bt-tooltip-max-width` for full width customization
+- **`mark-tooltip` Slot** -- Scoped slot for fully custom tooltip content with `{ marks, day }` props
+- **Footer Slots** -- `#footer-prepend` and `#footer-append` slots for adding content before/after the Today and Clear buttons
+
+### 🎨 Improvements
+
+- Tooltip font size increased to `0.75rem`, padding to `6px 10px`
+- Tooltip `white-space` changed from `pre-line` to `normal` for better slot content flow
+- Default `max-width: 220px` prevents uncontrolled tooltip expansion
+- 8 CSS custom properties now available for full tooltip theming
+
+### 🐛 Bug Fixes
+
+- Fixed AM/PM placeholder not respecting locale -- now uses localized text instead of hardcoded English
+
+---
+
 ## [1.3.0] -- 2026-02-07
 
 ### New Features

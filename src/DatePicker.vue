@@ -94,6 +94,7 @@
 
             <!-- Footer -->
             <div class="bt-footer">
+              <slot name="footer-prepend" />
               <button
                 v-if="type !== 'time'"
                 type="button"
@@ -118,6 +119,7 @@
               >
                 {{ currentLocale.clearLabel }}
               </button>
+              <slot name="footer-append" />
             </div>
           </div>
         </div>

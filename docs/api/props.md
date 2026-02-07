@@ -36,9 +36,24 @@
 
 ## Slots
 
-| Slot           | Scoped Props                                | Description                             |
-| -------------- | ------------------------------------------- | --------------------------------------- |
-| `mark-tooltip` | `{ marks: MarkedDate[], day: CalendarDay }` | Custom tooltip content for marked dates |
+| Slot             | Scoped Props                                | Description                                      |
+| ---------------- | ------------------------------------------- | ------------------------------------------------ |
+| `mark-tooltip`   | `{ marks: MarkedDate[], day: CalendarDay }` | Custom tooltip content for marked dates          |
+| `footer-prepend` | —                                           | Content rendered **before** the Today/Now button |
+| `footer-append`  | —                                           | Content rendered **after** the Clear button      |
+
+### Example: Footer Slots
+
+```vue
+<DatePicker v-model="date">
+  <template #footer-prepend>
+    <span style="font-size: 0.7rem; opacity: 0.6;">⚡ Quick</span>
+  </template>
+  <template #footer-append>
+    <button class="bt-today-btn" @click="date = '2026-01-01'">📆 NYE</button>
+  </template>
+</DatePicker>
+```
 
 ### mark-tooltip Slot Example
 
@@ -155,6 +170,9 @@ These variables let you customize the appearance of marked-date tooltips:
 | `--bt-tooltip-font-size` | `0.75rem`             | Tooltip font size     |
 | `--bt-tooltip-padding`   | `6px 10px`            | Tooltip padding       |
 | `--bt-tooltip-radius`    | `var(--bt-radius-sm)` | Tooltip border radius |
+| `--bt-tooltip-width`     | `auto`                | Exact tooltip width   |
+| `--bt-tooltip-min-width` | `auto`                | Minimum tooltip width |
+| `--bt-tooltip-max-width` | `220px`               | Maximum tooltip width |
 
 ## Exported Utilities
 
