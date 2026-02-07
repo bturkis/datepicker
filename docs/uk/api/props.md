@@ -16,12 +16,12 @@
 
 ```css
 :root {
-  --sdp-primary: #8b5cf6;
-  --sdp-text: #f8fafc;
-  --sdp-bg: #1e1e2e;
+  --bt-primary: #8b5cf6;
+  --bt-text: #f8fafc;
+  --bt-bg: #1e1e2e;
 }
 [data-theme="light"] {
-  --sdp-text: #1e293b;
-  --sdp-bg: #ffffff;
+  --bt-text: #1e293b;
+  --bt-bg: #ffffff;
 }
 ```

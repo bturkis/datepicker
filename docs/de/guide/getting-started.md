@@ -22,11 +22,11 @@ bun add @bturkis/datepicker
 
 ```ts
 import { createApp } from "vue";
-import StitchDatePicker from "@bturkis/datepicker";
+import BtDatePicker from "@bturkis/datepicker";
 import "@bturkis/datepicker/style.css";
 
 const app = createApp(App);
-app.use(StitchDatePicker);
+app.use(BtDatePicker);
 app.mount("#app");
 ```
 
@@ -59,7 +59,7 @@ export default defineNuxtConfig({
 Das Modul erledigt alles automatisch:
 
 - Injiziert das Komponenten-CSS
-- Registriert `<StitchDatePicker>` und `<DatePicker>` als **client-only** Komponenten
+- Registriert `<BtDatePicker>` und `<DatePicker>` als **client-only** Komponenten
 - Funktioniert mit Nuxt 3 und Nuxt 4
 
 Keine zusatzlichen Imports in Ihren Seiten erforderlich:

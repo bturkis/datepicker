@@ -59,25 +59,25 @@ The component uses CSS custom properties for theming. Override them anywhere in 
 
 ```css
 :root {
-  --sdp-primary: #8b5cf6;
-  --sdp-primary-light: #a78bfa;
-  --sdp-secondary: #ec4899;
-  --sdp-error: #ef4444;
-  --sdp-text: #f8fafc;
-  --sdp-text-secondary: #94a3b8;
-  --sdp-text-muted: #64748b;
-  --sdp-bg: #1e1e2e;
-  --sdp-popup-bg: #16161f;
-  --sdp-border: #2a2a3d;
-  --sdp-border-hover: #3d3d55;
-  --sdp-hover-bg: rgba(139, 92, 246, 0.1);
-  --sdp-hover-border: rgba(139, 92, 246, 0.2);
-  --sdp-focus-shadow: rgba(139, 92, 246, 0.15);
-  --sdp-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-  --sdp-radius-sm: 0.375rem;
-  --sdp-radius-md: 0.5rem;
-  --sdp-radius-lg: 0.75rem;
-  --sdp-radius-xl: 1rem;
+  --bt-primary: #8b5cf6;
+  --bt-primary-light: #a78bfa;
+  --bt-secondary: #ec4899;
+  --bt-error: #ef4444;
+  --bt-text: #f8fafc;
+  --bt-text-secondary: #94a3b8;
+  --bt-text-muted: #64748b;
+  --bt-bg: #1e1e2e;
+  --bt-popup-bg: #16161f;
+  --bt-border: #2a2a3d;
+  --bt-border-hover: #3d3d55;
+  --bt-hover-bg: rgba(139, 92, 246, 0.1);
+  --bt-hover-border: rgba(139, 92, 246, 0.2);
+  --bt-focus-shadow: rgba(139, 92, 246, 0.15);
+  --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --bt-radius-sm: 0.375rem;
+  --bt-radius-md: 0.5rem;
+  --bt-radius-lg: 0.75rem;
+  --bt-radius-xl: 1rem;
 }
 ```
 
@@ -88,17 +88,17 @@ The light theme activates automatically via `@media (prefers-color-scheme: light
 ```css
 [data-theme="light"],
 .light {
-  --sdp-text: #1e293b;
-  --sdp-text-secondary: #475569;
-  --sdp-text-muted: #94a3b8;
-  --sdp-bg: #ffffff;
-  --sdp-popup-bg: #f8fafc;
-  --sdp-border: #e2e8f0;
-  --sdp-border-hover: #cbd5e1;
-  --sdp-hover-bg: rgba(139, 92, 246, 0.06);
-  --sdp-hover-border: rgba(139, 92, 246, 0.15);
-  --sdp-focus-shadow: rgba(139, 92, 246, 0.12);
-  --sdp-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+  --bt-text: #1e293b;
+  --bt-text-secondary: #475569;
+  --bt-text-muted: #94a3b8;
+  --bt-bg: #ffffff;
+  --bt-popup-bg: #f8fafc;
+  --bt-border: #e2e8f0;
+  --bt-border-hover: #cbd5e1;
+  --bt-hover-bg: rgba(139, 92, 246, 0.06);
+  --bt-hover-border: rgba(139, 92, 246, 0.15);
+  --bt-focus-shadow: rgba(139, 92, 246, 0.12);
+  --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
 }
 ```
 
@@ -109,7 +109,7 @@ The light theme activates automatically via `@media (prefers-color-scheme: light
 | Auto (system)   | No config needed -- uses `prefers-color-scheme`           |
 | Data attribute  | `<html data-theme="light">` or `<html data-theme="dark">` |
 | CSS class       | `<html class="light">` or `<html class="dark">`           |
-| Custom override | Override `--sdp-*` variables in any parent element        |
+| Custom override | Override `--bt-*` variables in any parent element        |
 
 ## Exported Utilities
 
@@ -132,6 +132,6 @@ import {
 import type {
   CalendarDay,
   UseTimePickerOptions,
-  StitchLocale,
+  BtLocale,
 } from "@bturkis/datepicker";
 ```

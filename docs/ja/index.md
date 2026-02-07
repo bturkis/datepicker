@@ -1,7 +1,7 @@
 ---
 layout: home
 hero:
-  name: "Stitch DatePicker"
+  name: "@bturkis/datepicker"
   text: "Vue 3 / Nuxt 3 / Nuxt 4"
   tagline: グラスモーフィズムデザインのプレミアムDatePickerコンポーネント。日付、時刻、範囲選択、多言語対応。
   actions:

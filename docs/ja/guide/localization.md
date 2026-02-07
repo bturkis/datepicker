@@ -1,6 +1,6 @@
 # ローカライゼーション
 
-Stitch DatePickerは**15の組み込み言語**を搭載。月名と曜日名はブラウザの`Intl.DateTimeFormat` APIで生成されます。
+@bturkis/datepickerは**15の組み込み言語**を搭載。月名と曜日名はブラウザの`Intl.DateTimeFormat` APIで生成されます。
 
 ## 使用方法
 

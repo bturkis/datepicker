@@ -1,7 +1,7 @@
 ---
 layout: home
 hero:
-  name: "Stitch DatePicker"
+  name: "@bturkis/datepicker"
   text: "Vue 3 / Nuxt 3 / Nuxt 4"
   tagline: 글래스모피즘 디자인의 프리미엄 DatePicker 컴포넌트. 날짜, 시간, 범위 선택과 다국어 지원.
   actions:

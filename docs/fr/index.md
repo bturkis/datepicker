@@ -1,7 +1,7 @@
 ---
 layout: home
 hero:
-  name: "Stitch DatePicker"
+  name: "@bturkis/datepicker"
   text: "Vue 3 / Nuxt 3 / Nuxt 4"
   tagline: Composant DatePicker premium avec design glassmorphism, support de date, heure, plage et multilingue.
   actions:

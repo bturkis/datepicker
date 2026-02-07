@@ -1,6 +1,6 @@
-import type { StitchLocale } from "./index";
+import type { BtLocale } from "./index";
 
-export const nl: StitchLocale = {
+export const nl: BtLocale = {
   code: "nl",
   placeholder: "Kies datum",
   rangePlaceholder: "Kies periode",

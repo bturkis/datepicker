@@ -19,7 +19,7 @@ const shared = {
   ] as any,
   themeConfig: {
     logo: "/logo.svg",
-    siteTitle: "Stitch DatePicker",
+    siteTitle: "@bturkis/datepicker",
     socialLinks: [
       { icon: "github", link: "https://github.com/bturkis/datepicker" },
     ],

@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: Stitch DatePicker
+  name: @bturkis/datepicker
   text: Premium Vue 3 Component
   tagline: Glassmorphism Date, Time & Range picker with 15 language support
   actions:
@@ -14,7 +14,7 @@ hero:
       link: /guide/demos
   image:
     src: /hero.png
-    alt: Stitch DatePicker
+    alt: @bturkis/datepicker
 
 features:
   - icon: 📅

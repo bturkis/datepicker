@@ -16,20 +16,20 @@ const languages = [{ code: 'tr', flag: '🇹🇷', name: 'Turkce' }, { code: 'en
 
 <div class="demo-block">
   <button class="lang-btn" @click="toggleTheme" style="margin-bottom: 12px; padding: 8px 16px;">{{ isDark ? '라이트로 전환' : '다크로 전환' }}</button>
-  <StitchDatePicker v-model="singleDate" placeholder="날짜 선택" lang="ko" />
+  <BtDatePicker v-model="singleDate" placeholder="날짜 선택" lang="ko" />
 </div>
 
 ## 단일 날짜
 
 <div class="demo-block">
-  <StitchDatePicker v-model="singleDate" placeholder="날짜 선택" lang="ko" />
+  <BtDatePicker v-model="singleDate" placeholder="날짜 선택" lang="ko" />
   <div v-if="singleDate" class="demo-output">{{ singleDate }}</div>
 </div>
 
 ## 날짜 범위
 
 <div class="demo-block">
-  <StitchDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="범위 선택" lang="ko" />
+  <BtDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="범위 선택" lang="ko" />
   <div v-if="rangeStart || rangeEnd" class="demo-output">{{ rangeStart || '—' }} → {{ rangeEnd || '—' }}</div>
 </div>
 
@@ -39,6 +39,6 @@ const languages = [{ code: 'tr', flag: '🇹🇷', name: 'Turkce' }, { code: 'en
   <div class="demo-row" style="flex-wrap: wrap; margin-bottom: 16px;">
     <button v-for="l in languages" :key="l.code" class="lang-btn" :class="{ 'lang-btn--active': currentLang === l.code }" @click="currentLang = l.code">{{ l.flag }} {{ l.name }}</button>
   </div>
-  <StitchDatePicker v-model="langDate" :lang="currentLang" />
+  <BtDatePicker v-model="langDate" :lang="currentLang" />
   <div v-if="langDate" class="demo-output">{{ langDate }}</div>
 </div>

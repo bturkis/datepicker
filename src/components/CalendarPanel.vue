@@ -1,26 +1,26 @@
 <template>
-  <div class="sdp-calendar">
+  <div class="bt-calendar">
     <!-- Calendar Header -->
-    <div class="sdp-header">
-      <button type="button" class="sdp-nav-btn" @click="prevMonth">
+    <div class="bt-header">
+      <button type="button" class="bt-nav-btn" @click="prevMonth">
         <IconChevronLeft :size="16" />
       </button>
-      <button type="button" class="sdp-title" @click="toggleYearPicker">
+      <button type="button" class="bt-title" @click="toggleYearPicker">
         {{ currentMonthName }} {{ viewYear }}
       </button>
-      <button type="button" class="sdp-nav-btn" @click="nextMonth">
+      <button type="button" class="bt-nav-btn" @click="nextMonth">
         <IconChevronRight :size="16" />
       </button>
     </div>
 
     <!-- Year Picker -->
-    <div v-if="showYearPicker" class="sdp-year-picker">
+    <div v-if="showYearPicker" class="bt-year-picker">
       <button
         v-for="y in yearRange"
         :key="y"
         type="button"
-        class="sdp-year-btn"
-        :class="{ 'sdp-year-btn--active': y === viewYear }"
+        class="bt-year-btn"
+        :class="{ 'bt-year-btn--active': y === viewYear }"
         @click="selectYear(y)"
       >
         {{ y }}
@@ -29,13 +29,13 @@
 
     <!-- Calendar Grid -->
     <template v-else>
-      <div class="sdp-weekdays">
-        <span v-for="d in localWeekDays" :key="d" class="sdp-weekday">
+      <div class="bt-weekdays">
+        <span v-for="d in localWeekDays" :key="d" class="bt-weekday">
           {{ d }}
         </span>
       </div>
       <div
-        class="sdp-days"
+        class="bt-days"
         @touchstart.passive="onTouchStart"
         @touchend.passive="onTouchEnd"
       >
@@ -43,7 +43,7 @@
           v-for="day in calendarDays"
           :key="day.key"
           type="button"
-          class="sdp-day"
+          class="bt-day"
           :class="getDayClasses(day)"
           :disabled="day.isDisabled"
           @click="$emit('day-click', day)"
@@ -140,9 +140,9 @@ function nextMonth() {
 function getDayClasses(day: CalendarDay) {
   const key = day.key;
   const cls: Record<string, boolean> = {
-    "sdp-day--other": !day.currentMonth,
-    "sdp-day--today": day.isToday,
-    "sdp-day--disabled": day.isDisabled,
+    "bt-day--other": !day.currentMonth,
+    "bt-day--today": day.isToday,
+    "bt-day--disabled": day.isDisabled,
   };
 
   if (props.range) {
@@ -150,16 +150,16 @@ function getDayClasses(day: CalendarDay) {
     const end = props.rangeEnd || props.rangeHover;
     if (start && end) {
       const [lo, hi] = start <= end ? [start, end] : [end, start];
-      cls["sdp-day--range-start"] = key === lo;
-      cls["sdp-day--range-end"] = key === hi;
-      cls["sdp-day--in-range"] = key > lo && key < hi;
-      cls["sdp-day--selected"] = key === lo || key === hi;
+      cls["bt-day--range-start"] = key === lo;
+      cls["bt-day--range-end"] = key === hi;
+      cls["bt-day--in-range"] = key > lo && key < hi;
+      cls["bt-day--selected"] = key === lo || key === hi;
     } else if (start) {
-      cls["sdp-day--selected"] = key === start;
+      cls["bt-day--selected"] = key === start;
     }
   } else {
     const selectedStr = props.modelValue?.split("T")[0];
-    cls["sdp-day--selected"] = key === selectedStr;
+    cls["bt-day--selected"] = key === selectedStr;
   }
 
   return cls;

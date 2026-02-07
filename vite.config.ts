@@ -12,8 +12,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      name: "StitchVueDatepicker",
-      fileName: "stitch-vue-datepicker",
+      name: "BtDatepicker",
+      fileName: "bt-datepicker",
     },
     rollupOptions: {
       external: ["vue"],

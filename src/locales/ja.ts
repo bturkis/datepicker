@@ -1,6 +1,6 @@
-import type { StitchLocale } from "./index";
+import type { BtLocale } from "./index";
 
-export const ja: StitchLocale = {
+export const ja: BtLocale = {
   code: "ja",
   placeholder: "日付を選択",
   rangePlaceholder: "期間を選択",

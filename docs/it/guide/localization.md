@@ -1,6 +1,6 @@
 # Localizzazione
 
-Stitch DatePicker include **15 lingue integrate**. I nomi dei mesi e dei giorni sono generati tramite l'API `Intl.DateTimeFormat` del browser.
+@bturkis/datepicker include **15 lingue integrate**. I nomi dei mesi e dei giorni sono generati tramite l'API `Intl.DateTimeFormat` del browser.
 
 ## Lingue Supportate
 

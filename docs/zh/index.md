@@ -1,7 +1,7 @@
 ---
 layout: home
 hero:
-  name: "Stitch DatePicker"
+  name: "@bturkis/datepicker"
   text: "Vue 3 / Nuxt 3 / Nuxt 4"
   tagline: 高级玻璃拟态设计DatePicker组件，支持日期、时间、范围选择和多语言。
   actions:

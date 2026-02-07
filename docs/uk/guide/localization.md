@@ -1,6 +1,6 @@
 # Локалізація
 
-Stitch DatePicker містить **15 вбудованих мов**. Назви місяців та днів генеруються через API `Intl.DateTimeFormat`.
+@bturkis/datepicker містить **15 вбудованих мов**. Назви місяців та днів генеруються через API `Intl.DateTimeFormat`.
 
 ## Використання
 

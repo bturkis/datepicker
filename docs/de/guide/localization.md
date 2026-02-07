@@ -1,6 +1,6 @@
 # Lokalisierung
 
-Stitch DatePicker wird mit **15 integrierten Sprachen** geliefert. Kalendermonatsnamen und Wochentagsbeschriftungen werden uber die `Intl.DateTimeFormat` API des Browsers generiert.
+@bturkis/datepicker wird mit **15 integrierten Sprachen** geliefert. Kalendermonatsnamen und Wochentagsbeschriftungen werden uber die `Intl.DateTimeFormat` API des Browsers generiert.
 
 ## Unterstutzte Sprachen
 
@@ -36,9 +36,9 @@ Sie konnen zur Laufzeit eine eigene Sprache registrieren:
 
 ```ts
 import { registerLocale } from "@bturkis/datepicker";
-import type { StitchLocale } from "@bturkis/datepicker";
+import type { BtLocale } from "@bturkis/datepicker";
 
-const myLocale: StitchLocale = {
+const myLocale: BtLocale = {
   code: "sv",
   placeholder: "Valj datum",
   rangePlaceholder: "Valj intervall",

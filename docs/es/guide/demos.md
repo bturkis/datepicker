@@ -22,34 +22,34 @@ const languages = [
 
 <div class="demo-block">
   <button class="lang-btn" @click="toggleTheme" style="margin-bottom: 12px; padding: 8px 16px;">{{ isDark ? 'Cambiar a Claro' : 'Cambiar a Oscuro' }}</button>
-  <StitchDatePicker v-model="singleDate" placeholder="Probar ambos temas" lang="es" />
+  <BtDatePicker v-model="singleDate" placeholder="Probar ambos temas" lang="es" />
 </div>
 
 ## Fecha Simple
 
 <div class="demo-block">
-  <StitchDatePicker v-model="singleDate" placeholder="Seleccionar fecha" lang="es" />
+  <BtDatePicker v-model="singleDate" placeholder="Seleccionar fecha" lang="es" />
   <div v-if="singleDate" class="demo-output">{{ singleDate }}</div>
 </div>
 
 ## Rango de Fechas
 
 <div class="demo-block">
-  <StitchDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Seleccionar rango" lang="es" />
+  <BtDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Seleccionar rango" lang="es" />
   <div v-if="rangeStart || rangeEnd" class="demo-output">{{ rangeStart || '—' }} → {{ rangeEnd || '—' }}</div>
 </div>
 
 ## Hora
 
 <div class="demo-block">
-  <StitchDatePicker v-model="time24" type="time" placeholder="Seleccionar hora" lang="es" />
+  <BtDatePicker v-model="time24" type="time" placeholder="Seleccionar hora" lang="es" />
   <div v-if="time24" class="demo-output">{{ time24 }}</div>
 </div>
 
 ## Fecha y Hora
 
 <div class="demo-block">
-  <StitchDatePicker v-model="datetime" type="datetime-local" placeholder="Fecha y hora" lang="es" />
+  <BtDatePicker v-model="datetime" type="datetime-local" placeholder="Fecha y hora" lang="es" />
   <div v-if="datetime" class="demo-output">{{ datetime }}</div>
 </div>
 
@@ -59,6 +59,6 @@ const languages = [
   <div class="demo-row" style="flex-wrap: wrap; margin-bottom: 16px;">
     <button v-for="l in languages" :key="l.code" class="lang-btn" :class="{ 'lang-btn--active': currentLang === l.code }" @click="currentLang = l.code">{{ l.flag }} {{ l.name }}</button>
   </div>
-  <StitchDatePicker v-model="langDate" :lang="currentLang" />
+  <BtDatePicker v-model="langDate" :lang="currentLang" />
   <div v-if="langDate" class="demo-output">{{ langDate }}</div>
 </div>

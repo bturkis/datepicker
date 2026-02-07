@@ -1,10 +1,10 @@
 /**
- * Stitch DatePicker — Locale System
+ * bturkis DatePicker — Locale System
  * Provides UI label translations for 15 languages.
  * Calendar data (month names, weekday names) uses Intl.DateTimeFormat.
  */
 
-export interface StitchLocale {
+export interface BtLocale {
   /** Language code (e.g. 'tr', 'en') */
   code: string;
   /** Placeholder text for date input */
@@ -47,7 +47,7 @@ import { nl } from "./nl";
 import { pl } from "./pl";
 import { uk } from "./uk";
 
-const locales: Record<string, StitchLocale> = {
+const locales: Record<string, BtLocale> = {
   tr,
   en,
   de,
@@ -68,14 +68,14 @@ const locales: Record<string, StitchLocale> = {
 /**
  * Get locale by language code. Falls back to Turkish.
  */
-export function getLocale(lang: string): StitchLocale {
+export function getLocale(lang: string): BtLocale {
   return locales[lang] || locales.tr;
 }
 
 /**
  * Register a custom locale.
  */
-export function registerLocale(locale: StitchLocale): void {
+export function registerLocale(locale: BtLocale): void {
   locales[locale.code] = locale;
 }
 
@@ -136,3 +136,6 @@ function localeToIntl(lang: string): string {
 }
 
 export { localeToIntl };
+
+/** @deprecated Use BtLocale instead */
+export type StitchLocale = BtLocale;

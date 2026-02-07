@@ -1,6 +1,6 @@
 # Localization
 
-Stitch DatePicker ships with **15 built-in languages**. Calendar month names and weekday labels are generated via the browser's `Intl.DateTimeFormat` API, ensuring native-quality translations.
+@bturkis/datepicker ships with **15 built-in languages**. Calendar month names and weekday labels are generated via the browser's `Intl.DateTimeFormat` API, ensuring native-quality translations.
 
 ## Supported Languages
 
@@ -37,9 +37,9 @@ You can register your own locale at runtime:
 
 ```ts
 import { registerLocale } from "@bturkis/datepicker";
-import type { StitchLocale } from "@bturkis/datepicker";
+import type { BtLocale } from "@bturkis/datepicker";
 
-const myLocale: StitchLocale = {
+const myLocale: BtLocale = {
   code: "sv",
   placeholder: "Välj datum",
   rangePlaceholder: "Välj intervall",

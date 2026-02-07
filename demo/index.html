@@ -10,7 +10,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://unpkg.com/@bturkis/datepicker@latest/dist/stitch-vue-datepicker.css"
+      href="https://unpkg.com/@bturkis/datepicker@latest/dist/bt-datepicker.css"
     />
     <style>
       *,
@@ -286,7 +286,7 @@
         </a>
       </nav>
 
-      <h1><span class="gradient">Stitch</span> Vue DatePicker</h1>
+      <h1><span class="gradient">@bturkis</span>/datepicker</h1>
       <p class="subtitle">Premium glassmorphism calendar for Vue 3</p>
 
       <div class="badge">
@@ -470,7 +470,7 @@
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script src="https://unpkg.com/@bturkis/datepicker@latest/dist/stitch-vue-datepicker.umd.cjs"></script>
+    <script src="https://unpkg.com/@bturkis/datepicker@latest/dist/bt-datepicker.umd.cjs"></script>
     <script>
       const { createApp, ref, onMounted } = Vue;
 
@@ -525,7 +525,7 @@
         },
       });
 
-      app.component("DatePicker", StitchVueDatepicker.DatePicker);
+      app.component("DatePicker", BtDatepicker.DatePicker);
       app.mount("#app");
     </script>
   </body>

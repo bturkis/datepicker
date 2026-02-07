@@ -61,7 +61,7 @@ Toggle between light and dark themes. The component auto-adapts via CSS variable
   <button class="lang-btn" @click="toggleTheme" style="margin-bottom: 12px; padding: 8px 16px;">
     {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
   </button>
-  <StitchDatePicker v-model="singleDate" placeholder="Try both themes" />
+  <BtDatePicker v-model="singleDate" placeholder="Try both themes" />
 </div>
 
 ```html
@@ -80,7 +80,7 @@ Toggle between light and dark themes. The component auto-adapts via CSS variable
 Default date picker with ISO format output.
 
 <div class="demo-block">
-  <StitchDatePicker v-model="singleDate" placeholder="Pick a date" />
+  <BtDatePicker v-model="singleDate" placeholder="Pick a date" />
   <div v-if="singleDate" class="demo-output">{{ singleDate }}</div>
 </div>
 
@@ -93,7 +93,7 @@ Default date picker with ISO format output.
 Use the `format` prop to control display output.
 
 <div class="demo-block">
-  <StitchDatePicker
+  <BtDatePicker
     v-model="customDate"
     format="DD/MM/YYYY"
     placeholder="DD/MM/YYYY"
@@ -116,7 +116,7 @@ Use the `format` prop to control display output.
 Enable range selection with the `range` prop.
 
 <div class="demo-block">
-  <StitchDatePicker
+  <BtDatePicker
     v-model:range-start="rangeStart"
     v-model:range-end="rangeEnd"
     range
@@ -136,7 +136,7 @@ Enable range selection with the `range` prop.
 Set `type="time"` for a standalone time picker.
 
 <div class="demo-block">
-  <StitchDatePicker
+  <BtDatePicker
     v-model="time24"
     type="time"
     placeholder="Select time"
@@ -153,7 +153,7 @@ Set `type="time"` for a standalone time picker.
 Add `hour-format="12"` for AM/PM toggle.
 
 <div class="demo-block">
-  <StitchDatePicker
+  <BtDatePicker
     v-model="time12"
     type="time"
     hour-format="12"
@@ -171,7 +171,7 @@ Add `hour-format="12"` for AM/PM toggle.
 Combine date and time with `type="datetime-local"`.
 
 <div class="demo-block">
-  <StitchDatePicker
+  <BtDatePicker
     v-model="datetime"
     type="datetime-local"
     placeholder="Pick date & time"
@@ -188,7 +188,7 @@ Combine date and time with `type="datetime-local"`.
 DateTime with 12-hour format.
 
 <div class="demo-block">
-  <StitchDatePicker
+  <BtDatePicker
     v-model="datetime12"
     type="datetime-local"
     hour-format="12"
@@ -206,7 +206,7 @@ DateTime with 12-hour format.
 Limit selectable dates with `min` and `max` props.
 
 <div class="demo-block">
-  <StitchDatePicker
+  <BtDatePicker
     v-model="constrainedDate"
     min="2026-02-01"
     max="2026-02-28"
@@ -236,7 +236,7 @@ Switch between 15 built-in languages. The calendar, placeholders, and button lab
       {{ l.flag }} {{ l.name }}
     </button>
   </div>
-  <StitchDatePicker
+  <BtDatePicker
     v-model="langDate"
     :lang="currentLang"
     :placeholder="'Select in ' + currentLang.toUpperCase()"

@@ -5,7 +5,7 @@ import {
   getWeekDays,
   getMonthNames,
 } from "../locales/index";
-import type { StitchLocale } from "../locales/index";
+import type { BtLocale } from "../locales/index";
 
 describe("Locale System", () => {
   describe("getLocale", () => {
@@ -53,7 +53,7 @@ describe("Locale System", () => {
       "pl",
       "uk",
     ];
-    const requiredFields: (keyof StitchLocale)[] = [
+    const requiredFields: (keyof BtLocale)[] = [
       "code",
       "placeholder",
       "rangePlaceholder",
@@ -79,7 +79,7 @@ describe("Locale System", () => {
 
   describe("registerLocale", () => {
     it("registers and retrieves a custom locale", () => {
-      const custom: StitchLocale = {
+      const custom: BtLocale = {
         code: "sv",
         placeholder: "Välj datum",
         rangePlaceholder: "Välj intervall",

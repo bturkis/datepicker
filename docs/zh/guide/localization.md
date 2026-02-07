@@ -1,6 +1,6 @@
 # 国际化
 
-Stitch DatePicker包含**15种内置语言**。月份和星期名称通过浏览器的`Intl.DateTimeFormat` API生成。
+@bturkis/datepicker包含**15种内置语言**。月份和星期名称通过浏览器的`Intl.DateTimeFormat` API生成。
 
 ## 使用方法
 

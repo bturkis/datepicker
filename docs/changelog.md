@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 - **Nuxt 3 / Nuxt 4 Module** -- `@bturkis/datepicker/nuxt` auto-registers the component and injects CSS
 - **SSR Support** -- All browser API calls guarded for server-side rendering
 - **Light / Dark Theme** -- CSS variable system with `data-theme`, `.light`/`.dark` classes, and `prefers-color-scheme` auto-detection
-- **New CSS Variables** -- `--sdp-hover-bg`, `--sdp-hover-border`, `--sdp-focus-shadow`, `--sdp-shadow` for full theme control
+- **New CSS Variables** -- `--bt-hover-bg`, `--bt-hover-border`, `--bt-focus-shadow`, `--bt-shadow` for full theme control
 
 ### Changes
 

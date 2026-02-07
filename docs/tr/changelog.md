@@ -9,7 +9,7 @@ Bu projedeki tum onemli degisiklikler burada belgelenir.
 - **Nuxt 3 / Nuxt 4 Modulu** -- `@bturkis/datepicker/nuxt` bileseni otomatik kaydeder ve CSS enjekte eder
 - **SSR Destegi** -- Tum tarayici API cagrilari sunucu tarafi render icin korunur
 - **Acik / Koyu Tema** -- `data-theme`, `.light`/`.dark` siniflari ve `prefers-color-scheme` otomatik algilama ile CSS degisken sistemi
-- **Yeni CSS Degiskenleri** -- `--sdp-hover-bg`, `--sdp-hover-border`, `--sdp-focus-shadow`, `--sdp-shadow`
+- **Yeni CSS Degiskenleri** -- `--bt-hover-bg`, `--bt-hover-border`, `--bt-focus-shadow`, `--bt-shadow`
 
 ### Degisiklikler
 

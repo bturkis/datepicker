@@ -22,48 +22,48 @@ const languages = [
 
 <div class="demo-block">
   <button class="lang-btn" @click="toggleTheme" style="margin-bottom: 12px; padding: 8px 16px;">{{ isDark ? 'Passer en Clair' : 'Passer en Sombre' }}</button>
-  <StitchDatePicker v-model="singleDate" placeholder="Tester les deux themes" lang="fr" />
+  <BtDatePicker v-model="singleDate" placeholder="Tester les deux themes" lang="fr" />
 </div>
 
 ## Date Simple
 
 <div class="demo-block">
-  <StitchDatePicker v-model="singleDate" placeholder="Choisir une date" lang="fr" />
+  <BtDatePicker v-model="singleDate" placeholder="Choisir une date" lang="fr" />
   <div v-if="singleDate" class="demo-output">{{ singleDate }}</div>
 </div>
 
 ## Format Personnalise
 
 <div class="demo-block">
-  <StitchDatePicker v-model="customDate" display-format="DD/MM/YYYY" placeholder="JJ/MM/AAAA" lang="fr" />
+  <BtDatePicker v-model="customDate" display-format="DD/MM/YYYY" placeholder="JJ/MM/AAAA" lang="fr" />
   <div v-if="customDate" class="demo-output">{{ customDate }}</div>
 </div>
 
 ## Plage de Dates
 
 <div class="demo-block">
-  <StitchDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Selectionner une plage" lang="fr" />
+  <BtDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Selectionner une plage" lang="fr" />
   <div v-if="rangeStart || rangeEnd" class="demo-output">{{ rangeStart || '—' }} → {{ rangeEnd || '—' }}</div>
 </div>
 
 ## Heure
 
 <div class="demo-block">
-  <StitchDatePicker v-model="time24" type="time" placeholder="Choisir l'heure" lang="fr" />
+  <BtDatePicker v-model="time24" type="time" placeholder="Choisir l'heure" lang="fr" />
   <div v-if="time24" class="demo-output">{{ time24 }}</div>
 </div>
 
 ## Date et Heure
 
 <div class="demo-block">
-  <StitchDatePicker v-model="datetime" type="datetime-local" placeholder="Date et heure" lang="fr" />
+  <BtDatePicker v-model="datetime" type="datetime-local" placeholder="Date et heure" lang="fr" />
   <div v-if="datetime" class="demo-output">{{ datetime }}</div>
 </div>
 
 ## Contraintes Min / Max
 
 <div class="demo-block">
-  <StitchDatePicker v-model="constrainedDate" min="2026-02-01" max="2026-02-28" placeholder="Fevrier 2026 uniquement" lang="fr" />
+  <BtDatePicker v-model="constrainedDate" min="2026-02-01" max="2026-02-28" placeholder="Fevrier 2026 uniquement" lang="fr" />
   <div v-if="constrainedDate" class="demo-output">{{ constrainedDate }}</div>
 </div>
 
@@ -73,6 +73,6 @@ const languages = [
   <div class="demo-row" style="flex-wrap: wrap; margin-bottom: 16px;">
     <button v-for="l in languages" :key="l.code" class="lang-btn" :class="{ 'lang-btn--active': currentLang === l.code }" @click="currentLang = l.code">{{ l.flag }} {{ l.name }}</button>
   </div>
-  <StitchDatePicker v-model="langDate" :lang="currentLang" />
+  <BtDatePicker v-model="langDate" :lang="currentLang" />
   <div v-if="langDate" class="demo-output">{{ langDate }}</div>
 </div>

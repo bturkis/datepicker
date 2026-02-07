@@ -1,6 +1,6 @@
 # Lokalisatie
 
-Stitch DatePicker bevat **15 ingebouwde talen**. Maand- en dagnamen worden gegenereerd via de `Intl.DateTimeFormat` API van de browser.
+@bturkis/datepicker bevat **15 ingebouwde talen**. Maand- en dagnamen worden gegenereerd via de `Intl.DateTimeFormat` API van de browser.
 
 ## Gebruik
 

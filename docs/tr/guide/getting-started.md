@@ -23,11 +23,11 @@ bun add @bturkis/datepicker
 ```ts
 // main.ts
 import { createApp } from "vue";
-import StitchDatePicker from "@bturkis/datepicker";
+import BtDatePicker from "@bturkis/datepicker";
 import "@bturkis/datepicker/style.css";
 
 const app = createApp(App);
-app.use(StitchDatePicker);
+app.use(BtDatePicker);
 app.mount("#app");
 ```
 
@@ -60,7 +60,7 @@ export default defineNuxtConfig({
 Modul her seyi otomatik olarak yapar:
 
 - Bilesen CSS'ini enjekte eder
-- `<StitchDatePicker>` ve `<DatePicker>` bilesenlerini **client-only** olarak kaydeder
+- `<BtDatePicker>` ve `<DatePicker>` bilesenlerini **client-only** olarak kaydeder
 - Nuxt 3 ve Nuxt 4 ile calisir
 
 Sayfa veya bilesenlerinizde ek import gerekmez:
@@ -113,7 +113,7 @@ const date = ref('')
 </script>
 
 <div class="demo-block">
-  <StitchDatePicker v-model="date" label="Deneyin" placeholder="Tarih secin" lang="tr" />
+  <BtDatePicker v-model="date" label="Deneyin" placeholder="Tarih secin" lang="tr" />
   <p v-if="date" style="margin-top: 8px; font-size: 0.875rem; opacity: 0.7;">
     Deger: <code>{{ date }}</code>
   </p>

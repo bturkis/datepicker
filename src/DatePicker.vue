@@ -2,11 +2,11 @@
   <div
     ref="containerRef"
     :class="[
-      'stitch-datepicker',
-      { 'stitch-datepicker--error': error, 'stitch-datepicker--open': isOpen },
+      'bt-datepicker',
+      { 'bt-datepicker--error': error, 'bt-datepicker--open': isOpen },
     ]"
   >
-    <label v-if="label" :for="pickerId" class="stitch-datepicker__label">
+    <label v-if="label" :for="pickerId" class="bt-datepicker__label">
       {{ label }}
     </label>
 
@@ -15,46 +15,46 @@
       :id="pickerId"
       ref="triggerRef"
       type="button"
-      class="stitch-datepicker__trigger"
+      class="bt-datepicker__trigger"
       :disabled="disabled"
       @click="toggle"
     >
       <IconCalendar
         v-if="type !== 'time'"
         :size="16"
-        class="stitch-datepicker__icon"
+        class="bt-datepicker__icon"
       />
-      <IconClock v-else :size="16" class="stitch-datepicker__icon" />
+      <IconClock v-else :size="16" class="bt-datepicker__icon" />
       <span
-        class="stitch-datepicker__value"
-        :class="{ 'stitch-datepicker__value--empty': !modelValue }"
+        class="bt-datepicker__value"
+        :class="{ 'bt-datepicker__value--empty': !modelValue }"
       >
         {{ displayValue }}
       </span>
-      <IconChevronDown :size="14" class="stitch-datepicker__chevron" />
+      <IconChevronDown :size="14" class="bt-datepicker__chevron" />
     </button>
 
     <!-- Popup -->
     <Teleport to="body">
-      <Transition name="stitch-calendar-pop">
+      <Transition name="bt-calendar-pop">
         <div
           v-if="isOpen"
           ref="popupRef"
-          class="stitch-datepicker__popup"
+          class="bt-datepicker__popup"
           :class="{
-            'stitch-datepicker__popup--time-only': type === 'time',
-            'stitch-datepicker__popup--mobile': isMobile,
+            'bt-datepicker__popup--time-only': type === 'time',
+            'bt-datepicker__popup--mobile': isMobile,
           }"
           :style="popupStyle"
           @keydown.escape="close"
         >
           <!-- Mobile backdrop -->
-          <div v-if="isMobile" class="sdp-backdrop" @click="close" />
+          <div v-if="isMobile" class="bt-backdrop" @click="close" />
 
-          <div class="sdp-popup-content">
+          <div class="bt-popup-content">
             <!-- Mobile drag handle -->
-            <div v-if="isMobile" class="sdp-drag-handle">
-              <div class="sdp-drag-bar" />
+            <div v-if="isMobile" class="bt-drag-handle">
+              <div class="bt-drag-bar" />
             </div>
 
             <!-- Calendar Panel (date / datetime) -->
@@ -87,11 +87,11 @@
             />
 
             <!-- Footer -->
-            <div class="sdp-footer">
+            <div class="bt-footer">
               <button
                 v-if="type !== 'time'"
                 type="button"
-                class="sdp-today-btn"
+                class="bt-today-btn"
                 @click="goToday"
               >
                 {{ currentLocale.todayLabel }}
@@ -99,7 +99,7 @@
               <button
                 v-if="type === 'time'"
                 type="button"
-                class="sdp-today-btn"
+                class="bt-today-btn"
                 @click="setNow"
               >
                 {{ currentLocale.nowLabel }}
@@ -107,7 +107,7 @@
               <button
                 v-if="modelValue"
                 type="button"
-                class="sdp-clear-btn"
+                class="bt-clear-btn"
                 @click="clearValue"
               >
                 {{ currentLocale.clearLabel }}
@@ -118,8 +118,8 @@
       </Transition>
     </Teleport>
 
-    <p v-if="error" class="stitch-datepicker__error">{{ error }}</p>
-    <p v-if="hint" class="stitch-datepicker__hint">{{ hint }}</p>
+    <p v-if="error" class="bt-datepicker__error">{{ error }}</p>
+    <p v-if="hint" class="bt-datepicker__hint">{{ hint }}</p>
   </div>
 </template>
 
@@ -136,7 +136,7 @@ import {
   formatShortDate,
 } from "./composables/useDatePickerCalendar";
 import { getLocale, localeToIntl } from "./locales/index";
-import type { StitchLocale } from "./locales/index";
+import type { BtLocale } from "./locales/index";
 import CalendarPanel from "./components/CalendarPanel.vue";
 import TimePanel from "./components/TimePanel.vue";
 import { IconCalendar, IconClock, IconChevronDown } from "./icons";
@@ -194,7 +194,7 @@ const props = withDefaults(
 );
 
 // ── Locale ────────────────────────────────────────────────────────
-const currentLocale = computed<StitchLocale>(() => getLocale(props.lang));
+const currentLocale = computed<BtLocale>(() => getLocale(props.lang));
 const intlLocale = computed(() => props.locale || localeToIntl(props.lang));
 
 // Resolved labels (prop overrides > locale defaults)
@@ -211,7 +211,7 @@ const resolvedRangePlaceholder = computed(
 
 // ── ID ────────────────────────────────────────────────────────────
 const pickerId = computed(
-  () => `stitch-dp-${Math.random().toString(36).slice(2, 9)}`,
+  () => `bt-dp-${Math.random().toString(36).slice(2, 9)}`,
 );
 
 // ── State ─────────────────────────────────────────────────────────

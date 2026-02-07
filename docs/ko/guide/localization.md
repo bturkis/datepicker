@@ -1,6 +1,6 @@
 # 로케일
 
-Stitch DatePicker는 **15개 내장 언어**를 포함합니다. 월/요일 이름은 `Intl.DateTimeFormat` API로 생성됩니다.
+@bturkis/datepicker는 **15개 내장 언어**를 포함합니다. 월/요일 이름은 `Intl.DateTimeFormat` API로 생성됩니다.
 
 ## 사용법
 

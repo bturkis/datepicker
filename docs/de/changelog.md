@@ -7,7 +7,7 @@
 - **Nuxt 3 / Nuxt 4 Modul** -- Automatische Komponentenregistrierung und CSS-Injektion
 - **SSR-Unterstutzung** -- Alle Browser-API-Aufrufe fur serverseitiges Rendering geschutzt
 - **Hell / Dunkel Theme** -- CSS-Variablensystem mit automatischer Systemerkennung
-- **Neue CSS-Variablen** -- `--sdp-hover-bg`, `--sdp-hover-border`, `--sdp-focus-shadow`, `--sdp-shadow`
+- **Neue CSS-Variablen** -- `--bt-hover-bg`, `--bt-hover-border`, `--bt-focus-shadow`, `--bt-shadow`
 
 ---
 

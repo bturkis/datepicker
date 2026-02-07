@@ -20,27 +20,27 @@ const languages = [
 
 <div class="demo-block">
   <button class="lang-btn" @click="toggleTheme" style="margin-bottom: 12px; padding: 8px 16px;">{{ isDark ? 'Mudar para Claro' : 'Mudar para Escuro' }}</button>
-  <StitchDatePicker v-model="singleDate" placeholder="Testar ambos temas" lang="pt" />
+  <BtDatePicker v-model="singleDate" placeholder="Testar ambos temas" lang="pt" />
 </div>
 
 ## Data Simples
 
 <div class="demo-block">
-  <StitchDatePicker v-model="singleDate" placeholder="Selecionar data" lang="pt" />
+  <BtDatePicker v-model="singleDate" placeholder="Selecionar data" lang="pt" />
   <div v-if="singleDate" class="demo-output">{{ singleDate }}</div>
 </div>
 
 ## Intervalo de Datas
 
 <div class="demo-block">
-  <StitchDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Selecionar intervalo" lang="pt" />
+  <BtDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Selecionar intervalo" lang="pt" />
   <div v-if="rangeStart || rangeEnd" class="demo-output">{{ rangeStart || '—' }} → {{ rangeEnd || '—' }}</div>
 </div>
 
 ## Hora
 
 <div class="demo-block">
-  <StitchDatePicker v-model="time24" type="time" placeholder="Selecionar hora" lang="pt" />
+  <BtDatePicker v-model="time24" type="time" placeholder="Selecionar hora" lang="pt" />
   <div v-if="time24" class="demo-output">{{ time24 }}</div>
 </div>
 
@@ -50,6 +50,6 @@ const languages = [
   <div class="demo-row" style="flex-wrap: wrap; margin-bottom: 16px;">
     <button v-for="l in languages" :key="l.code" class="lang-btn" :class="{ 'lang-btn--active': currentLang === l.code }" @click="currentLang = l.code">{{ l.flag }} {{ l.name }}</button>
   </div>
-  <StitchDatePicker v-model="langDate" :lang="currentLang" />
+  <BtDatePicker v-model="langDate" :lang="currentLang" />
   <div v-if="langDate" class="demo-output">{{ langDate }}</div>
 </div>

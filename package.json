@@ -1,6 +1,6 @@
 {
   "name": "@bturkis/datepicker",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "description": "Premium glassmorphism DatePicker for Vue 3 / Nuxt 3 / Nuxt 4 — date, time, datetime, range picker with 15 languages, SSR support, and light/dark themes.",
   "author": "bturkis",
   "publishConfig": {
@@ -8,16 +8,16 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/stitch-vue-datepicker.umd.cjs",
-  "module": "./dist/stitch-vue-datepicker.js",
+  "main": "./dist/bt-datepicker.umd.cjs",
+  "module": "./dist/bt-datepicker.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/stitch-vue-datepicker.js",
-      "require": "./dist/stitch-vue-datepicker.umd.cjs"
+      "import": "./dist/bt-datepicker.js",
+      "require": "./dist/bt-datepicker.umd.cjs"
     },
-    "./style.css": "./dist/stitch-vue-datepicker.css",
+    "./style.css": "./dist/bt-datepicker.css",
     "./nuxt": "./src/nuxt.ts"
   },
   "files": [
@@ -29,6 +29,9 @@
   "keywords": [
     "vue",
     "vue3",
+    "nuxt",
+    "nuxt3",
+    "nuxt4",
     "datepicker",
     "date-range",
     "glassmorphism",
@@ -39,12 +42,10 @@
     "multilingual",
     "mobile",
     "bottom-sheet",
-    "nuxt",
-    "nuxt3",
-    "nuxt4",
     "ssr",
     "light-mode",
-    "theme"
+    "theme",
+    "bturkis"
   ],
   "repository": {
     "type": "git",

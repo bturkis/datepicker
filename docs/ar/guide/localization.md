@@ -1,6 +1,6 @@
 # التدويل
 
-يتضمن Stitch DatePicker **15 لغة مدمجة**. أسماء الأشهر والأيام تُولد عبر واجهة `Intl.DateTimeFormat`.
+يتضمن @bturkis/datepicker **15 لغة مدمجة**. أسماء الأشهر والأيام تُولد عبر واجهة `Intl.DateTimeFormat`.
 
 ## الاستخدام
 

@@ -49,7 +49,7 @@ Acik ve koyu temalar arasinda gecis yapin. Bilesen CSS degiskenleri ile otomatik
   <button class="lang-btn" @click="toggleTheme" style="margin-bottom: 12px; padding: 8px 16px;">
     {{ isDark ? 'Acik Temaya Gec' : 'Koyu Temaya Gec' }}
   </button>
-  <StitchDatePicker v-model="singleDate" placeholder="Her iki temayi deneyin" lang="tr" />
+  <BtDatePicker v-model="singleDate" placeholder="Her iki temayi deneyin" lang="tr" />
 </div>
 
 ## Tekli Tarih
@@ -57,7 +57,7 @@ Acik ve koyu temalar arasinda gecis yapin. Bilesen CSS degiskenleri ile otomatik
 Varsayilan tarih secici, ISO format ciktisi.
 
 <div class="demo-block">
-  <StitchDatePicker v-model="singleDate" placeholder="Tarih secin" lang="tr" />
+  <BtDatePicker v-model="singleDate" placeholder="Tarih secin" lang="tr" />
   <div v-if="singleDate" class="demo-output">{{ singleDate }}</div>
 </div>
 
@@ -70,7 +70,7 @@ Varsayilan tarih secici, ISO format ciktisi.
 Gosterim ciktisini kontrol etmek icin `display-format` prop'unu kullanin.
 
 <div class="demo-block">
-  <StitchDatePicker v-model="customDate" display-format="DD/MM/YYYY" placeholder="GG/AA/YYYY" lang="tr" />
+  <BtDatePicker v-model="customDate" display-format="DD/MM/YYYY" placeholder="GG/AA/YYYY" lang="tr" />
   <div v-if="customDate" class="demo-output">Model: {{ customDate }}</div>
 </div>
 
@@ -83,7 +83,7 @@ Gosterim ciktisini kontrol etmek icin `display-format` prop'unu kullanin.
 `range` prop'u ile aralik secimini etkinlestirin.
 
 <div class="demo-block">
-  <StitchDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Aralik secin" lang="tr" />
+  <BtDatePicker v-model:range-start="rangeStart" v-model:range-end="rangeEnd" range placeholder="Aralik secin" lang="tr" />
   <div v-if="rangeStart || rangeEnd" class="demo-output">{{ rangeStart || '—' }} → {{ rangeEnd || '—' }}</div>
 </div>
 
@@ -101,7 +101,7 @@ Gosterim ciktisini kontrol etmek icin `display-format` prop'unu kullanin.
 `type="time"` ile bagimsiz saat secici.
 
 <div class="demo-block">
-  <StitchDatePicker v-model="time24" type="time" placeholder="Saat secin" lang="tr" />
+  <BtDatePicker v-model="time24" type="time" placeholder="Saat secin" lang="tr" />
   <div v-if="time24" class="demo-output">{{ time24 }}</div>
 </div>
 
@@ -114,7 +114,7 @@ Gosterim ciktisini kontrol etmek icin `display-format` prop'unu kullanin.
 AM/PM degistirici icin `hour-format="12"` ekleyin.
 
 <div class="demo-block">
-  <StitchDatePicker v-model="time12" type="time" hour-format="12" placeholder="Saat secin (AM/PM)" lang="tr" />
+  <BtDatePicker v-model="time12" type="time" hour-format="12" placeholder="Saat secin (AM/PM)" lang="tr" />
   <div v-if="time12" class="demo-output">{{ time12 }}</div>
 </div>
 
@@ -127,7 +127,7 @@ AM/PM degistirici icin `hour-format="12"` ekleyin.
 `type="datetime-local"` ile tarih ve saati birlestirin.
 
 <div class="demo-block">
-  <StitchDatePicker v-model="datetime" type="datetime-local" placeholder="Tarih ve saat secin" lang="tr" />
+  <BtDatePicker v-model="datetime" type="datetime-local" placeholder="Tarih ve saat secin" lang="tr" />
   <div v-if="datetime" class="demo-output">{{ datetime }}</div>
 </div>
 
@@ -140,7 +140,7 @@ AM/PM degistirici icin `hour-format="12"` ekleyin.
 `min` ve `max` prop'lari ile secilebilir tarihleri sinirlayin.
 
 <div class="demo-block">
-  <StitchDatePicker v-model="constrainedDate" min="2026-02-01" max="2026-02-28" placeholder="Sadece Subat 2026" lang="tr" />
+  <BtDatePicker v-model="constrainedDate" min="2026-02-01" max="2026-02-28" placeholder="Sadece Subat 2026" lang="tr" />
   <div v-if="constrainedDate" class="demo-output">{{ constrainedDate }}</div>
 </div>
 
@@ -159,7 +159,7 @@ AM/PM degistirici icin `hour-format="12"` ekleyin.
       {{ l.flag }} {{ l.name }}
     </button>
   </div>
-  <StitchDatePicker v-model="langDate" :lang="currentLang" :placeholder="currentLang.toUpperCase() + ' dilinde secin'" />
+  <BtDatePicker v-model="langDate" :lang="currentLang" :placeholder="currentLang.toUpperCase() + ' dilinde secin'" />
   <div v-if="langDate" class="demo-output">{{ langDate }}</div>
 </div>
 

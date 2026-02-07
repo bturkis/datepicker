@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineNuxtModule({
   meta: {
     name: "@bturkis/datepicker",
-    configKey: "stitchDatepicker",
+    configKey: "btDatepicker",
     compatibility: { nuxt: ">=3.0.0" },
   },
   defaults: {},
@@ -18,13 +18,20 @@ export default defineNuxtModule({
 
     // Register component (client-only — uses Teleport + DOM APIs)
     addComponent({
-      name: "StitchDatePicker",
+      name: "BtDatePicker",
       filePath: resolve(__dirname, "./DatePicker.vue"),
       mode: "client",
     });
 
     addComponent({
       name: "DatePicker",
+      filePath: resolve(__dirname, "./DatePicker.vue"),
+      mode: "client",
+    });
+
+    // Backward compatibility
+    addComponent({
+      name: "StitchDatePicker",
       filePath: resolve(__dirname, "./DatePicker.vue"),
       mode: "client",
     });

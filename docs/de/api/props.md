@@ -43,11 +43,11 @@ Uberschreiben Sie diese Variablen zur Anpassung:
 
 ```css
 :root {
-  --sdp-primary: #8b5cf6;
-  --sdp-text: #f8fafc;
-  --sdp-bg: #1e1e2e;
-  --sdp-popup-bg: #16161f;
-  --sdp-border: #2a2a3d;
+  --bt-primary: #8b5cf6;
+  --bt-text: #f8fafc;
+  --bt-bg: #1e1e2e;
+  --bt-popup-bg: #16161f;
+  --bt-border: #2a2a3d;
 }
 ```
 
@@ -56,9 +56,9 @@ Uberschreiben Sie diese Variablen zur Anpassung:
 ```css
 [data-theme="light"],
 .light {
-  --sdp-text: #1e293b;
-  --sdp-bg: #ffffff;
-  --sdp-popup-bg: #f8fafc;
-  --sdp-border: #e2e8f0;
+  --bt-text: #1e293b;
+  --bt-bg: #ffffff;
+  --bt-popup-bg: #f8fafc;
+  --bt-border: #e2e8f0;
 }
 ```

@@ -1,6 +1,6 @@
-import type { StitchLocale } from "./index";
+import type { BtLocale } from "./index";
 
-export const fr: StitchLocale = {
+export const fr: BtLocale = {
   code: "fr",
   placeholder: "Choisir une date",
   rangePlaceholder: "Choisir une période",

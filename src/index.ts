@@ -21,17 +21,26 @@ export {
 
 export type { CalendarDay } from "./composables/useDatePickerCalendar";
 export type { UseTimePickerOptions } from "./composables/useTimePicker";
-export type { StitchLocale } from "./locales/index";
+export type { BtLocale } from "./locales/index";
+
+/** @deprecated Use BtLocale instead */
+export type { BtLocale as StitchLocale } from "./locales/index";
 
 /**
  * Vue plugin installer.
- * Usage: app.use(StitchDatePicker)
- * Registers <StitchDatePicker> globally.
+ * Usage: app.use(BtDatePicker)
+ * Registers <BtDatePicker> and <DatePicker> globally.
  */
-const StitchDatePicker: Plugin = {
+const BtDatePicker: Plugin = {
   install(app: App) {
+    app.component("BtDatePicker", DatePicker);
+    app.component("DatePicker", DatePicker);
+    // Backward compatibility
     app.component("StitchDatePicker", DatePicker);
   },
 };
 
-export default StitchDatePicker;
+/** @deprecated Use BtDatePicker instead */
+export const StitchDatePicker = BtDatePicker;
+
+export default BtDatePicker;

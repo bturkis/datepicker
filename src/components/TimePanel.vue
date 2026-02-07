@@ -1,46 +1,46 @@
 <template>
-  <div class="sdp-time" :class="{ 'sdp-time--standalone': standalone }">
-    <div v-if="!standalone" class="sdp-time-label">{{ locale.timeLabel }}</div>
+  <div class="bt-time" :class="{ 'bt-time--standalone': standalone }">
+    <div v-if="!standalone" class="bt-time-label">{{ locale.timeLabel }}</div>
 
-    <div class="sdp-time-controls">
+    <div class="bt-time-controls">
       <!-- Hour Column -->
-      <div class="sdp-time-col">
-        <button type="button" class="sdp-time-btn" @click="adjustHour(1)">
+      <div class="bt-time-col">
+        <button type="button" class="bt-time-btn" @click="adjustHour(1)">
           <IconChevronUp :size="14" />
         </button>
-        <span class="sdp-time-value">{{ padTime(displayHour) }}</span>
-        <button type="button" class="sdp-time-btn" @click="adjustHour(-1)">
+        <span class="bt-time-value">{{ padTime(displayHour) }}</span>
+        <button type="button" class="bt-time-btn" @click="adjustHour(-1)">
           <IconChevronDown :size="14" />
         </button>
       </div>
 
-      <span class="sdp-time-sep">:</span>
+      <span class="bt-time-sep">:</span>
 
       <!-- Minute Column -->
-      <div class="sdp-time-col">
-        <button type="button" class="sdp-time-btn" @click="adjustMinute(1)">
+      <div class="bt-time-col">
+        <button type="button" class="bt-time-btn" @click="adjustMinute(1)">
           <IconChevronUp :size="14" />
         </button>
-        <span class="sdp-time-value">{{ padTime(minute) }}</span>
-        <button type="button" class="sdp-time-btn" @click="adjustMinute(-1)">
+        <span class="bt-time-value">{{ padTime(minute) }}</span>
+        <button type="button" class="bt-time-btn" @click="adjustMinute(-1)">
           <IconChevronDown :size="14" />
         </button>
       </div>
 
       <!-- AM/PM Toggle -->
-      <div v-if="hourFormat === '12'" class="sdp-time-col sdp-time-ampm">
+      <div v-if="hourFormat === '12'" class="bt-time-col bt-time-ampm">
         <button
           type="button"
-          class="sdp-ampm-btn"
-          :class="{ 'sdp-ampm-btn--active': !isPM }"
+          class="bt-ampm-btn"
+          :class="{ 'bt-ampm-btn--active': !isPM }"
           @click="setAM"
         >
           {{ locale.am }}
         </button>
         <button
           type="button"
-          class="sdp-ampm-btn"
-          :class="{ 'sdp-ampm-btn--active': isPM }"
+          class="bt-ampm-btn"
+          :class="{ 'bt-ampm-btn--active': isPM }"
           @click="setPM"
         >
           {{ locale.pm }}
@@ -56,7 +56,7 @@
 import { watch } from "vue";
 import { padTime } from "../composables/useDatePickerCalendar";
 import { useTimePicker } from "../composables/useTimePicker";
-import type { StitchLocale } from "../locales/index";
+import type { BtLocale } from "../locales/index";
 import { IconChevronDown, IconChevronUp } from "../icons";
 
 const props = withDefaults(
@@ -65,7 +65,7 @@ const props = withDefaults(
     minute: number;
     hourFormat?: "12" | "24";
     minuteStep?: number;
-    locale: StitchLocale;
+    locale: BtLocale;
     standalone?: boolean;
   }>(),
   {

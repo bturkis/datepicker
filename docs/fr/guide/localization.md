@@ -1,6 +1,6 @@
 # Localisation
 
-Stitch DatePicker est livre avec **15 langues integrees**. Les noms de mois et jours sont generes via l'API `Intl.DateTimeFormat` du navigateur.
+@bturkis/datepicker est livre avec **15 langues integrees**. Les noms de mois et jours sont generes via l'API `Intl.DateTimeFormat` du navigateur.
 
 ## Langues Supportees
 

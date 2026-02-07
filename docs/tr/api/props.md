@@ -55,15 +55,15 @@ Bilesen tema icin CSS ozel ozelliklerini kullanir.
 
 ```css
 :root {
-  --sdp-primary: #8b5cf6;
-  --sdp-primary-light: #a78bfa;
-  --sdp-text: #f8fafc;
-  --sdp-text-secondary: #94a3b8;
-  --sdp-bg: #1e1e2e;
-  --sdp-popup-bg: #16161f;
-  --sdp-border: #2a2a3d;
-  --sdp-hover-bg: rgba(139, 92, 246, 0.1);
-  --sdp-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --bt-primary: #8b5cf6;
+  --bt-primary-light: #a78bfa;
+  --bt-text: #f8fafc;
+  --bt-text-secondary: #94a3b8;
+  --bt-bg: #1e1e2e;
+  --bt-popup-bg: #16161f;
+  --bt-border: #2a2a3d;
+  --bt-hover-bg: rgba(139, 92, 246, 0.1);
+  --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 ```
 
@@ -72,12 +72,12 @@ Bilesen tema icin CSS ozel ozelliklerini kullanir.
 ```css
 [data-theme="light"],
 .light {
-  --sdp-text: #1e293b;
-  --sdp-bg: #ffffff;
-  --sdp-popup-bg: #f8fafc;
-  --sdp-border: #e2e8f0;
-  --sdp-hover-bg: rgba(139, 92, 246, 0.06);
-  --sdp-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+  --bt-text: #1e293b;
+  --bt-bg: #ffffff;
+  --bt-popup-bg: #f8fafc;
+  --bt-border: #e2e8f0;
+  --bt-hover-bg: rgba(139, 92, 246, 0.06);
+  --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
 }
 ```
 
@@ -88,7 +88,7 @@ Bilesen tema icin CSS ozel ozelliklerini kullanir.
 | Otomatik (sistem) | Yapilandirma gerekmez -- `prefers-color-scheme` kullanir          |
 | Data ozelligi     | `<html data-theme="light">` veya `<html data-theme="dark">`       |
 | CSS sinifi        | `<html class="light">` veya `<html class="dark">`                 |
-| Ozel degisken     | Herhangi bir ust elemanda `--sdp-*` degiskenlerini gecersiz kilin |
+| Ozel degisken     | Herhangi bir ust elemanda `--bt-*` degiskenlerini gecersiz kilin |
 
 ## Disari Aktarilan Yardimcilar
 

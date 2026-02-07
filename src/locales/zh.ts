@@ -1,6 +1,6 @@
-import type { StitchLocale } from "./index";
+import type { BtLocale } from "./index";
 
-export const zh: StitchLocale = {
+export const zh: BtLocale = {
   code: "zh",
   placeholder: "选择日期",
   rangePlaceholder: "选择日期范围",

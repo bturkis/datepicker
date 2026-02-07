@@ -1,6 +1,6 @@
 # Dil Destegi
 
-Stitch DatePicker **15 yerlesik dil** ile gelir. Takvim ay adlari ve hafta gunu etiketleri tarayicinin `Intl.DateTimeFormat` API'si ile olusturulur.
+@bturkis/datepicker **15 yerlesik dil** ile gelir. Takvim ay adlari ve hafta gunu etiketleri tarayicinin `Intl.DateTimeFormat` API'si ile olusturulur.
 
 ## Desteklenen Diller
 
@@ -37,9 +37,9 @@ Calistirma zamaninda kendi dilinizi kaydedebilirsiniz:
 
 ```ts
 import { registerLocale } from "@bturkis/datepicker";
-import type { StitchLocale } from "@bturkis/datepicker";
+import type { BtLocale } from "@bturkis/datepicker";
 
-const myLocale: StitchLocale = {
+const myLocale: BtLocale = {
   code: "sv",
   placeholder: "Valj datum",
   rangePlaceholder: "Valj intervall",

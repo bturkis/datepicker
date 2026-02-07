@@ -1,6 +1,6 @@
-import type { StitchLocale } from "./index";
+import type { BtLocale } from "./index";
 
-export const ko: StitchLocale = {
+export const ko: BtLocale = {
   code: "ko",
   placeholder: "날짜 선택",
   rangePlaceholder: "기간 선택",
