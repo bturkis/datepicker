@@ -16,6 +16,8 @@
 | `min`              | `string`                               | --             | Minimum selectable date (`YYYY-MM-DD`)                                  |
 | `max`              | `string`                               | --             | Maximum selectable date (`YYYY-MM-DD`)                                  |
 | `range`            | `boolean`                              | `false`        | Enable date range selection                                             |
+| `rangeStart`       | `string`                               | --             | Start date for range (`v-model:range-start`)                            |
+| `rangeEnd`         | `string`                               | --             | End date for range (`v-model:range-end`)                                |
 | `rangePlaceholder` | `string`                               | Locale default | Placeholder for empty range state                                       |
 | `hourFormat`       | `'24' \| '12'`                         | `'24'`         | Time display format                                                     |
 | `minuteStep`       | `number`                               | `1`            | Minute increment step                                                   |
@@ -24,9 +26,11 @@
 
 ## Events
 
-| Event               | Payload  | Description                      |
-| ------------------- | -------- | -------------------------------- |
-| `update:modelValue` | `string` | Emitted when a value is selected |
+| Event               | Payload  | Description                               |
+| ------------------- | -------- | ----------------------------------------- |
+| `update:modelValue` | `string` | Emitted when a value is selected          |
+| `update:rangeStart` | `string` | Emitted when range start date is selected |
+| `update:rangeEnd`   | `string` | Emitted when range end date is selected   |
 
 ## Format Tokens
 
@@ -74,6 +78,10 @@ The component uses CSS custom properties for theming. Override them anywhere in 
   --bt-hover-border: rgba(139, 92, 246, 0.2);
   --bt-focus-shadow: rgba(139, 92, 246, 0.15);
   --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --bt-popup-blur: blur(20px) saturate(180%);
+  --bt-popup-glass-bg: rgba(22, 22, 31, 0.85);
+  --bt-popup-glass-border: rgba(255, 255, 255, 0.08);
+  --bt-popup-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --bt-radius-sm: 0.375rem;
   --bt-radius-md: 0.5rem;
   --bt-radius-lg: 0.75rem;
@@ -99,6 +107,10 @@ The light theme activates automatically via `@media (prefers-color-scheme: light
   --bt-hover-border: rgba(139, 92, 246, 0.15);
   --bt-focus-shadow: rgba(139, 92, 246, 0.12);
   --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+  --bt-popup-blur: blur(20px) saturate(180%);
+  --bt-popup-glass-bg: rgba(255, 255, 255, 0.78);
+  --bt-popup-glass-border: rgba(255, 255, 255, 0.5);
+  --bt-popup-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 ```
 
@@ -109,7 +121,7 @@ The light theme activates automatically via `@media (prefers-color-scheme: light
 | Auto (system)   | No config needed -- uses `prefers-color-scheme`           |
 | Data attribute  | `<html data-theme="light">` or `<html data-theme="dark">` |
 | CSS class       | `<html class="light">` or `<html class="dark">`           |
-| Custom override | Override `--bt-*` variables in any parent element        |
+| Custom override | Override `--bt-*` variables in any parent element         |
 
 ## Exported Utilities
 

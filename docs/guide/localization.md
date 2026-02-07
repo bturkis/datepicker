@@ -22,6 +22,38 @@
 | `pl` | 🇵🇱   | Polski     | Wybierz datę        |
 | `uk` | 🇺🇦   | Українська | Оберіть дату        |
 
+## TimePicker Translations
+
+All 15 languages include full TimePicker support with localized labels.
+
+| Code | Time Label | Now Button | Time Placeholder | AM   | PM   |
+| ---- | ---------- | ---------- | ---------------- | ---- | ---- |
+| `tr` | Saat       | Şimdi      | Saat seçin       | ÖÖ   | ÖS   |
+| `en` | Time       | Now        | Select time      | AM   | PM   |
+| `de` | Uhrzeit    | Jetzt      | Uhrzeit wählen   | AM   | PM   |
+| `fr` | Heure      | Maintenant | Choisir l'heure  | AM   | PM   |
+| `es` | Hora       | Ahora      | Elegir hora      | AM   | PM   |
+| `it` | Ora        | Adesso     | Scegli ora       | AM   | PM   |
+| `pt` | Hora       | Agora      | Escolher hora    | AM   | PM   |
+| `ru` | Время      | Сейчас     | Выбрать время    | AM   | PM   |
+| `ar` | الوقت      | الآن       | اختر الوقت       | ص    | م    |
+| `ja` | 時刻       | 現在       | 時刻を選択       | 午前 | 午後 |
+| `zh` | 时间       | 此刻       | 选择时间         | 上午 | 下午 |
+| `ko` | 시간       | 지금       | 시간 선택        | 오전 | 오후 |
+| `nl` | Tijd       | Nu         | Kies tijd        | AM   | PM   |
+| `pl` | Godzina    | Teraz      | Wybierz godzinę  | AM   | PM   |
+| `uk` | Час        | Зараз      | Обрати час       | AM   | PM   |
+
+### 12-Hour Format with Localized AM/PM
+
+```vue
+<!-- Turkish: shows ÖÖ / ÖS buttons -->
+<DatePicker v-model="time" type="time" hour-format="12" lang="tr" />
+
+<!-- Japanese: shows 午前 / 午後 buttons -->
+<DatePicker v-model="time" type="time" hour-format="12" lang="ja" />
+```
+
 ## Usage
 
 ```vue
