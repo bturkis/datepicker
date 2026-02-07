@@ -12,6 +12,8 @@ npm install @bturkis/datepicker
 pnpm add @bturkis/datepicker
 # or
 yarn add @bturkis/datepicker
+# or
+bun add @bturkis/datepicker
 ```
 
 ## Setup

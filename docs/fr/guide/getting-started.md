@@ -8,6 +8,12 @@ outline: deep
 
 ```bash
 npm install @bturkis/datepicker
+# or
+pnpm add @bturkis/datepicker
+# or
+yarn add @bturkis/datepicker
+# or
+bun add @bturkis/datepicker
 ```
 
 ## Configuration

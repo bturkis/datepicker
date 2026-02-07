@@ -23,7 +23,17 @@ Premium glassmorphism DatePicker component for Vue 3, Nuxt 3, and Nuxt 4. Suppor
 ## Installation
 
 ```bash
+# npm
 npm install @bturkis/datepicker
+
+# pnpm
+pnpm add @bturkis/datepicker
+
+# yarn
+yarn add @bturkis/datepicker
+
+# bun
+bun add @bturkis/datepicker
 ```
 
 ## Quick Start
