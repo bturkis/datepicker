@@ -24,6 +24,10 @@
   --bt-hover-border: rgba(139, 92, 246, 0.2);
   --bt-focus-shadow: rgba(139, 92, 246, 0.15);
   --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --bt-popup-blur: blur(20px) saturate(180%);
+  --bt-popup-glass-bg: rgba(22, 22, 31, 0.85);
+  --bt-popup-glass-border: rgba(255, 255, 255, 0.08);
+  --bt-popup-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --bt-radius-sm: 0.375rem;
   --bt-radius-md: 0.5rem;
   --bt-radius-lg: 0.75rem;
@@ -44,6 +48,10 @@
   --bt-hover-border: rgba(139, 92, 246, 0.15);
   --bt-focus-shadow: rgba(139, 92, 246, 0.12);
   --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --bt-popup-blur: blur(20px) saturate(180%);
+  --bt-popup-glass-bg: rgba(255, 255, 255, 0.78);
+  --bt-popup-glass-border: rgba(255, 255, 255, 0.5);
+  --bt-popup-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 /* System preference auto-detection */
@@ -60,6 +68,10 @@
     --bt-hover-border: rgba(139, 92, 246, 0.15);
     --bt-focus-shadow: rgba(139, 92, 246, 0.12);
     --bt-shadow: 0 16px 48px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    --bt-popup-blur: blur(20px) saturate(180%);
+    --bt-popup-glass-bg: rgba(255, 255, 255, 0.78);
+    --bt-popup-glass-border: rgba(255, 255, 255, 0.5);
+    --bt-popup-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 }
 
@@ -158,12 +170,32 @@
 
 /* ── Popup ──────────────────────────────────────────────────────── */
 .bt-datepicker__popup {
-  background: var(--bt-popup-bg);
-  border: 1px solid var(--bt-border-hover);
+  background: var(--bt-popup-glass-bg);
+  backdrop-filter: var(--bt-popup-blur);
+  -webkit-backdrop-filter: var(--bt-popup-blur);
+  border: 1px solid var(--bt-popup-glass-border);
   border-radius: var(--bt-radius-xl);
-  box-shadow: var(--bt-shadow);
+  box-shadow: var(--bt-shadow), var(--bt-popup-inner-glow);
   user-select: none;
   max-width: 320px;
+}
+
+/* ── Popup Transition (desktop) ────────────────────────────────── */
+.bt-calendar-pop-enter-from {
+  opacity: 0;
+  transform: scale(0.96) translateY(-6px);
+}
+.bt-calendar-pop-enter-active {
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bt-calendar-pop-leave-active {
+  transition: opacity 150ms ease-in,
+              transform 150ms ease-in;
+}
+.bt-calendar-pop-leave-to {
+  opacity: 0;
+  transform: scale(0.96) translateY(-4px);
 }
 
 .bt-popup-content {
@@ -420,9 +452,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 26px;
-  font-size: 0.6875rem;
+  width: 46px;
+  height: 32px;
+  font-size: 0.75rem;
   font-weight: 600;
   font-family: inherit;
   background: transparent;

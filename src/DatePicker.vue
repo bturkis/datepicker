@@ -143,6 +143,8 @@ import { IconCalendar, IconClock, IconChevronDown } from "./icons";
 
 const emit = defineEmits<{
   "update:modelValue": [value: string];
+  "update:rangeStart": [value: string];
+  "update:rangeEnd": [value: string];
 }>();
 
 const props = withDefaults(
@@ -158,6 +160,8 @@ const props = withDefaults(
     disabled?: boolean;
     required?: boolean;
     range?: boolean;
+    rangeStart?: string;
+    rangeEnd?: string;
     placeholder?: string;
     rangePlaceholder?: string;
     todayLabel?: string;
@@ -182,6 +186,8 @@ const props = withDefaults(
     disabled: false,
     required: false,
     range: false,
+    rangeStart: undefined,
+    rangeEnd: undefined,
     placeholder: undefined,
     rangePlaceholder: undefined,
     todayLabel: undefined,
@@ -243,13 +249,32 @@ function checkMobile() {
 
 // ── Range parsing ─────────────────────────────────────────────────
 function parseRange(): { start: string; end: string } | null {
-  if (!props.range || !props.modelValue) return null;
-  const parts = props.modelValue.split("|");
-  if (parts.length === 2 && parts[0] && parts[1]) {
-    return { start: parts[0], end: parts[1] };
+  if (!props.range) return null;
+  // Support v-model:range-start / v-model:range-end
+  if (props.rangeStart && props.rangeEnd) {
+    return { start: props.rangeStart, end: props.rangeEnd };
+  }
+  // Fallback: pipe separator in modelValue
+  if (props.modelValue) {
+    const parts = props.modelValue.split("|");
+    if (parts.length === 2 && parts[0] && parts[1]) {
+      return { start: parts[0], end: parts[1] };
+    }
   }
   return null;
 }
+
+// ── Watch range props (v-model:range-start / v-model:range-end) ──
+watch(
+  () => [props.rangeStart, props.rangeEnd],
+  ([s, e]) => {
+    if (props.range) {
+      if (s) rangeStart.value = s;
+      if (e) rangeEnd.value = e;
+    }
+  },
+  { immediate: true },
+);
 
 // ── Watch model value ─────────────────────────────────────────────
 watch(
@@ -353,6 +378,8 @@ function selectRangeDate(day: CalendarDay) {
     rangeEnd.value = hi;
     rangeHover.value = null;
     emit("update:modelValue", `${lo}|${hi}`);
+    emit("update:rangeStart", lo);
+    emit("update:rangeEnd", hi);
     close();
   }
 }
@@ -491,6 +518,10 @@ function clearValue() {
   rangeEnd.value = null;
   rangeHover.value = null;
   emit("update:modelValue", "");
+  if (props.range) {
+    emit("update:rangeStart", "");
+    emit("update:rangeEnd", "");
+  }
   close();
 }
 
