@@ -36,11 +36,11 @@
 
 ## Slots
 
-| Slot             | Scoped Props                                | Description                                      |
-| ---------------- | ------------------------------------------- | ------------------------------------------------ |
-| `mark-tooltip`   | `{ marks: MarkedDate[], day: CalendarDay }` | Custom tooltip content for marked dates          |
-| `footer-prepend` | —                                           | Content rendered **before** the Today/Now button |
-| `footer-append`  | —                                           | Content rendered **after** the Clear button      |
+| Slot             | Scoped Props                           | Description                                      |
+| ---------------- | -------------------------------------- | ------------------------------------------------ |
+| `mark-tooltip`   | `{ marks: MarkedDate[], day: string }` | Custom tooltip content for marked dates          |
+| `footer-prepend` | —                                      | Content rendered **before** the Today/Now button |
+| `footer-append`  | —                                      | Content rendered **after** the Clear button      |
 
 ### Example: Footer Slots
 

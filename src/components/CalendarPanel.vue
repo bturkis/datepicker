@@ -65,7 +65,7 @@
             "
             class="bt-day__tooltip"
           >
-            <slot name="mark-tooltip" :marks="getDayMarks(day)" :day="day">
+            <slot name="mark-tooltip" :marks="getDayMarks(day)" :day="day.key">
               {{ getDayTooltip(day) }}
             </slot>
           </span>
