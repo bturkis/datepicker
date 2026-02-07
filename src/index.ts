@@ -4,8 +4,6 @@ import "./style.css";
 
 export { DatePicker };
 export {
-  monthNames,
-  weekDays,
   formatISO,
   padTime,
   formatDateToken,
@@ -13,8 +11,17 @@ export {
   formatShortDate,
   useDatePickerCalendar,
 } from "./composables/useDatePickerCalendar";
+export { useTimePicker } from "./composables/useTimePicker";
+export {
+  getLocale,
+  registerLocale,
+  getWeekDays,
+  getMonthNames,
+} from "./locales/index";
 
 export type { CalendarDay } from "./composables/useDatePickerCalendar";
+export type { UseTimePickerOptions } from "./composables/useTimePicker";
+export type { StitchLocale } from "./locales/index";
 
 /**
  * Vue plugin installer.

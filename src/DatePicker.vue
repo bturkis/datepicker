@@ -19,7 +19,12 @@
       :disabled="disabled"
       @click="toggle"
     >
-      <IconCalendar :size="16" class="stitch-datepicker__icon" />
+      <IconCalendar
+        v-if="type !== 'time'"
+        :size="16"
+        class="stitch-datepicker__icon"
+      />
+      <IconClock v-else :size="16" class="stitch-datepicker__icon" />
       <span
         class="stitch-datepicker__value"
         :class="{ 'stitch-datepicker__value--empty': !modelValue }"
@@ -29,128 +34,85 @@
       <IconChevronDown :size="14" class="stitch-datepicker__chevron" />
     </button>
 
-    <!-- Calendar Popup -->
+    <!-- Popup -->
     <Teleport to="body">
       <Transition name="stitch-calendar-pop">
         <div
           v-if="isOpen"
           ref="popupRef"
           class="stitch-datepicker__popup"
+          :class="{
+            'stitch-datepicker__popup--time-only': type === 'time',
+            'stitch-datepicker__popup--mobile': isMobile,
+          }"
           :style="popupStyle"
           @keydown.escape="close"
         >
-          <!-- Calendar Header -->
-          <div class="sdp-header">
-            <button type="button" class="sdp-nav-btn" @click="prevMonth">
-              <IconChevronLeft :size="16" />
-            </button>
-            <button type="button" class="sdp-title" @click="toggleYearPicker">
-              {{ monthNames[viewMonth] }} {{ viewYear }}
-            </button>
-            <button type="button" class="sdp-nav-btn" @click="nextMonth">
-              <IconChevronRight :size="16" />
-            </button>
-          </div>
+          <!-- Mobile backdrop -->
+          <div v-if="isMobile" class="sdp-backdrop" @click="close" />
 
-          <!-- Year Picker -->
-          <div v-if="showYearPicker" class="sdp-year-picker">
-            <button
-              v-for="y in yearRange"
-              :key="y"
-              type="button"
-              class="sdp-year-btn"
-              :class="{ 'sdp-year-btn--active': y === viewYear }"
-              @click="selectYear(y)"
-            >
-              {{ y }}
-            </button>
-          </div>
-
-          <!-- Calendar Grid -->
-          <template v-else>
-            <div class="sdp-weekdays">
-              <span v-for="d in weekDays" :key="d" class="sdp-weekday">{{
-                d
-              }}</span>
+          <div class="sdp-popup-content">
+            <!-- Mobile drag handle -->
+            <div v-if="isMobile" class="sdp-drag-handle">
+              <div class="sdp-drag-bar" />
             </div>
-            <div class="sdp-days">
+
+            <!-- Calendar Panel (date / datetime) -->
+            <CalendarPanel
+              v-if="type !== 'time'"
+              ref="calendarRef"
+              :model-value="modelValue"
+              :min="min"
+              :max="max"
+              :lang="lang"
+              :range="range"
+              :range-start="rangeStart"
+              :range-end="rangeEnd"
+              :range-hover="rangeHover"
+              @day-click="onDayClick"
+              @day-hover="onDayHover"
+            />
+
+            <!-- Time Panel -->
+            <TimePanel
+              v-if="showTimePicker"
+              :hour="selectedHour"
+              :minute="selectedMinute"
+              :hour-format="hourFormat"
+              :minute-step="minuteStep"
+              :locale="currentLocale"
+              :standalone="type === 'time'"
+              @update:hour="onHourUpdate"
+              @update:minute="onMinuteUpdate"
+            />
+
+            <!-- Footer -->
+            <div class="sdp-footer">
               <button
-                v-for="day in calendarDays"
-                :key="day.key"
+                v-if="type !== 'time'"
                 type="button"
-                class="sdp-day"
-                :class="getDayClasses(day)"
-                :disabled="day.isDisabled"
-                @click="onDayClick(day)"
-                @mouseenter="onDayHover(day)"
+                class="sdp-today-btn"
+                @click="goToday"
               >
-                {{ day.date }}
+                {{ currentLocale.todayLabel }}
+              </button>
+              <button
+                v-if="type === 'time'"
+                type="button"
+                class="sdp-today-btn"
+                @click="setNow"
+              >
+                {{ currentLocale.nowLabel }}
+              </button>
+              <button
+                v-if="modelValue"
+                type="button"
+                class="sdp-clear-btn"
+                @click="clearValue"
+              >
+                {{ currentLocale.clearLabel }}
               </button>
             </div>
-          </template>
-
-          <!-- Time Picker -->
-          <div v-if="showTimePicker" class="sdp-time">
-            <div class="sdp-time-label">Saat</div>
-            <div class="sdp-time-controls">
-              <div class="sdp-time-col">
-                <button
-                  type="button"
-                  class="sdp-time-btn"
-                  @click="adjustHour(1)"
-                >
-                  <IconChevronUp :size="14" />
-                </button>
-                <span class="sdp-time-value">{{ padTime(selectedHour) }}</span>
-                <button
-                  type="button"
-                  class="sdp-time-btn"
-                  @click="adjustHour(-1)"
-                >
-                  <IconChevronDown :size="14" />
-                </button>
-              </div>
-              <span class="sdp-time-sep">:</span>
-              <div class="sdp-time-col">
-                <button
-                  type="button"
-                  class="sdp-time-btn"
-                  @click="adjustMinute(1)"
-                >
-                  <IconChevronUp :size="14" />
-                </button>
-                <span class="sdp-time-value">{{
-                  padTime(selectedMinute)
-                }}</span>
-                <button
-                  type="button"
-                  class="sdp-time-btn"
-                  @click="adjustMinute(-1)"
-                >
-                  <IconChevronDown :size="14" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Footer -->
-          <div class="sdp-footer">
-            <button
-              v-if="type !== 'time'"
-              type="button"
-              class="sdp-today-btn"
-              @click="goToday"
-            >
-              {{ todayLabel }}
-            </button>
-            <button
-              v-if="modelValue"
-              type="button"
-              class="sdp-clear-btn"
-              @click="clearValue"
-            >
-              {{ clearLabel }}
-            </button>
           </div>
         </div>
       </Transition>
@@ -163,24 +125,21 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
+
+const isBrowser = typeof window !== "undefined";
 import {
   type CalendarDay,
-  monthNames,
-  weekDays,
   formatISO,
   padTime,
   formatDateToken,
   formatDisplayDate,
   formatShortDate,
-  useDatePickerCalendar,
 } from "./composables/useDatePickerCalendar";
-import {
-  IconCalendar,
-  IconChevronDown,
-  IconChevronUp,
-  IconChevronLeft,
-  IconChevronRight,
-} from "./icons";
+import { getLocale, localeToIntl } from "./locales/index";
+import type { StitchLocale } from "./locales/index";
+import CalendarPanel from "./components/CalendarPanel.vue";
+import TimePanel from "./components/TimePanel.vue";
+import { IconCalendar, IconClock, IconChevronDown } from "./icons";
 
 const emit = defineEmits<{
   "update:modelValue": [value: string];
@@ -204,6 +163,12 @@ const props = withDefaults(
     todayLabel?: string;
     clearLabel?: string;
     locale?: string;
+    /** Language code for UI labels (tr, en, de, fr, etc.) */
+    lang?: string;
+    /** Hour display format: 24h or 12h (AM/PM) */
+    hourFormat?: "12" | "24";
+    /** Minute step increment (1, 5, 15, 30) */
+    minuteStep?: number;
   }>(),
   {
     modelValue: "",
@@ -217,36 +182,41 @@ const props = withDefaults(
     disabled: false,
     required: false,
     range: false,
-    placeholder: "Tarih seçin",
-    rangePlaceholder: "Tarih aralığı seçin",
-    todayLabel: "Bugün",
-    clearLabel: "Temizle",
-    locale: "tr-TR",
+    placeholder: undefined,
+    rangePlaceholder: undefined,
+    todayLabel: undefined,
+    clearLabel: undefined,
+    locale: undefined,
+    lang: "tr",
+    hourFormat: "24",
+    minuteStep: 1,
   },
 );
 
+// ── Locale ────────────────────────────────────────────────────────
+const currentLocale = computed<StitchLocale>(() => getLocale(props.lang));
+const intlLocale = computed(() => props.locale || localeToIntl(props.lang));
+
+// Resolved labels (prop overrides > locale defaults)
+const resolvedPlaceholder = computed(() => {
+  if (props.placeholder) return props.placeholder;
+  if (props.type === "time") return currentLocale.value.timePlaceholder;
+  if (props.type === "datetime-local")
+    return currentLocale.value.datetimePlaceholder;
+  return currentLocale.value.placeholder;
+});
+const resolvedRangePlaceholder = computed(
+  () => props.rangePlaceholder || currentLocale.value.rangePlaceholder,
+);
+
+// ── ID ────────────────────────────────────────────────────────────
 const pickerId = computed(
   () => `stitch-dp-${Math.random().toString(36).slice(2, 9)}`,
 );
 
-// Calendar composable
-const minRef = computed(() => props.min);
-const maxRef = computed(() => props.max);
-const {
-  viewYear,
-  viewMonth,
-  showYearPicker,
-  yearRange,
-  calendarDays,
-  prevMonth,
-  nextMonth,
-  toggleYearPicker,
-  selectYear,
-  setView,
-} = useDatePickerCalendar({ min: minRef, max: maxRef });
-
-// State
+// ── State ─────────────────────────────────────────────────────────
 const isOpen = ref(false);
+const isMobile = ref(false);
 const selectedHour = ref(0);
 const selectedMinute = ref(0);
 
@@ -259,11 +229,19 @@ const rangeHover = ref<string | null>(null);
 const containerRef = ref<HTMLElement | null>(null);
 const triggerRef = ref<HTMLElement | null>(null);
 const popupRef = ref<HTMLElement | null>(null);
+const calendarRef = ref<InstanceType<typeof CalendarPanel> | null>(null);
 
 const showTimePicker = computed(
   () => props.type === "datetime-local" || props.type === "time",
 );
 
+// ── Mobile detection ──────────────────────────────────────────────
+function checkMobile() {
+  if (!isBrowser) return;
+  isMobile.value = window.innerWidth <= 640;
+}
+
+// ── Range parsing ─────────────────────────────────────────────────
 function parseRange(): { start: string; end: string } | null {
   if (!props.range || !props.modelValue) return null;
   const parts = props.modelValue.split("|");
@@ -273,6 +251,7 @@ function parseRange(): { start: string; end: string } | null {
   return null;
 }
 
+// ── Watch model value ─────────────────────────────────────────────
 watch(
   () => props.modelValue,
   (val) => {
@@ -299,22 +278,23 @@ watch(
   { immediate: true },
 );
 
+// ── Display value ─────────────────────────────────────────────────
 const displayValue = computed(() => {
   if (props.range) {
     const r = parseRange();
-    if (!r) return props.rangePlaceholder;
+    if (!r) return resolvedRangePlaceholder.value;
     if (props.displayFormat) {
-      return `${formatDateToken(r.start, props.displayFormat, props.locale)} – ${formatDateToken(r.end, props.displayFormat, props.locale)}`;
+      return `${formatDateToken(r.start, props.displayFormat, intlLocale.value)} – ${formatDateToken(r.end, props.displayFormat, intlLocale.value)}`;
     }
-    return `${formatShortDate(r.start, props.locale)} – ${formatShortDate(r.end, props.locale)}`;
+    return `${formatShortDate(r.start, intlLocale.value)} – ${formatShortDate(r.end, intlLocale.value)}`;
   }
-  if (!props.modelValue) return props.placeholder;
+  if (!props.modelValue) return resolvedPlaceholder.value;
   try {
     if (props.displayFormat) {
       return formatDateToken(
         props.modelValue,
         props.displayFormat,
-        props.locale,
+        intlLocale.value,
       );
     }
     if (props.type === "time") return props.modelValue;
@@ -322,7 +302,7 @@ const displayValue = computed(() => {
       props.type === "datetime-local"
         ? props.modelValue.split("T")[0]
         : props.modelValue;
-    const formatted = formatDisplayDate(dateStr, props.locale);
+    const formatted = formatDisplayDate(dateStr, intlLocale.value);
     if (props.type === "datetime-local") {
       return `${formatted} ${padTime(selectedHour.value)}:${padTime(selectedMinute.value)}`;
     }
@@ -332,34 +312,7 @@ const displayValue = computed(() => {
   }
 });
 
-function getDayClasses(day: CalendarDay) {
-  const key = day.key;
-  const cls: Record<string, boolean> = {
-    "sdp-day--other": !day.currentMonth,
-    "sdp-day--today": day.isToday,
-    "sdp-day--disabled": day.isDisabled,
-  };
-
-  if (props.range) {
-    const start = rangeStart.value;
-    const end = rangeEnd.value || rangeHover.value;
-    if (start && end) {
-      const [lo, hi] = start <= end ? [start, end] : [end, start];
-      cls["sdp-day--range-start"] = key === lo;
-      cls["sdp-day--range-end"] = key === hi;
-      cls["sdp-day--in-range"] = key > lo && key < hi;
-      cls["sdp-day--selected"] = key === lo || key === hi;
-    } else if (start) {
-      cls["sdp-day--selected"] = key === start;
-    }
-  } else {
-    const selectedStr = props.modelValue?.split("T")[0];
-    cls["sdp-day--selected"] = key === selectedStr;
-  }
-
-  return cls;
-}
-
+// ── Day events ────────────────────────────────────────────────────
 function onDayHover(day: CalendarDay) {
   if (!props.range || !rangeStart.value || rangeEnd.value) return;
   rangeHover.value = day.key;
@@ -404,74 +357,14 @@ function selectRangeDate(day: CalendarDay) {
   }
 }
 
-// Popup positioning
-const popupStyle = ref<Record<string, string>>({});
-
-function updatePosition() {
-  if (!triggerRef.value) return;
-  const rect = triggerRef.value.getBoundingClientRect();
-  const spaceBelow = window.innerHeight - rect.bottom;
-  const spaceAbove = rect.top;
-  const openAbove = spaceBelow < 200 && spaceAbove > spaceBelow;
-
-  const isMobile = window.innerWidth <= 640;
-  const topValue = openAbove ? `${rect.top - 380}px` : `${rect.bottom + 4}px`;
-  const leftValue = isMobile ? "8px" : `${rect.left}px`;
-  const widthValue = isMobile ? "auto" : `${Math.max(rect.width, 300)}px`;
-
-  popupStyle.value = {
-    position: "fixed",
-    top: topValue,
-    left: leftValue,
-    width: widthValue,
-    zIndex: "9999",
-    ...(isMobile ? { right: "8px" } : {}),
-  };
-}
-
-function toggle() {
-  if (props.disabled) return;
-  isOpen.value ? close() : open();
-}
-
-function open() {
-  isOpen.value = true;
-  showYearPicker.value = false;
-  if (props.range) {
-    const r = parseRange();
-    if (r) {
-      const d = new Date(r.start + "T00:00:00");
-      setView(d.getFullYear(), d.getMonth());
-    } else {
-      const now = new Date();
-      setView(now.getFullYear(), now.getMonth());
-    }
-  } else if (props.modelValue && props.type !== "time") {
-    const dateStr = props.modelValue.split("T")[0];
-    const d = new Date(dateStr + "T00:00:00");
-    setView(d.getFullYear(), d.getMonth());
-  } else {
-    const now = new Date();
-    setView(now.getFullYear(), now.getMonth());
-  }
-  nextTick(() => {
-    requestAnimationFrame(() => updatePosition());
-  });
-}
-
-function close() {
-  isOpen.value = false;
-  showYearPicker.value = false;
-  rangeHover.value = null;
-}
-
-function adjustHour(delta: number) {
-  selectedHour.value = (selectedHour.value + delta + 24) % 24;
+// ── Time events ───────────────────────────────────────────────────
+function onHourUpdate(h: number) {
+  selectedHour.value = h;
   emitTimeUpdate();
 }
 
-function adjustMinute(delta: number) {
-  selectedMinute.value = (selectedMinute.value + delta + 60) % 60;
+function onMinuteUpdate(m: number) {
+  selectedMinute.value = m;
   emitTimeUpdate();
 }
 
@@ -481,13 +374,97 @@ function emitTimeUpdate() {
     emit("update:modelValue", time);
   } else if (props.type === "datetime-local" && props.modelValue) {
     const dateStr = props.modelValue.split("T")[0];
-    emit("update:modelValue", `${dateStr}T${time}`);
+    if (dateStr && dateStr !== props.modelValue) {
+      emit("update:modelValue", `${dateStr}T${time}`);
+    }
   }
 }
 
+// ── Popup positioning ─────────────────────────────────────────────
+const popupStyle = ref<Record<string, string>>({});
+
+function updatePosition() {
+  if (!isBrowser) return;
+  if (isMobile.value) {
+    popupStyle.value = {
+      position: "fixed",
+      bottom: "0",
+      left: "0",
+      right: "0",
+      zIndex: "9999",
+    };
+    return;
+  }
+
+  if (!triggerRef.value) return;
+  const rect = triggerRef.value.getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+  const openAbove = spaceBelow < 200 && spaceAbove > spaceBelow;
+  const popupHeight = props.type === "time" ? 200 : 380;
+
+  const topValue = openAbove
+    ? `${rect.top - popupHeight}px`
+    : `${rect.bottom + 4}px`;
+  const leftValue = `${rect.left}px`;
+  const widthValue = `${Math.max(rect.width, 300)}px`;
+
+  popupStyle.value = {
+    position: "fixed",
+    top: topValue,
+    left: leftValue,
+    width: widthValue,
+    zIndex: "9999",
+  };
+}
+
+// ── Open / Close ──────────────────────────────────────────────────
+function toggle() {
+  if (props.disabled) return;
+  isOpen.value ? close() : open();
+}
+
+function open() {
+  checkMobile();
+  isOpen.value = true;
+
+  if (props.type !== "time") {
+    if (props.range) {
+      const r = parseRange();
+      if (r) {
+        const d = new Date(r.start + "T00:00:00");
+        nextTick(() =>
+          calendarRef.value?.setView(d.getFullYear(), d.getMonth()),
+        );
+      }
+    } else if (props.modelValue) {
+      const dateStr = props.modelValue.split("T")[0];
+      const d = new Date(dateStr + "T00:00:00");
+      nextTick(() => calendarRef.value?.setView(d.getFullYear(), d.getMonth()));
+    }
+  }
+
+  nextTick(() => {
+    requestAnimationFrame(() => updatePosition());
+  });
+
+  if (isBrowser && isMobile.value) {
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function close() {
+  isOpen.value = false;
+  rangeHover.value = null;
+  if (isBrowser && isMobile.value) {
+    document.body.style.overflow = "";
+  }
+}
+
+// ── Actions ───────────────────────────────────────────────────────
 function goToday() {
   const today = new Date();
-  setView(today.getFullYear(), today.getMonth());
+  calendarRef.value?.setView(today.getFullYear(), today.getMonth());
   if (!props.range) {
     const dateStr = formatISO(today);
     if (props.type === "datetime-local") {
@@ -502,6 +479,13 @@ function goToday() {
   }
 }
 
+function setNow() {
+  const now = new Date();
+  selectedHour.value = now.getHours();
+  selectedMinute.value = now.getMinutes();
+  emitTimeUpdate();
+}
+
 function clearValue() {
   rangeStart.value = null;
   rangeEnd.value = null;
@@ -510,6 +494,7 @@ function clearValue() {
   close();
 }
 
+// ── Outside click / resize ────────────────────────────────────────
 function onClickOutside(e: MouseEvent) {
   if (!isOpen.value) return;
   const target = e.target as Node;
@@ -519,18 +504,23 @@ function onClickOutside(e: MouseEvent) {
 }
 
 function onScrollOrResize() {
+  checkMobile();
   if (isOpen.value) updatePosition();
 }
 
 onMounted(() => {
+  if (!isBrowser) return;
+  checkMobile();
   document.addEventListener("mousedown", onClickOutside);
   window.addEventListener("scroll", onScrollOrResize, true);
   window.addEventListener("resize", onScrollOrResize);
 });
 
 onUnmounted(() => {
+  if (!isBrowser) return;
   document.removeEventListener("mousedown", onClickOutside);
   window.removeEventListener("scroll", onScrollOrResize, true);
   window.removeEventListener("resize", onScrollOrResize);
+  document.body.style.overflow = "";
 });
 </script>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@bturkis/datepicker — Live Demo</title>
+    <title>@bturkis/datepicker — Demo</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -119,6 +119,7 @@
         font-size: 0.75rem;
         color: #a78bfa;
         margin-bottom: 32px;
+        flex-wrap: wrap;
       }
 
       .section {
@@ -165,6 +166,38 @@
       .value:empty::before {
         content: "—";
         color: #475569;
+      }
+
+      .lang-select {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .lang-btn {
+        padding: 4px 10px;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        font-family: inherit;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .lang-btn:hover {
+        background: rgba(139, 92, 246, 0.1);
+        border-color: rgba(139, 92, 246, 0.2);
+        color: #a78bfa;
+      }
+
+      .lang-btn--active {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        color: white;
+        border-color: transparent;
       }
 
       .tokens-table {
@@ -258,10 +291,10 @@
 
       <div class="badge">
         📦 Zero Dependencies &nbsp;·&nbsp; 🎨 CSS Variables &nbsp;·&nbsp; 📱
-        Responsive &nbsp;·&nbsp; 🔤 Custom Formats
+        Mobile Bottom Sheet &nbsp;·&nbsp; 🌍 15 Languages &nbsp;·&nbsp; ⏰ TimePicker
       </div>
 
-      <!-- 1. Single Date (Default) -->
+      <!-- 1. Single Date -->
       <div class="section">
         <h2>📅 Single Date — Default</h2>
         <date-picker
@@ -272,7 +305,85 @@
         <div class="value">{{ singleDate }}</div>
       </div>
 
-      <!-- 2. European Format -->
+      <!-- 2. Time Only (24h) -->
+      <div class="section">
+        <h2>⏰ Time Only — 24h</h2>
+        <span class="format-hint">type="time"</span>
+        <date-picker
+          v-model="timeOnly"
+          label="Başlangıç Saati"
+          type="time"
+        ></date-picker>
+        <div class="value">{{ timeOnly }}</div>
+      </div>
+
+      <!-- 3. Time Only (12h AM/PM) -->
+      <div class="section">
+        <h2>🕐 Time Only — 12h AM/PM</h2>
+        <span class="format-hint">type="time" hour-format="12"</span>
+        <date-picker
+          v-model="timeAmPm"
+          label="Meeting Time"
+          type="time"
+          hour-format="12"
+          lang="en"
+        ></date-picker>
+        <div class="value">{{ timeAmPm }}</div>
+      </div>
+
+      <!-- 4. DateTime -->
+      <div class="section">
+        <h2>📅⏰ DateTime — Date + Time</h2>
+        <span class="format-hint">type="datetime-local" · DD/MM/YYYY HH:mm</span>
+        <date-picker
+          v-model="dateTime"
+          label="Etkinlik Zamanı"
+          type="datetime-local"
+          display-format="DD/MM/YYYY HH:mm"
+        ></date-picker>
+        <div class="value">{{ dateTime }}</div>
+      </div>
+
+      <!-- 5. DateTime 12h -->
+      <div class="section">
+        <h2>🕐📅 DateTime — 12h AM/PM</h2>
+        <span class="format-hint">type="datetime-local" hour-format="12" minute-step="15"</span>
+        <date-picker
+          v-model="dateTimeAmPm"
+          label="Appointment"
+          type="datetime-local"
+          hour-format="12"
+          :minute-step="15"
+          lang="en"
+          display-format="MMMM DD, YYYY"
+        ></date-picker>
+        <div class="value">{{ dateTimeAmPm }}</div>
+      </div>
+
+      <!-- 6. Language Switcher -->
+      <div class="section">
+        <h2>🌍 Multi-Language — 15 Languages</h2>
+        <div class="lang-select">
+          <button
+            v-for="l in languages"
+            :key="l.code"
+            class="lang-btn"
+            :class="{ 'lang-btn--active': selectedLang === l.code }"
+            @click="selectedLang = l.code"
+          >
+            {{ l.flag }} {{ l.name }}
+          </button>
+        </div>
+        <date-picker
+          v-model="langDate"
+          label="Date"
+          :lang="selectedLang"
+          display-format="DD MMMM YYYY"
+        ></date-picker>
+        <div class="value">{{ langDate }}</div>
+      </div>
+
+      <!-- 7. Custom Format -->
       <div class="section">
         <h2>🇪🇺 Custom Format</h2>
         <span class="format-hint">DD/MM/YYYY</span>
@@ -285,34 +396,7 @@
         <div class="value">{{ euroDate }}</div>
       </div>
 
-      <!-- 3. Full Month Name -->
-      <div class="section">
-        <h2>🗓️ Full Month Name</h2>
-        <span class="format-hint">DD MMMM YYYY</span>
-        <date-picker
-          v-model="fullMonthDate"
-          label="Uzun Ay İsmi"
-          display-format="DD MMMM YYYY"
-          hint='displayFormat="DD MMMM YYYY"'
-        ></date-picker>
-        <div class="value">{{ fullMonthDate }}</div>
-      </div>
-
-      <!-- 4. US Format + English -->
-      <div class="section">
-        <h2>🇺🇸 US Format + English Locale</h2>
-        <span class="format-hint">MMMM DD, YYYY · locale="en-US"</span>
-        <date-picker
-          v-model="usDate"
-          label="US Date"
-          display-format="MMMM DD, YYYY"
-          locale="en-US"
-          hint='locale="en-US"'
-        ></date-picker>
-        <div class="value">{{ usDate }}</div>
-      </div>
-
-      <!-- 5. Date Range -->
+      <!-- 8. Date Range -->
       <div class="section">
         <h2>📆 Date Range</h2>
         <span class="format-hint">DD.MM.YYYY · range</span>
@@ -326,33 +410,7 @@
         <div class="value">{{ rangeDate }}</div>
       </div>
 
-      <!-- 6. DateTime -->
-      <div class="section">
-        <h2>🕐 DateTime</h2>
-        <span class="format-hint">DD/MM/YYYY HH:mm</span>
-        <date-picker
-          v-model="dateTime"
-          label="Etkinlik Zamanı"
-          type="datetime-local"
-          display-format="DD/MM/YYYY HH:mm"
-        ></date-picker>
-        <div class="value">{{ dateTime }}</div>
-      </div>
-
-      <!-- 7. Time Only -->
-      <div class="section">
-        <h2>⏰ Time Only</h2>
-        <span class="format-hint">HH:mm</span>
-        <date-picker
-          v-model="timeOnly"
-          label="Başlangıç Saati"
-          type="time"
-          display-format="HH:mm"
-        ></date-picker>
-        <div class="value">{{ timeOnly }}</div>
-      </div>
-
-      <!-- 8. Min/Max -->
+      <!-- 9. Min/Max -->
       <div class="section">
         <h2>🔒 Min/Max Constraints</h2>
         <date-picker
@@ -402,15 +460,12 @@
         Built with ❤️ by
         <a href="https://github.com/bturkis" target="_blank">bturkis</a>
         &nbsp;·&nbsp;
-        <a href="https://github.com/bturkis/datepicker" target="_blank"
-          >GitHub</a
-        >
+        <a href="https://github.com/bturkis/datepicker" target="_blank">GitHub</a>
         &nbsp;·&nbsp;
         <a
           href="https://www.npmjs.com/package/@bturkis/datepicker"
           target="_blank"
-          >npm</a
-        >
+          >npm</a>
       </div>
     </div>
 
@@ -435,15 +490,36 @@
             }
           });
 
+          const languages = [
+            { code: "tr", flag: "🇹🇷", name: "TR" },
+            { code: "en", flag: "🇺🇸", name: "EN" },
+            { code: "de", flag: "🇩🇪", name: "DE" },
+            { code: "fr", flag: "🇫🇷", name: "FR" },
+            { code: "es", flag: "🇪🇸", name: "ES" },
+            { code: "it", flag: "🇮🇹", name: "IT" },
+            { code: "pt", flag: "🇧🇷", name: "PT" },
+            { code: "ru", flag: "🇷🇺", name: "RU" },
+            { code: "ar", flag: "🇸🇦", name: "AR" },
+            { code: "ja", flag: "🇯🇵", name: "JA" },
+            { code: "zh", flag: "🇨🇳", name: "ZH" },
+            { code: "ko", flag: "🇰🇷", name: "KO" },
+            { code: "nl", flag: "🇳🇱", name: "NL" },
+            { code: "pl", flag: "🇵🇱", name: "PL" },
+            { code: "uk", flag: "🇺🇦", name: "UK" },
+          ];
+
           return {
             version,
+            languages,
+            selectedLang: ref("tr"),
             singleDate: ref(""),
-            euroDate: ref(""),
-            fullMonthDate: ref(""),
-            usDate: ref(""),
-            rangeDate: ref(""),
-            dateTime: ref(""),
             timeOnly: ref(""),
+            timeAmPm: ref(""),
+            dateTime: ref(""),
+            dateTimeAmPm: ref(""),
+            langDate: ref(""),
+            euroDate: ref(""),
+            rangeDate: ref(""),
             constrainedDate: ref(""),
           };
         },

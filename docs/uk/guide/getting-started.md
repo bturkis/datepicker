@@ -1,0 +1,38 @@
+---
+outline: deep
+---
+
+# Початок роботи
+
+## Встановлення
+
+```bash
+npm install @bturkis/datepicker
+```
+
+### Vue 3
+
+```ts
+import { createApp } from "vue";
+import StitchDatePicker from "@bturkis/datepicker";
+import "@bturkis/datepicker/style.css";
+const app = createApp(App);
+app.use(StitchDatePicker);
+app.mount("#app");
+```
+
+### Nuxt 3 / Nuxt 4
+
+```ts
+export default defineNuxtConfig({
+  modules: ["@bturkis/datepicker/nuxt"],
+});
+```
+
+Модуль автоматично: інжектує CSS, реєструє компоненти в режимі **client-only**.
+
+## Тема
+
+```html
+<html data-theme="light"></html>
+```

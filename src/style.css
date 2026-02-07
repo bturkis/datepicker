@@ -1,7 +1,67 @@
 /* ===================================================================
    Stitch Vue DatePicker — Premium Glassmorphism Calendar
-   Import this CSS: import 'stitch-vue-datepicker/style.css'
+   Import this CSS: import '@bturkis/datepicker/style.css'
    =================================================================== */
+
+/* ── Theme Variables ───────────────────────────────────────────────── */
+
+/* Dark theme (default) */
+:root,
+[data-theme="dark"],
+.dark {
+  --sdp-primary: #8b5cf6;
+  --sdp-primary-light: #a78bfa;
+  --sdp-secondary: #ec4899;
+  --sdp-error: #ef4444;
+  --sdp-text: #f8fafc;
+  --sdp-text-secondary: #94a3b8;
+  --sdp-text-muted: #64748b;
+  --sdp-bg: #1e1e2e;
+  --sdp-popup-bg: #16161f;
+  --sdp-border: #2a2a3d;
+  --sdp-border-hover: #3d3d55;
+  --sdp-hover-bg: rgba(139, 92, 246, 0.1);
+  --sdp-hover-border: rgba(139, 92, 246, 0.2);
+  --sdp-focus-shadow: rgba(139, 92, 246, 0.15);
+  --sdp-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --sdp-radius-sm: 0.375rem;
+  --sdp-radius-md: 0.5rem;
+  --sdp-radius-lg: 0.75rem;
+  --sdp-radius-xl: 1rem;
+}
+
+/* Light theme */
+[data-theme="light"],
+.light {
+  --sdp-text: #1e293b;
+  --sdp-text-secondary: #475569;
+  --sdp-text-muted: #94a3b8;
+  --sdp-bg: #ffffff;
+  --sdp-popup-bg: #f8fafc;
+  --sdp-border: #e2e8f0;
+  --sdp-border-hover: #cbd5e1;
+  --sdp-hover-bg: rgba(139, 92, 246, 0.06);
+  --sdp-hover-border: rgba(139, 92, 246, 0.15);
+  --sdp-focus-shadow: rgba(139, 92, 246, 0.12);
+  --sdp-shadow: 0 16px 48px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* System preference auto-detection */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]):not(.dark) {
+    --sdp-text: #1e293b;
+    --sdp-text-secondary: #475569;
+    --sdp-text-muted: #94a3b8;
+    --sdp-bg: #ffffff;
+    --sdp-popup-bg: #f8fafc;
+    --sdp-border: #e2e8f0;
+    --sdp-border-hover: #cbd5e1;
+    --sdp-hover-bg: rgba(139, 92, 246, 0.06);
+    --sdp-hover-border: rgba(139, 92, 246, 0.15);
+    --sdp-focus-shadow: rgba(139, 92, 246, 0.12);
+    --sdp-shadow: 0 16px 48px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+}
 
 /* ── Trigger ────────────────────────────────────────────────────── */
 .stitch-datepicker {
@@ -16,7 +76,7 @@
   gap: 6px;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--sdp-text-secondary, #94a3b8);
+  color: var(--sdp-text-secondary);
 }
 
 .stitch-datepicker__trigger {
@@ -27,10 +87,10 @@
   padding: 10px 14px;
   font-size: 0.9375rem;
   font-family: inherit;
-  color: var(--sdp-text, #f8fafc);
-  background: var(--sdp-bg, #1e1e2e);
-  border: 1px solid var(--sdp-border, #2a2a3d);
-  border-radius: var(--sdp-radius-lg, 0.75rem);
+  color: var(--sdp-text);
+  background: var(--sdp-bg);
+  border: 1px solid var(--sdp-border);
+  border-radius: var(--sdp-radius-lg);
   transition: all 150ms ease;
   outline: none;
   cursor: pointer;
@@ -38,12 +98,12 @@
 }
 
 .stitch-datepicker__trigger:hover:not(:disabled) {
-  border-color: var(--sdp-border-hover, #3d3d55);
+  border-color: var(--sdp-border-hover);
 }
 
 .stitch-datepicker__trigger:focus {
-  border-color: var(--sdp-primary, #8b5cf6);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+  border-color: var(--sdp-primary);
+  box-shadow: 0 0 0 3px var(--sdp-focus-shadow);
 }
 
 .stitch-datepicker__trigger:disabled {
@@ -52,12 +112,12 @@
 }
 
 .stitch-datepicker--open .stitch-datepicker__trigger {
-  border-color: var(--sdp-primary, #8b5cf6);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+  border-color: var(--sdp-primary);
+  box-shadow: 0 0 0 3px var(--sdp-focus-shadow);
 }
 
 .stitch-datepicker__icon {
-  color: var(--sdp-primary-light, #a78bfa);
+  color: var(--sdp-primary-light);
   flex-shrink: 0;
 }
 
@@ -66,47 +126,52 @@
 }
 
 .stitch-datepicker__value--empty {
-  color: var(--sdp-text-muted, #64748b);
+  color: var(--sdp-text-muted);
 }
 
 .stitch-datepicker__chevron {
-  color: var(--sdp-text-muted, #64748b);
+  color: var(--sdp-text-muted);
   transition: transform 150ms ease;
   flex-shrink: 0;
 }
 
 .stitch-datepicker--open .stitch-datepicker__chevron {
   transform: rotate(180deg);
-  color: var(--sdp-primary, #8b5cf6);
+  color: var(--sdp-primary);
 }
 
 .stitch-datepicker--error .stitch-datepicker__trigger {
-  border-color: var(--sdp-error, #ef4444);
+  border-color: var(--sdp-error);
 }
 
 .stitch-datepicker__error {
   font-size: 0.75rem;
-  color: var(--sdp-error, #ef4444);
+  color: var(--sdp-error);
   margin: 0;
 }
 
 .stitch-datepicker__hint {
   font-size: 0.75rem;
-  color: var(--sdp-text-muted, #64748b);
+  color: var(--sdp-text-muted);
   margin: 0;
 }
 
 /* ── Popup ──────────────────────────────────────────────────────── */
 .stitch-datepicker__popup {
-  background: var(--sdp-popup-bg, #16161f);
-  border: 1px solid var(--sdp-border-hover, #3d3d55);
-  border-radius: var(--sdp-radius-xl, 1rem);
-  box-shadow:
-    0 16px 48px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-  padding: 10px;
+  background: var(--sdp-popup-bg);
+  border: 1px solid var(--sdp-border-hover);
+  border-radius: var(--sdp-radius-xl);
+  box-shadow: var(--sdp-shadow);
   user-select: none;
   max-width: 320px;
+}
+
+.sdp-popup-content {
+  padding: 10px;
+}
+
+.stitch-datepicker__popup--time-only {
+  max-width: 220px;
 }
 
 /* ── Header ─────────────────────────────────────────────────────── */
@@ -125,32 +190,32 @@
   height: 32px;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--sdp-radius-md, 0.5rem);
-  color: var(--sdp-text-secondary, #94a3b8);
+  border-radius: var(--sdp-radius-md);
+  color: var(--sdp-text-secondary);
   cursor: pointer;
   transition: all 150ms;
 }
 .sdp-nav-btn:hover {
-  background: rgba(139, 92, 246, 0.1);
-  color: var(--sdp-primary-light, #a78bfa);
-  border-color: rgba(139, 92, 246, 0.2);
+  background: var(--sdp-hover-bg);
+  color: var(--sdp-primary-light);
+  border-color: var(--sdp-hover-border);
 }
 
 .sdp-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--sdp-text, #f8fafc);
+  color: var(--sdp-text);
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--sdp-radius-md, 0.5rem);
+  border-radius: var(--sdp-radius-md);
   padding: 4px 12px;
   cursor: pointer;
   transition: all 150ms;
   font-family: inherit;
 }
 .sdp-title:hover {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.2);
+  background: var(--sdp-hover-bg);
+  border-color: var(--sdp-hover-border);
 }
 
 /* ── Weekdays ───────────────────────────────────────────────────── */
@@ -166,7 +231,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--sdp-text-muted, #64748b);
+  color: var(--sdp-text-muted);
   padding: 3px 0;
 }
 
@@ -185,27 +250,27 @@
   aspect-ratio: 1;
   font-size: 0.75rem;
   font-family: inherit;
-  color: var(--sdp-text, #f8fafc);
+  color: var(--sdp-text);
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--sdp-radius-md, 0.5rem);
+  border-radius: var(--sdp-radius-md);
   cursor: pointer;
   transition: all 120ms;
   position: relative;
 }
 
 .sdp-day:hover:not(:disabled) {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.2);
+  background: var(--sdp-hover-bg);
+  border-color: var(--sdp-hover-border);
 }
 
 .sdp-day--other {
-  color: var(--sdp-text-muted, #64748b);
+  color: var(--sdp-text-muted);
   opacity: 0.35;
 }
 
 .sdp-day--today {
-  color: var(--sdp-primary, #8b5cf6);
+  color: var(--sdp-primary);
   font-weight: 700;
   border-color: rgba(139, 92, 246, 0.3);
 }
@@ -213,8 +278,8 @@
 .sdp-day--selected {
   background: linear-gradient(
     135deg,
-    var(--sdp-primary, #8b5cf6),
-    var(--sdp-secondary, #ec4899)
+    var(--sdp-primary),
+    var(--sdp-secondary)
   ) !important;
   color: white !important;
   font-weight: 600;
@@ -232,19 +297,19 @@
   background: rgba(139, 92, 246, 0.12) !important;
   border-color: transparent !important;
   border-radius: 0 !important;
-  color: var(--sdp-primary-light, #a78bfa);
+  color: var(--sdp-primary-light);
 }
 
 .sdp-day--range-start {
-  border-radius: var(--sdp-radius-md, 0.5rem) 0 0 var(--sdp-radius-md, 0.5rem) !important;
+  border-radius: var(--sdp-radius-md) 0 0 var(--sdp-radius-md) !important;
 }
 
 .sdp-day--range-end {
-  border-radius: 0 var(--sdp-radius-md, 0.5rem) var(--sdp-radius-md, 0.5rem) 0 !important;
+  border-radius: 0 var(--sdp-radius-md) var(--sdp-radius-md) 0 !important;
 }
 
 .sdp-day--range-start.sdp-day--range-end {
-  border-radius: var(--sdp-radius-md, 0.5rem) !important;
+  border-radius: var(--sdp-radius-md) !important;
 }
 
 /* ── Year Picker ────────────────────────────────────────────────── */
@@ -256,27 +321,27 @@
   overflow-y: auto;
   padding: 2px 0;
   scrollbar-width: thin;
-  scrollbar-color: var(--sdp-border, #2a2a3d) transparent;
+  scrollbar-color: var(--sdp-border) transparent;
 }
 
 .sdp-year-btn {
   padding: 6px;
   font-size: 0.8125rem;
   font-family: inherit;
-  color: var(--sdp-text-secondary, #94a3b8);
+  color: var(--sdp-text-secondary);
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--sdp-radius-md, 0.5rem);
+  border-radius: var(--sdp-radius-md);
   cursor: pointer;
   transition: all 120ms;
 }
 .sdp-year-btn:hover {
-  background: rgba(139, 92, 246, 0.1);
-  color: var(--sdp-text, #f8fafc);
-  border-color: rgba(139, 92, 246, 0.2);
+  background: var(--sdp-hover-bg);
+  color: var(--sdp-text);
+  border-color: var(--sdp-hover-border);
 }
 .sdp-year-btn--active {
-  background: var(--sdp-primary, #8b5cf6) !important;
+  background: var(--sdp-primary) !important;
   color: white !important;
   font-weight: 600;
 }
@@ -285,14 +350,19 @@
 .sdp-time {
   margin-top: 6px;
   padding-top: 8px;
-  border-top: 1px solid var(--sdp-border, #2a2a3d);
+  border-top: 1px solid var(--sdp-border);
+}
+.sdp-time--standalone {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 .sdp-time-label {
   font-size: 0.625rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--sdp-text-muted, #64748b);
+  color: var(--sdp-text-muted);
   text-align: center;
   margin-bottom: 4px;
 }
@@ -315,21 +385,21 @@
   width: 28px;
   height: 24px;
   background: transparent;
-  border: 1px solid var(--sdp-border, #2a2a3d);
-  border-radius: var(--sdp-radius-sm, 0.375rem);
-  color: var(--sdp-text-secondary, #94a3b8);
+  border: 1px solid var(--sdp-border);
+  border-radius: var(--sdp-radius-sm);
+  color: var(--sdp-text-secondary);
   cursor: pointer;
   transition: all 120ms;
 }
 .sdp-time-btn:hover {
-  background: rgba(139, 92, 246, 0.1);
-  color: var(--sdp-primary-light, #a78bfa);
+  background: var(--sdp-hover-bg);
+  color: var(--sdp-primary-light);
   border-color: rgba(139, 92, 246, 0.3);
 }
 .sdp-time-value {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--sdp-text, #f8fafc);
+  color: var(--sdp-text);
   width: 36px;
   text-align: center;
   padding: 2px 0;
@@ -337,8 +407,65 @@
 .sdp-time-sep {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--sdp-text-muted, #64748b);
+  color: var(--sdp-text-muted);
   padding-bottom: 2px;
+}
+
+/* ── AM/PM Toggle ──────────────────────────────────────────────── */
+.sdp-time-ampm {
+  gap: 2px;
+  margin-left: 6px;
+}
+.sdp-ampm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 26px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid var(--sdp-border);
+  border-radius: var(--sdp-radius-sm);
+  color: var(--sdp-text-muted);
+  cursor: pointer;
+  transition: all 120ms;
+}
+.sdp-ampm-btn:hover {
+  background: var(--sdp-hover-bg);
+  border-color: var(--sdp-hover-border);
+}
+.sdp-ampm-btn--active {
+  background: linear-gradient(
+    135deg,
+    var(--sdp-primary),
+    var(--sdp-secondary)
+  );
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+/* ── Time Footer ───────────────────────────────────────────────── */
+.sdp-time-footer {
+  margin-top: 8px;
+  text-align: center;
+}
+.sdp-now-btn {
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: inherit;
+  background: var(--sdp-hover-bg);
+  color: var(--sdp-primary-light);
+  border: none;
+  border-radius: var(--sdp-radius-md);
+  cursor: pointer;
+  transition: all 150ms;
+}
+.sdp-now-btn:hover {
+  background: var(--sdp-hover-border);
 }
 
 /* ── Footer ─────────────────────────────────────────────────────── */
@@ -347,7 +474,7 @@
   gap: 4px;
   margin-top: 6px;
   padding-top: 6px;
-  border-top: 1px solid var(--sdp-border, #2a2a3d);
+  border-top: 1px solid var(--sdp-border);
 }
 .sdp-today-btn,
 .sdp-clear-btn {
@@ -356,21 +483,21 @@
   font-size: 0.75rem;
   font-weight: 500;
   font-family: inherit;
-  border-radius: var(--sdp-radius-md, 0.5rem);
+  border-radius: var(--sdp-radius-md);
   cursor: pointer;
   transition: all 150ms;
   border: none;
 }
 .sdp-today-btn {
-  background: rgba(139, 92, 246, 0.12);
-  color: var(--sdp-primary-light, #a78bfa);
+  background: var(--sdp-hover-bg);
+  color: var(--sdp-primary-light);
 }
 .sdp-today-btn:hover {
-  background: rgba(139, 92, 246, 0.2);
+  background: var(--sdp-hover-border);
 }
 .sdp-clear-btn {
   background: rgba(239, 68, 68, 0.1);
-  color: var(--sdp-error, #ef4444);
+  color: var(--sdp-error);
 }
 .sdp-clear-btn:hover {
   background: rgba(239, 68, 68, 0.18);
@@ -389,44 +516,123 @@
   transform: translateY(-8px) scale(0.96);
 }
 
+/* ── Mobile Bottom Sheet ───────────────────────────────────────── */
+.sdp-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.sdp-drag-handle {
+  display: none;
+}
+
+.sdp-drag-bar {
+  width: 36px;
+  height: 4px;
+  background: var(--sdp-border-hover);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .stitch-datepicker__popup {
-    padding: 8px;
-  }
   .sdp-day {
     font-size: 0.8125rem;
+  }
+  .sdp-time-btn {
+    width: 36px;
+    height: 32px;
+  }
+  .sdp-time-value {
+    font-size: 1.25rem;
+    width: 44px;
   }
 }
 
 @media (max-width: 640px) {
-  .stitch-datepicker__popup {
-    left: 8px !important;
-    right: 8px !important;
-    width: auto !important;
-    max-width: 100%;
-    padding: 10px;
+  .stitch-datepicker__popup--mobile {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 1.25rem 1.25rem 0 0;
+    box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.6);
+    padding-bottom: env(safe-area-inset-bottom, 8px);
   }
-  .sdp-day {
-    font-size: 0.875rem;
+
+  .stitch-datepicker__popup--mobile .sdp-popup-content {
+    padding: 12px 16px 16px;
   }
-  .sdp-nav-btn {
-    width: 40px;
+
+  .stitch-datepicker__popup--mobile .sdp-drag-handle {
+    display: flex;
+    padding: 10px 0 4px;
+  }
+
+  .stitch-datepicker__popup--mobile .sdp-day {
+    font-size: 0.9375rem;
+    min-height: 44px;
+  }
+
+  .stitch-datepicker__popup--mobile .sdp-nav-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .stitch-datepicker__popup--mobile .sdp-title {
+    font-size: 1rem;
+  }
+
+  .stitch-datepicker__popup--mobile .sdp-time-btn {
+    width: 44px;
     height: 40px;
   }
-  .sdp-title {
-    font-size: 0.9375rem;
+
+  .stitch-datepicker__popup--mobile .sdp-time-value {
+    font-size: 1.5rem;
+    width: 50px;
+    padding: 4px 0;
+  }
+
+  .stitch-datepicker__popup--mobile .sdp-ampm-btn {
+    width: 44px;
+    height: 34px;
+    font-size: 0.75rem;
+  }
+
+  .stitch-datepicker__popup--mobile .sdp-today-btn,
+  .stitch-datepicker__popup--mobile .sdp-clear-btn {
+    padding: 10px 12px;
+    font-size: 0.875rem;
+    min-height: 44px;
+  }
+
+  /* Mobile bottom sheet transition override */
+  .stitch-datepicker__popup--mobile.stitch-calendar-pop-enter-from,
+  .stitch-datepicker__popup--mobile.stitch-calendar-pop-leave-to {
+    transform: translateY(100%);
+    opacity: 1;
+  }
+  .stitch-datepicker__popup--mobile.stitch-calendar-pop-enter-active {
+    transition: transform 300ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .stitch-datepicker__popup--mobile.stitch-calendar-pop-leave-active {
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
 @media (max-width: 400px) {
-  .stitch-datepicker__popup {
-    left: 4px !important;
-    right: 4px !important;
-    border-radius: var(--sdp-radius-lg, 0.75rem);
-    padding: 8px;
+  .stitch-datepicker__popup--mobile .sdp-popup-content {
+    padding: 8px 12px 12px;
   }
-  .sdp-day {
+  .stitch-datepicker__popup--mobile .sdp-day {
     font-size: 0.875rem;
   }
 }
