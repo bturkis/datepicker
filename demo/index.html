@@ -10,7 +10,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://unpkg.com/@bturkis/datepicker@1.1.0/dist/stitch-vue-datepicker.css"
+      href="https://unpkg.com/@bturkis/datepicker@latest/dist/stitch-vue-datepicker.css"
     />
     <style>
       *,
@@ -37,6 +37,56 @@
       .container {
         max-width: 600px;
         margin: 0 auto;
+      }
+
+      .header-bar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-bottom: 24px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .header-bar a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .header-bar a:hover {
+        background: rgba(139, 92, 246, 0.12);
+        border-color: rgba(139, 92, 246, 0.3);
+        color: #c4b5fd;
+        transform: translateY(-1px);
+      }
+
+      .header-bar a svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+
+      .header-bar .version-badge {
+        padding: 4px 10px;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 20px;
+        color: #a78bfa;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        font-family: "SF Mono", "Fira Code", monospace;
+        margin-right: auto;
       }
 
       h1 {
@@ -190,6 +240,19 @@
   </head>
   <body>
     <div class="container" id="app">
+      <!-- Header Navigation -->
+      <nav class="header-bar">
+        <span class="version-badge">v{{ version }}</span>
+        <a href="https://github.com/bturkis/datepicker" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.npmjs.com/package/@bturkis/datepicker" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16"><path d="M0 0v16h16V0H0zm13 13H8V5h-2v8H3V3h10v10z"/></svg>
+          npm
+        </a>
+      </nav>
+
       <h1><span class="gradient">Stitch</span> Vue DatePicker</h1>
       <p class="subtitle">Premium glassmorphism calendar for Vue 3</p>
 
@@ -352,13 +415,28 @@
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script src="https://unpkg.com/@bturkis/datepicker@1.1.0/dist/stitch-vue-datepicker.umd.cjs"></script>
+    <script src="https://unpkg.com/@bturkis/datepicker@latest/dist/stitch-vue-datepicker.umd.cjs"></script>
     <script>
-      const { createApp, ref } = Vue;
+      const { createApp, ref, onMounted } = Vue;
 
       const app = createApp({
         setup() {
+          const version = ref("…");
+
+          onMounted(async () => {
+            try {
+              const res = await fetch(
+                "https://registry.npmjs.org/@bturkis/datepicker/latest"
+              );
+              const data = await res.json();
+              version.value = data.version;
+            } catch {
+              version.value = "?";
+            }
+          });
+
           return {
+            version,
             singleDate: ref(""),
             euroDate: ref(""),
             fullMonthDate: ref(""),

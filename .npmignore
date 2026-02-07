@@ -1,0 +1,8 @@
+# Development files
+demo/
+docs/
+index.html
+.github/
+.gitignore
+*.local
+.DS_Store
