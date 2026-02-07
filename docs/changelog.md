@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.2] -- 2026-02-07
+
+### 🐛 Bug Fixes
+
+- **Nuxt Module Fix** -- CSS path now correctly resolves from `dist/bt-datepicker.css` instead of `src/style.css`
+- **npm Package** -- Full `src/` directory included in published package for Nuxt component compilation
+
+---
+
 ## [1.3.1] -- 2026-02-07
 
 ### ✨ New Features
