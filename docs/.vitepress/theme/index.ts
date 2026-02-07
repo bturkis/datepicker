@@ -7,6 +7,6 @@ import "./custom.css";
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
-    app.component("StitchDatePicker", DatePicker);
+    app.component("BtDatePicker", DatePicker);
   },
 } satisfies Theme;

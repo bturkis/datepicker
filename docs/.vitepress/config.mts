@@ -8,13 +8,59 @@ const shared = {
       "link",
       { rel: "icon", type: "image/svg+xml", href: "/datepicker/favicon.svg" },
     ],
+    // Umami Analytics — privacy-friendly, GDPR compliant
     [
       "script",
       {
         defer: "",
         src: "https://umami.neisterse.com/script.js",
         "data-website-id": "f08f01d5-0f1d-40b7-a8d0-9efcc0fadfd8",
+        "data-domains": "bturkis.github.io",
+        "data-tag": "datepicker-docs",
+        "data-do-not-track": "true",
       },
+    ],
+    // Umami: Auto-track outbound links, code copy, language switches
+    [
+      "script",
+      {},
+      `document.addEventListener('DOMContentLoaded', function() {
+  // Track outbound link clicks
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a || a.host === window.location.host) return;
+    if (typeof umami !== 'undefined') {
+      umami.track('outbound-link', { url: a.href, text: a.textContent.trim().slice(0, 100) });
+    }
+  });
+
+  // Track code copy button clicks
+  var observer = new MutationObserver(function() {
+    document.querySelectorAll('.vp-copy').forEach(function(btn) {
+      if (btn.dataset.umamiTracked) return;
+      btn.dataset.umamiTracked = 'true';
+      btn.addEventListener('click', function() {
+        if (typeof umami !== 'undefined') {
+          var code = btn.closest('.vp-code-group, div[class*="language-"]');
+          var lang = code ? (code.querySelector('.lang') || {}).textContent || 'unknown' : 'unknown';
+          umami.track('code-copy', { language: lang, page: window.location.pathname });
+        }
+      });
+    });
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Track language switches via nav
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('.VPNavBarMenu a, .VPSidebar a');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    var langMatch = href.match(/^\\/datepicker\\/(tr|en|de|fr|es|it|pt|nl|ru|ar|ja|ko|zh|pl|uk)\\//);
+    if (langMatch && typeof umami !== 'undefined') {
+      umami.track('language-switch', { lang: langMatch[1], page: href });
+    }
+  });
+});`,
     ],
   ] as any,
   themeConfig: {
