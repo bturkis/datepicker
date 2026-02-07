@@ -40,6 +40,7 @@ const markedDate = ref('')
 const marks = [
   { date: '2026-02-07', color: '#8b5cf6', tooltip: 'Bugün' },
   { date: '2026-02-14', color: '#ec4899', tooltip: 'Sevgililer Günü ❤️' },
+  { date: '2026-02-14', color: '#f59e0b', tooltip: 'Hediye al 🎁' },
   { date: '2026-02-23', color: '#10b981', tooltip: 'Toplantı' },
   { date: '2026-02-28', tooltip: 'Son gün' },
 ]

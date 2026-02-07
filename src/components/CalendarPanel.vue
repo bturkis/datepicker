@@ -50,17 +50,16 @@
           @mouseenter="$emit('day-hover', day)"
         >
           {{ day.date }}
-          <span
-            v-if="getDayMark(day)"
-            class="bt-day__mark"
-            :style="
-              getDayMark(day)?.color
-                ? { background: getDayMark(day)!.color }
-                : {}
-            "
-          />
-          <span v-if="getDayMark(day)?.tooltip" class="bt-day__tooltip">
-            {{ getDayMark(day)!.tooltip }}
+          <span v-if="getDayMarks(day).length" class="bt-day__marks">
+            <span
+              v-for="(mark, mi) in getDayMarks(day)"
+              :key="mi"
+              class="bt-day__mark"
+              :style="mark.color ? { background: mark.color } : {}"
+            />
+          </span>
+          <span v-if="getDayTooltip(day)" class="bt-day__tooltip">
+            {{ getDayTooltip(day) }}
           </span>
         </button>
       </div>
@@ -131,19 +130,30 @@ const {
   disabledDates: disabledDatesRef,
 });
 
-// Build a lookup map from markedDates for O(1) access
+// Build a lookup map from markedDates for O(1) access — supports multiple marks per day
 const markedMap = computed(() => {
-  const map = new Map<string, MarkedDate>();
+  const map = new Map<string, MarkedDate[]>();
   if (props.markedDates) {
     for (const m of props.markedDates) {
-      map.set(m.date, m);
+      const existing = map.get(m.date);
+      if (existing) {
+        existing.push(m);
+      } else {
+        map.set(m.date, [m]);
+      }
     }
   }
   return map;
 });
 
-function getDayMark(day: CalendarDay): MarkedDate | undefined {
-  return markedMap.value.get(day.key);
+function getDayMarks(day: CalendarDay): MarkedDate[] {
+  return markedMap.value.get(day.key) || [];
+}
+
+function getDayTooltip(day: CalendarDay): string {
+  const marks = getDayMarks(day);
+  const tooltips = marks.map((m) => m.tooltip).filter(Boolean);
+  return tooltips.join("\n");
 }
 
 // Intl-based locale data
