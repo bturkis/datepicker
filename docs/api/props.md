@@ -34,6 +34,25 @@
 | `update:rangeStart` | `string` | Emitted when range start date is selected |
 | `update:rangeEnd`   | `string` | Emitted when range end date is selected   |
 
+## Slots
+
+| Slot           | Scoped Props                                | Description                             |
+| -------------- | ------------------------------------------- | --------------------------------------- |
+| `mark-tooltip` | `{ marks: MarkedDate[], day: CalendarDay }` | Custom tooltip content for marked dates |
+
+### mark-tooltip Slot Example
+
+```vue
+<DatePicker v-model="date" :marked-dates="marks">
+  <template #mark-tooltip="{ marks, day }">
+    <strong>{{ day.date }} {{ day.monthName }}</strong>
+    <div v-for="m in marks" :key="m.tooltip">
+      <span :style="{ color: m.color }">●</span> {{ m.tooltip }}
+    </div>
+  </template>
+</DatePicker>
+```
+
 ## Format Tokens
 
 Use these tokens in the `displayFormat` prop:
@@ -125,6 +144,18 @@ The light theme activates automatically via `@media (prefers-color-scheme: light
 | CSS class       | `<html class="light">` or `<html class="dark">`           |
 | Custom override | Override `--bt-*` variables in any parent element         |
 
+### Tooltip Variables
+
+These variables let you customize the appearance of marked-date tooltips:
+
+| Variable                 | Default               | Description           |
+| ------------------------ | --------------------- | --------------------- |
+| `--bt-tooltip-bg`        | `var(--bt-popup-bg)`  | Tooltip background    |
+| `--bt-tooltip-color`     | `var(--bt-text)`      | Tooltip text color    |
+| `--bt-tooltip-font-size` | `0.75rem`             | Tooltip font size     |
+| `--bt-tooltip-padding`   | `6px 10px`            | Tooltip padding       |
+| `--bt-tooltip-radius`    | `var(--bt-radius-sm)` | Tooltip border radius |
+
 ## Exported Utilities
 
 ```ts
@@ -145,6 +176,7 @@ import {
 
 import type {
   CalendarDay,
+  MarkedDate,
   UseTimePickerOptions,
   BtLocale,
 } from "@bturkis/datepicker";

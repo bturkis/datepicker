@@ -58,8 +58,16 @@
               :style="mark.color ? { background: mark.color } : {}"
             />
           </span>
-          <span v-if="getDayTooltip(day)" class="bt-day__tooltip">
-            {{ getDayTooltip(day) }}
+          <span
+            v-if="
+              getDayMarks(day).length &&
+              ($slots['mark-tooltip'] || getDayTooltip(day))
+            "
+            class="bt-day__tooltip"
+          >
+            <slot name="mark-tooltip" :marks="getDayMarks(day)" :day="day">
+              {{ getDayTooltip(day) }}
+            </slot>
           </span>
         </button>
       </div>

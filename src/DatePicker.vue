@@ -73,7 +73,11 @@
               :marked-dates="markedDates"
               @day-click="onDayClick"
               @day-hover="onDayHover"
-            />
+            >
+              <template v-if="$slots['mark-tooltip']" #mark-tooltip="slotProps">
+                <slot name="mark-tooltip" v-bind="slotProps" />
+              </template>
+            </CalendarPanel>
 
             <!-- Time Panel -->
             <TimePanel
@@ -312,6 +316,16 @@ watch(
   { immediate: true },
 );
 
+// ── Time formatting helper ────────────────────────────────────────
+function formatTimeDisplay(h: number, m: number): string {
+  if (props.hourFormat === "12") {
+    const period = h >= 12 ? currentLocale.value.pm : currentLocale.value.am;
+    const h12 = h % 12 || 12;
+    return `${h12}:${padTime(m)} ${period}`;
+  }
+  return `${padTime(h)}:${padTime(m)}`;
+}
+
 // ── Display value ─────────────────────────────────────────────────
 const displayValue = computed(() => {
   if (props.range) {
@@ -331,14 +345,16 @@ const displayValue = computed(() => {
         intlLocale.value,
       );
     }
-    if (props.type === "time") return props.modelValue;
+    if (props.type === "time") {
+      return formatTimeDisplay(selectedHour.value, selectedMinute.value);
+    }
     const dateStr =
       props.type === "datetime-local"
         ? props.modelValue.split("T")[0]
         : props.modelValue;
     const formatted = formatDisplayDate(dateStr, intlLocale.value);
     if (props.type === "datetime-local") {
-      return `${formatted} ${padTime(selectedHour.value)}:${padTime(selectedMinute.value)}`;
+      return `${formatted} ${formatTimeDisplay(selectedHour.value, selectedMinute.value)}`;
     }
     return formatted;
   } catch {

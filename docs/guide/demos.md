@@ -153,7 +153,6 @@ Set `type="time"` for a standalone time picker.
   <BtDatePicker
     v-model="time24"
     type="time"
-    placeholder="Select time"
   />
   <div v-if="time24" class="demo-output">{{ time24 }}</div>
 </div>
@@ -171,7 +170,6 @@ Add `hour-format="12"` for AM/PM toggle.
     v-model="time12"
     type="time"
     hour-format="12"
-    placeholder="Select time (AM/PM)"
   />
   <div v-if="time12" class="demo-output">{{ time12 }}</div>
 </div>
@@ -188,7 +186,6 @@ Combine date and time with `type="datetime-local"`.
   <BtDatePicker
     v-model="datetime"
     type="datetime-local"
-    placeholder="Pick date & time"
   />
   <div v-if="datetime" class="demo-output">{{ datetime }}</div>
 </div>
@@ -206,7 +203,6 @@ DateTime with 12-hour format.
     v-model="datetime12"
     type="datetime-local"
     hour-format="12"
-    placeholder="Pick date & time (12h)"
   />
   <div v-if="datetime12" class="demo-output">{{ datetime12 }}</div>
 </div>
@@ -263,7 +259,7 @@ Dates `2026-02-14`, `15`, `21`, `22` are disabled:
 
 ## 📌 Marked Dates
 
-Mark specific dates with colored dot indicators and optional tooltips.
+Mark specific dates with colored dot indicators and optional tooltips. A single day can have **multiple marks** — dots are displayed side-by-side.
 
 <div class="demo-block">
   <BtDatePicker
@@ -279,10 +275,44 @@ Mark specific dates with colored dot indicators and optional tooltips.
   v-model="date"
   :marked-dates="[
     { date: '2026-02-14', color: '#ec4899', tooltip: 'Sevgililer Günü ❤️' },
+    { date: '2026-02-14', color: '#f59e0b', tooltip: 'Hediye al 🎁' },
     { date: '2026-02-23', color: '#10b981', tooltip: 'Toplantı' },
     { date: '2026-02-28', tooltip: 'Son gün' },
   ]"
 />
+```
+
+::: tip Multi-Mark
+The same date can have multiple marks. Dots display side-by-side and tooltips are combined with line breaks.
+:::
+
+### Custom Tooltip with Slot
+
+Use the `#mark-tooltip` scoped slot to fully customize tooltip content:
+
+```vue
+<DatePicker v-model="date" :marked-dates="marks">
+  <template #mark-tooltip="{ marks, day }">
+    <div v-for="m in marks" :key="m.date + m.color" style="display: flex; align-items: center; gap: 4px;">
+      <span :style="{ background: m.color, width: '8px', height: '8px', borderRadius: '50%', display: 'inline-block' }" />
+      {{ m.tooltip }}
+    </div>
+  </template>
+</DatePicker>
+```
+
+### Tooltip CSS Customization
+
+Tooltip appearance can be styled with CSS custom properties:
+
+```css
+.my-datepicker {
+  --bt-tooltip-bg: #1e293b;
+  --bt-tooltip-color: #f8fafc;
+  --bt-tooltip-font-size: 0.875rem;
+  --bt-tooltip-padding: 8px 14px;
+  --bt-tooltip-radius: 8px;
+}
 ```
 
 ## 🌍 Multi-Language
