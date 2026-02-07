@@ -50,6 +50,18 @@
           @mouseenter="$emit('day-hover', day)"
         >
           {{ day.date }}
+          <span
+            v-if="getDayMark(day)"
+            class="bt-day__mark"
+            :style="
+              getDayMark(day)?.color
+                ? { background: getDayMark(day)!.color }
+                : {}
+            "
+          />
+          <span v-if="getDayMark(day)?.tooltip" class="bt-day__tooltip">
+            {{ getDayMark(day)!.tooltip }}
+          </span>
         </button>
       </div>
     </template>
@@ -60,6 +72,7 @@
 import { ref, computed } from "vue";
 import {
   type CalendarDay,
+  type MarkedDate,
   useDatePickerCalendar,
 } from "../composables/useDatePickerCalendar";
 import { getWeekDays, getMonthNames } from "../locales/index";
@@ -75,6 +88,8 @@ const props = withDefaults(
     rangeStart?: string | null;
     rangeEnd?: string | null;
     rangeHover?: string | null;
+    disabledDates?: string[] | ((date: Date) => boolean);
+    markedDates?: MarkedDate[];
   }>(),
   {
     modelValue: "",
@@ -85,6 +100,8 @@ const props = withDefaults(
     rangeStart: null,
     rangeEnd: null,
     rangeHover: null,
+    disabledDates: undefined,
+    markedDates: () => [],
   },
 );
 
@@ -95,6 +112,7 @@ const emit = defineEmits<{
 
 const minRef = computed(() => props.min);
 const maxRef = computed(() => props.max);
+const disabledDatesRef = computed(() => props.disabledDates);
 
 const {
   viewYear,
@@ -107,7 +125,26 @@ const {
   toggleYearPicker,
   selectYear,
   setView,
-} = useDatePickerCalendar({ min: minRef, max: maxRef });
+} = useDatePickerCalendar({
+  min: minRef,
+  max: maxRef,
+  disabledDates: disabledDatesRef,
+});
+
+// Build a lookup map from markedDates for O(1) access
+const markedMap = computed(() => {
+  const map = new Map<string, MarkedDate>();
+  if (props.markedDates) {
+    for (const m of props.markedDates) {
+      map.set(m.date, m);
+    }
+  }
+  return map;
+});
+
+function getDayMark(day: CalendarDay): MarkedDate | undefined {
+  return markedMap.value.get(day.key);
+}
 
 // Intl-based locale data
 const localWeekDays = computed(() => getWeekDays(props.lang));

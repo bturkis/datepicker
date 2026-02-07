@@ -30,6 +30,12 @@ export interface CalendarDay {
   isDisabled: boolean;
 }
 
+export interface MarkedDate {
+  date: string;
+  color?: string;
+  tooltip?: string;
+}
+
 export function formatISO(d: Date): string {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -138,6 +144,7 @@ export function formatShortDate(dateStr: string, locale = "tr-TR"): string {
 interface UseCalendarOptions {
   min?: Ref<string | undefined>;
   max?: Ref<string | undefined>;
+  disabledDates?: Ref<string[] | ((date: Date) => boolean) | undefined>;
 }
 
 export function useDatePickerCalendar(options: UseCalendarOptions = {}) {
@@ -163,6 +170,16 @@ export function useDatePickerCalendar(options: UseCalendarOptions = {}) {
     let isDisabled = false;
     if (minDate.value && d < minDate.value) isDisabled = true;
     if (maxDate.value && d > maxDate.value) isDisabled = true;
+
+    // Custom disabled dates
+    if (!isDisabled && options.disabledDates?.value) {
+      const dd = options.disabledDates.value;
+      if (typeof dd === "function") {
+        isDisabled = dd(d);
+      } else if (Array.isArray(dd)) {
+        isDisabled = dd.includes(formatISO(d));
+      }
+    }
 
     return {
       key: formatISO(d),

@@ -31,6 +31,19 @@ const datetime12 = ref('')
 // Min/Max
 const constrainedDate = ref('')
 
+// Disabled Dates
+const disabledDate = ref('')
+const disabledList = ['2026-02-14', '2026-02-15', '2026-02-21', '2026-02-22']
+
+// Marked Dates
+const markedDate = ref('')
+const marks = [
+  { date: '2026-02-07', color: '#8b5cf6', tooltip: 'Bugün' },
+  { date: '2026-02-14', color: '#ec4899', tooltip: 'Sevgililer Günü ❤️' },
+  { date: '2026-02-23', color: '#10b981', tooltip: 'Toplantı' },
+  { date: '2026-02-28', tooltip: 'Son gün' },
+]
+
 // Language
 const langDate = ref('')
 const currentLang = ref('tr')
@@ -217,6 +230,58 @@ Limit selectable dates with `min` and `max` props.
 
 ```vue
 <DatePicker v-model="date" min="2026-02-01" max="2026-02-28" />
+```
+
+## 🚫 Disabled Dates
+
+Disable specific dates using an array of ISO strings or a predicate function.
+
+<div class="demo-block">
+  <BtDatePicker
+    v-model="disabledDate"
+    :disabled-dates="disabledList"
+    placeholder="Some dates disabled"
+  />
+  <div v-if="disabledDate" class="demo-output">{{ disabledDate }}</div>
+</div>
+
+Dates `2026-02-14`, `15`, `21`, `22` are disabled:
+
+```vue
+<DatePicker
+  v-model="date"
+  :disabled-dates="['2026-02-14', '2026-02-15', '2026-02-21', '2026-02-22']"
+/>
+
+<!-- Or disable weekends with a function -->
+<DatePicker
+  v-model="date"
+  :disabled-dates="(d) => d.getDay() === 0 || d.getDay() === 6"
+/>
+```
+
+## 📌 Marked Dates
+
+Mark specific dates with colored dot indicators and optional tooltips.
+
+<div class="demo-block">
+  <BtDatePicker
+    v-model="markedDate"
+    :marked-dates="marks"
+    placeholder="Hover marked dates"
+  />
+  <div v-if="markedDate" class="demo-output">{{ markedDate }}</div>
+</div>
+
+```vue
+<DatePicker
+  v-model="date"
+  :marked-dates="[
+    { date: '2026-02-14', color: '#ec4899', tooltip: 'Sevgililer Günü ❤️' },
+    { date: '2026-02-23', color: '#10b981', tooltip: 'Toplantı' },
+    { date: '2026-02-28', tooltip: 'Son gün' },
+  ]"
+/>
 ```
 
 ## 🌍 Multi-Language

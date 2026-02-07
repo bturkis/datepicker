@@ -69,6 +69,8 @@
               :range-start="rangeStart"
               :range-end="rangeEnd"
               :range-hover="rangeHover"
+              :disabled-dates="disabledDates"
+              :marked-dates="markedDates"
               @day-click="onDayClick"
               @day-hover="onDayHover"
             />
@@ -129,6 +131,7 @@ import { ref, computed, watch, nextTick, onMounted, onUnmounted } from "vue";
 const isBrowser = typeof window !== "undefined";
 import {
   type CalendarDay,
+  type MarkedDate,
   formatISO,
   padTime,
   formatDateToken,
@@ -173,6 +176,10 @@ const props = withDefaults(
     hourFormat?: "12" | "24";
     /** Minute step increment (1, 5, 15, 30) */
     minuteStep?: number;
+    /** Disable specific dates: array of ISO strings or predicate function */
+    disabledDates?: string[] | ((date: Date) => boolean);
+    /** Mark specific dates with dot indicators and optional tooltips */
+    markedDates?: MarkedDate[];
   }>(),
   {
     modelValue: "",
@@ -196,6 +203,8 @@ const props = withDefaults(
     lang: "tr",
     hourFormat: "24",
     minuteStep: 1,
+    disabledDates: undefined,
+    markedDates: () => [],
   },
 );
 

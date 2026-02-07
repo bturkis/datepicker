@@ -19,7 +19,10 @@ export {
   getMonthNames,
 } from "./locales/index";
 
-export type { CalendarDay } from "./composables/useDatePickerCalendar";
+export type {
+  CalendarDay,
+  MarkedDate,
+} from "./composables/useDatePickerCalendar";
 export type { UseTimePickerOptions } from "./composables/useTimePicker";
 export type { BtLocale } from "./locales/index";
 

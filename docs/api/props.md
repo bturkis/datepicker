@@ -23,6 +23,8 @@
 | `minuteStep`       | `number`                               | `1`            | Minute increment step                                                   |
 | `error`            | `string`                               | --             | Error message (red border + text)                                       |
 | `hint`             | `string`                               | --             | Hint text below the trigger                                             |
+| `disabledDates`    | `string[] \| (date: Date) => boolean`  | --             | Disable specific dates (array of ISO strings or predicate function)     |
+| `markedDates`      | `MarkedDate[]`                         | `[]`           | Mark dates with colored dots and optional tooltips                      |
 
 ## Events
 
