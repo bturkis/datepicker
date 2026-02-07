@@ -1,5 +1,7 @@
 # @bturkis/datepicker
 
+> **📖 [Full Documentation & Live Demos](https://bturkis.github.io/datepicker/)** — Available in 15 languages
+
 Premium glassmorphism DatePicker component for Vue 3, Nuxt 3, and Nuxt 4. Supports single date, date range, datetime, and time modes with built-in light/dark theming and SSR support.
 
 ## Features
