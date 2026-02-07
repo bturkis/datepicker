@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@bturkis/datepicker — Demo</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #0f0f1a 0%,
+          #1a1032 50%,
+          #0f0f1a 100%
+        );
+        color: #f8fafc;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+
+      h1 .gradient {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .subtitle {
+        color: #64748b;
+        font-size: 1.125rem;
+        margin-bottom: 40px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 20px;
+        font-size: 0.75rem;
+        color: #a78bfa;
+        margin-bottom: 32px;
+      }
+
+      .section {
+        margin-bottom: 28px;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+      }
+
+      .section h2 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #94a3b8;
+        margin-bottom: 14px;
+      }
+
+      .section .format-hint {
+        display: inline-block;
+        margin-bottom: 12px;
+        padding: 3px 10px;
+        background: rgba(139, 92, 246, 0.08);
+        border: 1px solid rgba(139, 92, 246, 0.12);
+        border-radius: 6px;
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 0.75rem;
+        color: #8b5cf6;
+      }
+
+      .value {
+        margin-top: 10px;
+        padding: 8px 14px;
+        background: rgba(139, 92, 246, 0.06);
+        border: 1px solid rgba(139, 92, 246, 0.12);
+        border-radius: 8px;
+        color: #a78bfa;
+        font-size: 0.8125rem;
+        font-family: "SF Mono", "Fira Code", monospace;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+      }
+
+      .value:empty::before {
+        content: "—";
+        color: #475569;
+      }
+
+      .tokens-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8125rem;
+      }
+
+      .tokens-table th {
+        text-align: left;
+        padding: 6px 12px;
+        color: #a78bfa;
+        border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+        font-weight: 600;
+      }
+
+      .tokens-table td {
+        padding: 4px 12px;
+        color: #94a3b8;
+      }
+
+      .tokens-table td:first-child {
+        font-family: "SF Mono", "Fira Code", monospace;
+        color: #c4b5fd;
+      }
+
+      .install-section {
+        margin-top: 40px;
+        padding: 24px;
+        background: rgba(139, 92, 246, 0.05);
+        border: 1px solid rgba(139, 92, 246, 0.15);
+        border-radius: 16px;
+      }
+
+      .install-section h2 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #a78bfa;
+        margin-bottom: 12px;
+      }
+
+      .code-block {
+        background: #0f0f1a;
+        border: 1px solid #2a2a3d;
+        border-radius: 8px;
+        padding: 14px 18px;
+        font-family: "SF Mono", "Fira Code", monospace;
+        font-size: 0.875rem;
+        color: #e2e8f0;
+      }
+
+      .code-block .cmd {
+        color: #a78bfa;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        color: #475569;
+        font-size: 0.8125rem;
+      }
+
+      .footer a {
+        color: #8b5cf6;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="app">
+      <h1><span class="gradient">Stitch</span> Vue DatePicker</h1>
+      <p class="subtitle">Premium glassmorphism calendar for Vue 3</p>
+
+      <div class="badge">
+        📦 Zero Dependencies &nbsp;·&nbsp; 🎨 CSS Variables &nbsp;·&nbsp; 📱
+        Responsive &nbsp;·&nbsp; 🔤 Custom Formats
+      </div>
+
+      <!-- 1. Single Date (Default) -->
+      <div class="section">
+        <h2>📅 Single Date — Default</h2>
+        <date-picker
+          v-model="singleDate"
+          label="Düğün Tarihi"
+          hint="Varsayılan Intl format"
+        ></date-picker>
+        <div class="value">{{ singleDate }}</div>
+      </div>
+
+      <!-- 2. European Format -->
+      <div class="section">
+        <h2>🇪🇺 Custom Format</h2>
+        <span class="format-hint">DD/MM/YYYY</span>
+        <date-picker
+          v-model="euroDate"
+          label="Avrupa Formatı"
+          display-format="DD/MM/YYYY"
+          hint='displayFormat="DD/MM/YYYY"'
+        ></date-picker>
+        <div class="value">{{ euroDate }}</div>
+      </div>
+
+      <!-- 3. Full Month Name -->
+      <div class="section">
+        <h2>🗓️ Full Month Name</h2>
+        <span class="format-hint">DD MMMM YYYY</span>
+        <date-picker
+          v-model="fullMonthDate"
+          label="Uzun Ay İsmi"
+          display-format="DD MMMM YYYY"
+          hint='displayFormat="DD MMMM YYYY"'
+        ></date-picker>
+        <div class="value">{{ fullMonthDate }}</div>
+      </div>
+
+      <!-- 4. US Format + English -->
+      <div class="section">
+        <h2>🇺🇸 US Format + English Locale</h2>
+        <span class="format-hint">MMMM DD, YYYY · locale="en-US"</span>
+        <date-picker
+          v-model="usDate"
+          label="US Date"
+          display-format="MMMM DD, YYYY"
+          locale="en-US"
+          hint='locale="en-US"'
+        ></date-picker>
+        <div class="value">{{ usDate }}</div>
+      </div>
+
+      <!-- 5. Date Range -->
+      <div class="section">
+        <h2>📆 Date Range</h2>
+        <span class="format-hint">DD.MM.YYYY · range</span>
+        <date-picker
+          v-model="rangeDate"
+          label="Proje Süresi"
+          :range="true"
+          display-format="DD.MM.YYYY"
+          hint="Range with custom format"
+        ></date-picker>
+        <div class="value">{{ rangeDate }}</div>
+      </div>
+
+      <!-- 6. DateTime -->
+      <div class="section">
+        <h2>🕐 DateTime</h2>
+        <span class="format-hint">DD/MM/YYYY HH:mm</span>
+        <date-picker
+          v-model="dateTime"
+          label="Etkinlik Zamanı"
+          type="datetime-local"
+          display-format="DD/MM/YYYY HH:mm"
+        ></date-picker>
+        <div class="value">{{ dateTime }}</div>
+      </div>
+
+      <!-- 7. Time Only -->
+      <div class="section">
+        <h2>⏰ Time Only</h2>
+        <span class="format-hint">HH:mm</span>
+        <date-picker
+          v-model="timeOnly"
+          label="Başlangıç Saati"
+          type="time"
+          display-format="HH:mm"
+        ></date-picker>
+        <div class="value">{{ timeOnly }}</div>
+      </div>
+
+      <!-- 8. Min/Max -->
+      <div class="section">
+        <h2>🔒 Min/Max Constraints</h2>
+        <date-picker
+          v-model="constrainedDate"
+          label="Bu Ay İçinde"
+          min="2026-02-01"
+          max="2026-02-28"
+          display-format="DD MMMM YYYY"
+          hint="Sadece Şubat 2026"
+        ></date-picker>
+        <div class="value">{{ constrainedDate }}</div>
+      </div>
+
+      <!-- Format Tokens -->
+      <div class="section" style="background: rgba(139, 92, 246, 0.04)">
+        <h2>🔤 Format Tokens</h2>
+        <table class="tokens-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Output</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>YYYY</td><td>4-digit year</td><td>2026</td></tr>
+            <tr><td>YY</td><td>2-digit year</td><td>26</td></tr>
+            <tr><td>MMMM</td><td>Full month</td><td>Şubat</td></tr>
+            <tr><td>MMM</td><td>Short month</td><td>Şub</td></tr>
+            <tr><td>MM</td><td>2-digit month</td><td>02</td></tr>
+            <tr><td>DD</td><td>2-digit day</td><td>07</td></tr>
+            <tr><td>HH</td><td>2-digit hour</td><td>09</td></tr>
+            <tr><td>mm</td><td>2-digit minute</td><td>05</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Install -->
+      <div class="install-section">
+        <h2>⚡ Installation</h2>
+        <div class="code-block">
+          <span class="cmd">npm install</span> @bturkis/datepicker
+        </div>
+      </div>
+
+      <div class="footer">
+        Built with ❤️ by
+        <a href="https://github.com/bturkis" target="_blank">bturkis</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/bturkis/datepicker" target="_blank">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.npmjs.com/package/@bturkis/datepicker" target="_blank">npm</a>
+      </div>
+    </div>
+
+    <script type="module">
+      import { createApp, ref } from "vue";
+      import { DatePicker } from "./src/index.ts";
+      import "./src/style.css";
+
+      const app = createApp({
+        components: { DatePicker },
+        setup() {
+          return {
+            singleDate: ref(""),
+            euroDate: ref(""),
+            fullMonthDate: ref(""),
+            usDate: ref(""),
+            rangeDate: ref(""),
+            dateTime: ref(""),
+            timeOnly: ref(""),
+            constrainedDate: ref(""),
+          };
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
