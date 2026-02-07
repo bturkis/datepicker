@@ -408,7 +408,13 @@ function emitTimeUpdate() {
 }
 
 // ── Popup positioning ─────────────────────────────────────────────
-const popupStyle = ref<Record<string, string>>({});
+const popupStyle = ref<Record<string, string>>({
+  position: "fixed",
+  top: "0",
+  left: "0",
+  zIndex: "9999",
+  visibility: "hidden",
+});
 
 function updatePosition() {
   if (!isBrowser) return;
@@ -425,22 +431,47 @@ function updatePosition() {
 
   if (!triggerRef.value) return;
   const rect = triggerRef.value.getBoundingClientRect();
-  const spaceBelow = window.innerHeight - rect.bottom;
-  const spaceAbove = rect.top;
-  const openAbove = spaceBelow < 200 && spaceAbove > spaceBelow;
-  const popupHeight = props.type === "time" ? 200 : 380;
+  const margin = 8;
 
-  const topValue = openAbove
-    ? `${rect.top - popupHeight}px`
-    : `${rect.bottom + 4}px`;
-  const leftValue = `${rect.left}px`;
-  const widthValue = `${Math.max(rect.width, 300)}px`;
+  // Measure actual popup height if available, else estimate
+  const popupEl = popupRef.value;
+  const popupHeight = popupEl
+    ? popupEl.offsetHeight
+    : props.type === "time"
+      ? 200
+      : 380;
+  const popupWidth = Math.max(rect.width, 300);
+
+  const spaceBelow = window.innerHeight - rect.bottom - margin;
+  const spaceAbove = rect.top - margin;
+  const openAbove = spaceBelow < popupHeight && spaceAbove > spaceBelow;
+
+  let top: number;
+  if (openAbove) {
+    top = rect.top - popupHeight - 4;
+    // Clamp: don't go above viewport
+    if (top < margin) top = margin;
+  } else {
+    top = rect.bottom + 4;
+    // Clamp: don't go below viewport
+    if (top + popupHeight > window.innerHeight - margin) {
+      top = window.innerHeight - popupHeight - margin;
+    }
+  }
+
+  // Clamp left to viewport
+  let left = rect.left;
+  if (left + popupWidth > window.innerWidth - margin) {
+    left = window.innerWidth - popupWidth - margin;
+  }
+  if (left < margin) left = margin;
 
   popupStyle.value = {
     position: "fixed",
-    top: topValue,
-    left: leftValue,
-    width: widthValue,
+    top: `${top}px`,
+    left: `${left}px`,
+    width: `${popupWidth}px`,
+    maxHeight: `${Math.min(popupHeight, window.innerHeight - margin * 2)}px`,
     zIndex: "9999",
   };
 }
@@ -453,6 +484,21 @@ function toggle() {
 
 function open() {
   checkMobile();
+  // Pre-position before DOM renders
+  if (!isMobile.value && triggerRef.value) {
+    const rect = triggerRef.value.getBoundingClientRect();
+    const estHeight = props.type === "time" ? 200 : 380;
+    const spaceBelow = window.innerHeight - rect.bottom - 8;
+    const openAbove = spaceBelow < estHeight && rect.top > spaceBelow;
+    popupStyle.value = {
+      position: "fixed",
+      top: openAbove ? `${rect.top - estHeight - 4}px` : `${rect.bottom + 4}px`,
+      left: `${rect.left}px`,
+      width: `${Math.max(rect.width, 300)}px`,
+      zIndex: "9999",
+    };
+  }
+
   isOpen.value = true;
 
   if (props.type !== "time") {
@@ -471,6 +517,7 @@ function open() {
     }
   }
 
+  // Refine position after actual DOM renders
   nextTick(() => {
     requestAnimationFrame(() => updatePosition());
   });
