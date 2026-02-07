@@ -200,7 +200,7 @@
 
 .bt-popup-content {
   padding: 10px;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .bt-datepicker__popup--time-only {

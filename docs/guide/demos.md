@@ -45,6 +45,13 @@ const marks = [
   { date: '2026-02-23', color: '#10b981', tooltip: 'Toplantı' },
   { date: '2026-02-28', tooltip: 'Son gün' },
 ]
+const richMarks = [
+  { date: '2026-02-07', color: '#8b5cf6', tooltip: 'Sprint Review', description: 'Ekip sunumu — 14:00', badge: 'Bugün' },
+  { date: '2026-02-14', color: '#ec4899', tooltip: 'Sevgililer Günü ❤️', description: 'Restoran rezervasyonu', badge: 'Özel' },
+  { date: '2026-02-14', color: '#f59e0b', tooltip: 'Hediye al 🎁', description: 'Kargo son gün', badge: 'Acil' },
+  { date: '2026-02-23', color: '#10b981', tooltip: 'Proje Teslimi', description: 'v2.0 final build', badge: 'İş' },
+  { date: '2026-02-28', color: '#6366f1', tooltip: 'Ay Sonu Raporu', description: 'Finans → yönetime', badge: 'Rutin' },
+]
 
 // Language
 const langDate = ref('')
@@ -288,25 +295,38 @@ Mark specific dates with colored dot indicators and optional tooltips. A single 
 The same date can have multiple marks. Dots display side-by-side and tooltips are combined with line breaks.
 :::
 
-### Custom Tooltip with Slot
+## 🎯 Custom Tooltip
 
-Use the `#mark-tooltip` scoped slot for complete control over tooltip content. This example shows emoji badges, descriptions, and custom styling:
+Use the `#mark-tooltip` scoped slot for **complete control** over tooltip content — any HTML, layout, or component you want.
 
 <div class="demo-block">
   <BtDatePicker
     v-model="markedDateSlot"
-    :marked-dates="marks"
-    placeholder="Rich tooltip (hover marks)"
-    style="--bt-tooltip-max-width: 280px; --bt-tooltip-padding: 10px 14px; --bt-tooltip-radius: 10px;"
+    :marked-dates="richMarks"
+    placeholder="✨ Hover marked dates for rich tooltips"
+    style="--bt-tooltip-max-width: 320px; --bt-tooltip-padding: 0; --bt-tooltip-radius: 12px; --bt-tooltip-bg: linear-gradient(135deg, #1a1a2e, #16213e);"
   >
     <template #mark-tooltip="{ marks: dayMarks, day }">
-      <div style="font-weight: 700; font-size: 0.8rem; margin-bottom: 6px; opacity: 0.7; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 4px;">
+      <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 8px 14px; border-radius: 12px 12px 0 0; color: white; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.5px;">
         📅 {{ day }}
       </div>
-      <div v-for="(m, i) in dayMarks" :key="i" style="display: flex; align-items: flex-start; gap: 8px; padding: 4px 0;">
-        <span :style="{ background: m.color || '#8b5cf6', width: '10px', height: '10px', borderRadius: '50%', display: 'inline-block', flexShrink: 0, marginTop: '3px', boxShadow: '0 0 6px ' + (m.color || '#8b5cf6') }" />
-        <div>
-          <div style="font-weight: 600;">{{ m.tooltip }}</div>
+      <div style="padding: 10px 14px;">
+        <div v-for="(m, i) in dayMarks" :key="i" style="display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+          <span :style="{
+            background: m.color || '#8b5cf6',
+            width: '12px',
+            height: '12px',
+            borderRadius: '50%',
+            display: 'inline-block',
+            flexShrink: 0,
+            marginTop: '2px',
+            boxShadow: '0 0 8px ' + (m.color || '#8b5cf6') + ', 0 0 16px ' + (m.color || '#8b5cf6') + '44'
+          }" />
+          <div style="flex: 1;">
+            <div style="font-weight: 700; font-size: 0.8rem; color: #f1f5f9;">{{ m.tooltip }}</div>
+            <div v-if="m.description" style="font-size: 0.7rem; color: #94a3b8; margin-top: 2px;">{{ m.description }}</div>
+          </div>
+          <span v-if="m.badge" :style="{ background: m.color || '#8b5cf6', color: 'white', fontSize: '0.6rem', padding: '2px 6px', borderRadius: '6px', fontWeight: 700, whiteSpace: 'nowrap' }">{{ m.badge }}</span>
         </div>
       </div>
     </template>
@@ -318,22 +338,43 @@ Use the `#mark-tooltip` scoped slot for complete control over tooltip content. T
 <DatePicker
   v-model="date"
   :marked-dates="marks"
-  style="--bt-tooltip-max-width: 280px; --bt-tooltip-padding: 10px 14px;"
+  style="
+    --bt-tooltip-max-width: 320px;
+    --bt-tooltip-padding: 0;
+    --bt-tooltip-radius: 12px;
+  "
 >
   <template #mark-tooltip="{ marks, day }">
-    <div style="font-weight: 700; margin-bottom: 6px; opacity: 0.7;">
+    <!-- Gradient Header -->
+    <div style="background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 8px 14px; border-radius: 12px 12px 0 0;
+      color: white; font-weight: 700;">
       📅 {{ day }}
     </div>
-    <div v-for="m in marks" :key="m.date" style="display: flex; gap: 8px; padding: 4px 0;">
-      <span :style="{
-        background: m.color,
-        width: '10px',
-        height: '10px',
-        borderRadius: '50%',
-        boxShadow: '0 0 6px ' + m.color
-      }" />
-      <div>
-        <div style="font-weight: 600;">{{ m.tooltip }}</div>
+
+    <!-- Entries -->
+    <div style="padding: 10px 14px;">
+      <div v-for="m in marks" :key="m.date"
+        style="display: flex; gap: 10px; padding: 6px 0;">
+        <span :style="{
+          background: m.color,
+          width: '12px', height: '12px',
+          borderRadius: '50%',
+          boxShadow: '0 0 8px ' + m.color
+        }" />
+        <div>
+          <div style="font-weight: 700;">{{ m.tooltip }}</div>
+          <div style="font-size: 0.7rem; color: #94a3b8;">
+            {{ m.description }}
+          </div>
+        </div>
+        <span :style="{
+          background: m.color,
+          color: 'white',
+          fontSize: '0.6rem',
+          padding: '2px 6px',
+          borderRadius: '6px'
+        }">{{ m.badge }}</span>
       </div>
     </div>
   </template>
@@ -341,7 +382,7 @@ Use the `#mark-tooltip` scoped slot for complete control over tooltip content. T
 ```
 
 ::: tip Full Freedom
-The slot gives you complete control — use any HTML, component, image, or layout inside the tooltip. Combine with `--bt-tooltip-max-width` to allow wider content.
+The slot gives you complete control — use any HTML, component, image, or layout. Combine with `--bt-tooltip-max-width` and `--bt-tooltip-padding: 0` for edge-to-edge header designs.
 :::
 
 ### Tooltip CSS Customization
